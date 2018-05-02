@@ -1,10 +1,17 @@
 <resources>
 
-    <string name="app_name">智慧党建</string>
+    <string name="app_name">非公党建</string>
+    <string name="rmb">￥</string>
+
+
+    <string name="share_content">指尖一按轻松到家，社区公告尽在掌握，好友来访再也不必繁琐登记啦！下载链接: http://dwz.cn/1JON8C</string>
+    <string name="app_ip">www.halobang.com</string>
+    <string name="app_com">北京乐邦网景科技有限公司</string>
     <string name="sure">确定</string>
+    <string name="nextstep">下一步</string>
     <string name="notice">提示信息</string>
     <string name="state_loading_failed">加载失败，请重试</string>
-    <string name="state_loading">努力加载中...;</string>
+    <string name="state_loading">努力加载中...</string>
     <string name="finish">完成</string>
     <string name="must_fill">必填</string>
     <string name="retry">重试</string>
@@ -12,7 +19,20 @@
     <string name="can_not_be_empty">%1$s不能为空</string>
     <string name="notice_phone_title">拨打电话</string>
     <!-- usercenter -->
+    <string name="uc_phone_error">您输入的手机号码有误，请重新输入</string>
+    <string name="uc_username">账号</string>
+    <string name="uc_usernamehint">输入我们给您提供的账号</string>
+    <string name="uc_password">密码</string>
+    <string name="uc_pwdhint">输入我们给您提供的密码</string>
+    <string name="uc_login">登录</string>
+    <string name="login_code">验证码</string>
     <string name="share_message">请选择分享方式</string>
+    <string name="username_pwd_error">密码不能为空</string>
+    <string name="phone_error">账号不能为空</string>
+    <string name="update_hint">更新信息</string>
+    <string name="update_ok">马上更新</string>
+    <string name="dialog_no">暂不更新</string>
+    <string name="select_point">选择地点</string>
 
     <!-- net -->
     <string name="net_service_error">服务暂不可用，请稍候重试！</string>
@@ -53,5 +73,10 @@
     <string name="name_share">分享好友</string>
     <string name="name_feedback">意见反馈</string>
     <string name="name_about">关于我们</string>    <!-- 时间选择器日期 -->
+    <string-array name="time_picker_date">
+        <item>今天</item>
+        <item>明天</item>
+        <item>后天</item>
+    </string-array>
 
 </resources>

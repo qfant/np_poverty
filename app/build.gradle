@@ -1,51 +1,171 @@
-apply plugin: 'com.android.application'
-
+apply plugin: "com.android.application"
+//apply plugin: 'com.jakewharton.butterknife'
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion "26.0.2"
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId "com.bz.poverty"
-        minSdkVersion 14
+        applicationId "com.qfant.npparty"
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionName "1.0.0"
+        multiDexEnabled true
+        ndk {
+            // 设置支持的 SO 库构架
+            abiFilters 'armeabi', 'x86'
+//,'armeabi-v7a'//, 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+        }
     }
+
+    dexOptions {
+        preDexLibraries true
+        javaMaxHeapSize "4g" //最主要是这句, 不过改成8g没有更显著的提升
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+        disable 'DefaultLocale', 'SpUsage', 'SimpleDateFormat', 'IconMissingDensityFolder', 'ContentDescription', 'RtlSymmetry', 'RtlHardcoded', 'HardcodedText', 'RelativeOverlap', 'ClickableViewAccessibility', 'MissingRegistered'
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file("keystore.jks")
+            storePassword "qifan2013"
+            keyAlias "keystore"
+            keyPassword "qifan2013"
+            v2SigningEnabled true
+        }
+
+        bate {
+            storeFile file("keystore.jks")
+            storePassword "qifan2013"
+            keyAlias "keystore"
+            keyPassword "qifan2013"
+            v2SigningEnabled true
+        }
+
+        release {
+            storeFile file("keystore.jks")
+            storePassword "qifan2013"
+            keyAlias "keystore"
+            keyPassword "qifan2013"
+            v2SigningEnabled true
+        }
+    }
+
     buildTypes {
         debug {
+            manifestPlaceholders = [
+                    GETUI_APP_ID    : "zrCloUNS3jAGFgkPkG9397",
+                    GETUI_APP_KEY   : "Ngq0xOTlzo6vyy0iIBkCw3",
+                    GETUI_APP_SECRET: "dgBUwwmp3l8fW8k07OXZK6"
+            ]
             zipAlignEnabled false
             minifyEnabled false
             shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug
+            versionNameSuffix '-dev'
             debuggable true
             jniDebuggable false
             renderscriptDebuggable false
         }
-        release {
-            minifyEnabled false
+        bete {
+            manifestPlaceholders = [
+                    GETUI_APP_ID    : "zrCloUNS3jAGFgkPkG9397",
+                    GETUI_APP_KEY   : "Ngq0xOTlzo6vyy0iIBkCw3",
+                    GETUI_APP_SECRET: "dgBUwwmp3l8fW8k07OXZK6"
+            ]
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.bate
+            versionNameSuffix '-beta'
+            debuggable true
         }
+        release {
+            manifestPlaceholders = [
+                    GETUI_APP_ID    : "lKQLBlK75I8qLrhyXDqAoA",
+                    GETUI_APP_KEY   : "f7cpXWtyrW9zzYTQV1bvj9",
+                    GETUI_APP_SECRET: "r352zIhlxtAuBktJCwRrn8"
+            ]
+            debuggable false
+            jniDebuggable false
+            zipAlignEnabled true
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+//        applicationVariants.all { variant ->
+//            variant.outputs.each { output ->
+//                def outputFile = output.outputFile
+//                if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                    def fileName = "wuye.apk"
+//                    if (variant.buildType.name.equals("release")) {
+//                        fileName = "wuye_v${defaultConfig.versionName}.apk"
+//                    } else if (variant.buildType.name.equals("bate")) {
+//                        fileName = "wuye_bate_v${defaultConfig.versionName}.apk"
+//                    } else {
+//                        fileName = "wuye_debug_v${defaultConfig.versionName}.apk"
+//                    }
+//                    output.outputFile = new File(outputFile.parent, fileName)
+//                }
+//            }
+//        }
     }
-    signingConfigs {
 
-        debug {
-            storeFile file('../debug.keystore')
-            storePassword 'android'
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-        }
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
     }
+
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+
+    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:appcompat-v7:25.3.1'
-    testCompile 'junit:junit:4.12'
-    compile 'com.alibaba:fastjson:1.2.32'
+    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:gridlayout-v7:25.3.1'
+    compile 'com.android.support:recyclerview-v7:25.3.1'
+
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile 'com.jakewharton:butterknife:8.6.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.6.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    compile 'com.alibaba:fastjson:1.2.32'
+    compile 'org.greenrobot:eventbus:3.0.0'
+//左滑删除
+    compile "com.daimajia.swipelayout:library:1.2.0@aar"
+    compile 'com.github.hackware1993:MagicIndicator:1.5.0'
+    //banner
+//    compile 'com.xiwenhec:banner:1.0.4'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+//不包含微信统计
+//    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    //个推
+    compile 'com.getui:sdk:2.11.1.0'
+
+    compile 'com.gyf.barlibrary:barlibrary:2.3.0'
+//    compile project(':circlerefresh')
+//-------------------------------------------------------------
+    compile "com.facebook.fresco:fresco:0.10.0"
+//更新需要
+    compile 'com.squareup.okhttp3:okhttp:3.8.1'
+    //weex chrome 调试相关 debug 引入
+    debugCompile 'com.google.code.findbugs:jsr305:2.0.1'
+    debugCompile 'com.squareup.okhttp:okhttp:2.3.0'
+    debugCompile 'com.squareup.okhttp:okhttp-ws:2.3.0'
+    debugCompile 'com.taobao.android:weex_inspector:0.10.0.5'
+    debugCompile 'com.journeyapps:zxing-android-embedded:3.4.0'
+
 }

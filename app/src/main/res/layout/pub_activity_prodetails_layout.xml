@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.framework.view.pull.SwipRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:direction="both">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.framework.view.pull.SwipRefreshLayout>
+
+    <View style="@style/line_gray_h" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal">
+
+        <com.framework.view.tab.TabView
+            android:id="@+id/tv_collect"
+            android:layout_width="0dp"
+            android:background="@color/pub_color_white_fff3f3f3"
+            android:layout_height="match_parent"
+            android:layout_weight="0.21" />
+
+        <View style="@style/line_gray_v" />
+
+        <com.framework.view.tab.TabView
+            android:id="@+id/tv_car"
+            android:layout_width="0dp"
+            android:background="@color/pub_color_white_fff3f3f3"
+            android:layout_height="match_parent"
+            android:layout_weight="0.21" />
+
+        <View style="@style/line_gray_v" />
+
+        <TextView
+            android:id="@+id/tv_add_car"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.29"
+            android:background="@color/pub_color_yellow"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="加入购物车"
+            android:textColor="@color/pub_color_white"
+            android:textSize="@dimen/text_h15" />
+
+        <View style="@style/line_gray_v" />
+
+        <TextView
+            android:id="@+id/tv_buy"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.29"
+            android:background="@color/pub_color_blue"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="立即购买"
+            android:textColor="@color/pub_color_white"
+            android:textSize="@dimen/text_h15" />
+
+    </LinearLayout>
+
+</LinearLayout>

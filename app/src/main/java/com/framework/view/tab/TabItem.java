@@ -8,11 +8,11 @@ import com.framework.activity.BaseFragment;
  */
 public class TabItem {
 
-    public  Bundle bundle;
+    private final Bundle bundle;
     /**
-     * icon
+     * logo
      */
-    public int icon;
+    public int[] icon;
     /**
      * 文本
      */
@@ -20,9 +20,15 @@ public class TabItem {
 
 
     public Class<? extends BaseFragment> tagFragmentClz;
-    public boolean isAdd;
 
-    public TabItem(String text, int icon, Class<? extends BaseFragment> tagFragmentClz, Bundle bundle) {
+    public TabItem(String text, int[] icon, Class<? extends BaseFragment> tagFragmentClz, Bundle bundle) {
+        this.icon = icon;
+        this.text = text;
+        this.tagFragmentClz = tagFragmentClz;
+        this.bundle = bundle;
+    }
+
+    public TabItem(String text, Class<? extends BaseFragment> tagFragmentClz, Bundle bundle, int... icon) {
         this.icon = icon;
         this.text = text;
         this.tagFragmentClz = tagFragmentClz;

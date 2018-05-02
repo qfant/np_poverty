@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -16,7 +17,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 
-import com.bz.poverty.R;
+import com.gyf.barlibrary.ImmersionBar;
+import com.qfant.wuye.R;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -31,6 +33,7 @@ public class QProgressDialogFragment extends DialogFragment implements Observer 
     private ImageButton btnCancel;
     private OnCancelListener mCancelListener;
     private final ObservedString mMessage = new ObservedString();
+    private ImmersionBar mImmersionBar;
 
     public static QProgressDialogFragment newInstance(String message, boolean cancelable,
                                                       OnCancelListener cancelListener) {
@@ -45,15 +48,15 @@ public class QProgressDialogFragment extends DialogFragment implements Observer 
 
     @Override
     public void show(FragmentManager manager, String tag) {
-		try {
-			super.show(manager, tag);
-		} catch(IllegalStateException ise) {
-			try {
-				FragmentTransaction ft = manager.beginTransaction();
-				ft.commitAllowingStateLoss();
-			} catch(IllegalStateException e) {
-			}
-		}
+        try {
+            super.show(manager, tag);
+        } catch (IllegalStateException ise) {
+            try {
+                FragmentTransaction ft = manager.beginTransaction();
+                ft.commitAllowingStateLoss();
+            } catch (IllegalStateException e) {
+            }
+        }
     }
 
     @Override
@@ -74,10 +77,22 @@ public class QProgressDialogFragment extends DialogFragment implements Observer 
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 //            setTranslucentStatus(true);
 //        }
-
+//
 //        SystemBarTintManager tintManager = new SystemBarTintManager(this.getActivity());
 //        tintManager.setStatusBarTintEnabled(true);
-//        tintManager.setStatusBarTintResource(R.color.t_theme);
+//        tintManager.setStatusBarTintResource(R.color.transparent);
+        mImmersionBar = ImmersionBar.with(this,getDialog());
+        mImmersionBar
+                .fitsSystemWindows(true)
+                .statusBarColor(R.color.pub_color_theme)
+                .init();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();  //必须调用该方法，防止内存泄漏，不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
 
     }
 
@@ -112,7 +127,7 @@ public class QProgressDialogFragment extends DialogFragment implements Observer 
         tvMessage = (TextView) onCreateDialog.findViewById(android.R.id.message);
         btnCancel = (ImageButton) onCreateDialog.findViewById(android.R.id.button2);
         if (isCancelable()) {
-            btnCancel.setVisibility(View.VISIBLE);
+            btnCancel.setVisibility(View.GONE);
             btnCancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

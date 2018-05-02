@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#fff">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:src="@drawable/hom_item"
+        android:scaleType="centerCrop"
+        android:layout_height="180dp" />
+
+
+    <TextView
+        android:id="@+id/text_name"
+     android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:text="台湾日月潭（拍摄于玉屏酒店）"
+        android:textColor="@color/pub_color_gray_666"
+        android:layout_marginLeft="14dp"
+        android:textSize="12dp" />
+    <View
+        android:background="@color/pub_color_gray_line"
+        android:layout_width="match_parent"
+        android:layout_height="5dp"/>
+</LinearLayout>

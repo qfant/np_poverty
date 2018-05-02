@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.framework.view.ZoomInScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f4f4f1">
+
+    <LinearLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f4f4f1"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@drawable/bg_user">
+
+            <TextView
+                android:id="@+id/tv_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:padding="14dp"
+                android:text="设置"
+                android:textColor="#fff"
+                android:textSize="14dp" />
+
+            <com.framework.view.CircleImageView
+                android:id="@+id/image_head"
+                android:layout_width="66dp"
+                android:layout_height="66dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="40dp"
+                app:civ_border_color="#fff"
+                app:civ_border_overlay="true"
+                app:civ_border_width="2dp"
+                app:civ_fill_color="#e0210e" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:layout_below="@+id/image_head"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    tools:text="孙世亮" />
+
+                <TextView
+                    android:id="@+id/tv_job"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:lineSpacingExtra="6dp"
+                    android:maxWidth="182dp"
+                    android:textColor="#d4eafa"
+                    android:textSize="15dp"
+                    tools:text="高级副总裁兼电商业务中心总经理" />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@color/pub_color_gray_line"
+            android:visibility="visible" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"></android.support.v7.widget.RecyclerView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginBottom="30dp"
+            android:background="@color/pub_color_gray_line" />
+
+    </LinearLayout>
+</com.framework.view.ZoomInScrollView>

@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/transparent"
-    android:gravity="center" >
+    android:gravity="center">
 
     <LinearLayout
         android:id="@+id/ll_center"
@@ -12,9 +12,8 @@
         android:layout_centerInParent="true"
         android:background="@drawable/dialog_loading_bg"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp" >
+        android:orientation="vertical"
+        android:padding="20dp">
 
         <ProgressBar
             android:id="@+id/progressBar1"
@@ -26,10 +25,12 @@
             android:id="@android:id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:textColor="#FFF"
             android:paddingLeft="10dp"
-            android:text="发送中..." />
+            android:text="加载中..."
+            android:textColor="#FFF"
+            android:visibility="gone" />
     </LinearLayout>
 
     <ImageButton
@@ -39,6 +40,7 @@
         android:layout_alignRight="@+id/ll_center"
         android:layout_alignTop="@+id/ll_center"
         android:layout_margin="5dp"
-        android:background="@drawable/appitem_del_btn" />
+        android:background="@drawable/pub_delete_icon"
+        android:visibility="gone" />
 
 </RelativeLayout>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        >
+
+
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="【重要消息】应习近平邀请 美国总统特朗普将对中国进行国事访问"
+            android:textColor="@color/pub_color_black"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/text_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:text="央视网消息（新闻联播）：应国家主席习近平邀请，美利坚合众国总统唐纳德·特朗普将于11月8日至10日对中国进行国事访问。届时，两国领导人将就中美关系和共同关心的重大国际与地区问题深入交换意见。中方愿与美方共"
+            android:textColor="@color/pub_color_gray_666"
+            android:textSize="12dp" />
+
+    </LinearLayout>
+</LinearLayout>

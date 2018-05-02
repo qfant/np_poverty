@@ -2,7 +2,9 @@
 <resources>
 
     <string name="icon_font_empty"></string>//返回
-    <string name="icon_font_back">&#xe644;</string>//返回
+    <string name="icon_font_party">&#xe6c6;</string>//多人
+    <string name="icon_font_manger">&#xe626;</string>//多人
+    <string name="icon_font_back">&#xe669;</string>//返回
     <string name="icon_font_add">&#xe638;</string>//十字添加
     <string name="icon_font_home">&#xe9bb;</string>//房子home icon
     <string name="icon_font_my">&#xe601;</string>//我的icon
@@ -12,5 +14,5 @@
     <string name="icon_font_menu">&#xe604;</string>//三点菜单
     <string name="icon_font_money">&#xe670;</string>//口袋钱
     <string name="icon_font_right_arrows">&#xe612;</string>//右箭头
-    <string name="icon_font_maker">&#xe63f;</string>
+    <string name="icon_font_collect">&#xe60f;</string>收藏
 </resources>

@@ -44,7 +44,6 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bz.poverty.R;
 import com.framework.net.NetworkListener;
 import com.framework.net.NetworkManager;
 import com.framework.net.NetworkParam;
@@ -54,11 +53,17 @@ import com.framework.utils.Globals;
 import com.framework.utils.HandlerCallbacks;
 import com.framework.utils.IBaseActFrag;
 import com.framework.utils.QLog;
+import com.framework.utils.ToastUtils;
 import com.framework.utils.inject.Injector;
 import com.framework.utils.tuski.Tuski;
 import com.framework.view.QProgressDialogFragment;
 import com.framework.view.SystemBarTintManager;
 import com.framework.view.TitleBar;
+import com.gyf.barlibrary.ImmersionBar;
+import com.gyf.barlibrary.OnKeyboardListener;
+import com.igexin.sdk.PushManager;
+import com.igexin.sdk.PushService;
+import com.qfant.wuye.R;
 
 import java.util.List;
 
@@ -87,6 +92,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     protected QProgressDialogFragment progressDialog;
 
     public static final int REQUEST_CODE_LOGIN = 4096;
+    private ImmersionBar mImmersionBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +108,40 @@ public abstract class BaseActivity extends FragmentActivity implements
         }
         mIsFloat = myBundle.getBoolean("mIsFloat");
         blockTouch = myBundle.getBoolean("blockTouch");
+        setStatusBar();
     }
 
+    protected void setStatusBar() {
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar
+                .fitsSystemWindows(true)
+                .statusBarColor(R.color.pub_color_theme)
+                .keyboardEnable(true)  //解决软键盘与底部输入框冲突问题，默认为 false，还有一个重载方法，可以指定软键盘 mode
+                .keyboardMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)  //单独指定软键盘模式
+                .setOnKeyboardListener(new OnKeyboardListener() {    //软键盘监听回调
+                    @Override
+                    public void onKeyboardChange(boolean isPopup, int keyboardHeight) {
+                    }
+                })
+                .init();
+        //状态栏颜色，不写默认透明色
+//                .statusBarDarkFont(true, 0.2f)
+//                    .navigationBarColor((navBar.navBarColor)) //导航栏颜色，不写默认黑色
+//                    .barColor(navBar.navBarColor) //同时自定义状态栏和导航栏颜色，不写默认状态栏为透明色，导航栏为黑色
+//                    .statusBarAlpha(0.2f)  //状态栏透明度，不写默认0.0f
+//                    .navigationBarAlpha(0.4f)  //导航栏透明度，不写默认0.0F
+
+    }
+
+    private void setBarTint() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(true);
+        }
+
+        SystemBarTintManager tintManager = new SystemBarTintManager(this);
+        tintManager.setStatusBarTintEnabled(true);
+        tintManager.setStatusBarTintResource(R.color.pub_color_theme);
+    }
 
     @TargetApi(19)
     private void setTranslucentStatus(boolean on) {
@@ -159,20 +197,18 @@ public abstract class BaseActivity extends FragmentActivity implements
     }
 
     public void setContentView(View view, boolean autoInject) {
-        final ViewGroup realRoot = genRealRootView();
+//        final ViewGroup realRoot = genRealRootView();
         mRoot = genRootView();
         mTitleBar = new TitleBar(this);
         mRoot.addView(mTitleBar, -1, -2);
         mRoot.addView(view, -1, -1);
-        realRoot.addView(mRoot, -1, -1);
-        super.setContentView(realRoot);
+//        realRoot.addView(mRoot, -1, -1);
+        super.setContentView(mRoot);
         mTitleBar.setVisibility(View.GONE);
-        if (autoInject) {
-            Injector.inject(this);
-        }
+//        if (autoInject) {
+//            Injector.inject(this);
+//        }
     }
-
-    ;
 
     public void setContentView(int layoutResID, boolean autoInject) {
         final View content = getLayoutInflater().inflate(layoutResID, null);
@@ -208,9 +244,11 @@ public abstract class BaseActivity extends FragmentActivity implements
     @Override
     public void showToast(String message) {
         // showToast(message, 2000);
-        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
         // Tuski.makeText(getContext(), message,
         // Appearance.DEFAULT_BOTTOM).show();
+
+        ToastUtils.toastSth(getContext(), message);
     }
 
     /**
@@ -425,6 +463,8 @@ public abstract class BaseActivity extends FragmentActivity implements
         }
         Tuski.clearTuskiesForActivity(this);
         NetworkManager.getInstance().cancelTaskByHandler(mHandler);
+        if (mImmersionBar != null)
+            mImmersionBar.destroy();  //必须调用该方法，防止内存泄漏，不调用该方法，如果界面bar发生改变，在不关闭app的情况下，退出此界面再进入将记忆最后一次bar改变的状态
 
     }
 
@@ -455,8 +495,7 @@ public abstract class BaseActivity extends FragmentActivity implements
      * @param rightIconResId
      * @param rightListener
      */
-    public void setTitleBar(String title, boolean hasBackBtn,
-                            int rightIconResId, OnClickListener rightListener) {
+    public void setTitleBar(String title, boolean hasBackBtn, int rightIconResId, OnClickListener rightListener) {
         mTitleBar.setTitleBar(titleBarClickListener, hasBackBtn, title,
                 rightIconResId, rightListener);
         mTitleBar.setVisibility(View.VISIBLE);
@@ -470,8 +509,7 @@ public abstract class BaseActivity extends FragmentActivity implements
      * @param rightText
      * @param rightListener
      */
-    public void setTitleBar(String title, boolean hasBackBtn, String rightText,
-                            OnClickListener rightListener) {
+    public void setTitleBar(String title, boolean hasBackBtn, String rightText, OnClickListener rightListener) {
         mTitleBar.setTitleBar(titleBarClickListener, hasBackBtn, title,
                 rightText, rightListener);
         mTitleBar.setVisibility(View.VISIBLE);
@@ -491,6 +529,10 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     public void setTitleText(String text) {
         mTitleBar.setTitle(text);
+    }
+
+    public void setTitleBar() {
+        setTitleBar("", true);
     }
 
 
@@ -630,7 +672,7 @@ public abstract class BaseActivity extends FragmentActivity implements
         if (bundle != null) {
             int intentToCode = bundle.getInt(Globals.INTENT_TO_ACTIVITY);
             /*if (Globals.INTENT_TO_QUITAPP == intentToCode) {
-				finish();
+                finish();
 				MainApp.getContext().onClose();
 			} else if(Globals.INTENT_TO_PAY_CENTER == intentToCode) {
 				//跳到支付中心
@@ -668,38 +710,38 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     @Override
     public boolean onMsgSearchComplete(NetworkParam param) {
-        return false;
+        return true;
     }
 
     public void processAgentPhoneCall(String phoneNum) {
-//        try {
-//            startActivity(new Intent(Intent.ACTION_CALL,
-//                    Uri.parse(BusinessUtils.formatPhoneNumber(phoneNum))));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            startActivity(new Intent(Intent.ACTION_CALL,
+                    Uri.parse(BusinessUtils.formatPhoneNumber(phoneNum))));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-//    public PopupWindow showTipText(String text) {
-//        return showTipText(null, text);
-//    }
+    public PopupWindow showTipText(String text) {
+        return showTipText(null, text);
+    }
 
-//    public PopupWindow showTipText(String title, String text) {
-//        View view = LayoutInflater.from(this)
-//                .inflate(R.layout.tip_dialog, null);
-//        TextView textView = (TextView) view.findViewById(R.id.textview);// new
-//        // TextView(this);
-//        textView.setText(text);
-//        TextView textView1 = (TextView) view.findViewById(R.id.textview1);// new
-//        // TextView(this);
-//        if (TextUtils.isEmpty(title)) {
-//            textView1.setVisibility(View.GONE);
-//        } else {
-//            textView1.setVisibility(View.VISIBLE);
-//            textView1.setText(title);
-//        }
-//        return showTipView(view);
-//    }
+    public PopupWindow showTipText(String title, String text) {
+        View view = LayoutInflater.from(this)
+                .inflate(R.layout.tip_dialog, null);
+        TextView textView = (TextView) view.findViewById(R.id.textview);// new
+        // TextView(this);
+        textView.setText(text);
+        TextView textView1 = (TextView) view.findViewById(R.id.textview1);// new
+        // TextView(this);
+        if (TextUtils.isEmpty(title)) {
+            textView1.setVisibility(View.GONE);
+        } else {
+            textView1.setVisibility(View.VISIBLE);
+            textView1.setText(title);
+        }
+        return showTipView(view);
+    }
 
     public PopupWindow showTipView(int id) {
         return showTipView(LayoutInflater.from(this).inflate(id, null));

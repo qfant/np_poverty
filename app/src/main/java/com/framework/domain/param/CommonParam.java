@@ -9,9 +9,11 @@ import java.io.Serializable;
 public class CommonParam implements Serializable {
     public String imei;
     public int versionCode;
-    public String versionName
-            ;
+    public String versionName;
     public Integer userId;
     public String token;
     public String platform;
+    public String roomId;
+    public String cid;
+
 }

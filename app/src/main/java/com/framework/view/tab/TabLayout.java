@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+
 import com.framework.utils.ArrayUtils;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class TabLayout extends LinearLayout implements View.OnClickListener {
     private OnTabClickListener listener;
     private View selectView;
     private int tabCount;
+    private int index = -1;
 
     public TabLayout(Context context) {
         super(context);
@@ -35,7 +37,7 @@ public class TabLayout extends LinearLayout implements View.OnClickListener {
     }
 
     private void initView() {
-        setOrientation(VERTICAL);
+        setOrientation(HORIZONTAL);
     }
 
     public void setCurrentTab(int i) {
@@ -48,6 +50,7 @@ public class TabLayout extends LinearLayout implements View.OnClickListener {
                 }
                 selectView = view;
                 listener.onTabClick(tabs.get(i));
+                this.index = i;
             }
         }
     }
@@ -62,8 +65,8 @@ public class TabLayout extends LinearLayout implements View.OnClickListener {
     public void initData(ArrayList<TabItem> tabs, OnTabClickListener listener) {
         this.tabs = tabs;
         this.listener = listener;
-//        LayoutParams params = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
-//        params.weight = 1;
+        LayoutParams params = new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT);
+        params.weight = 1;
         if (!ArrayUtils.isEmpty(tabs)) {
             tabCount = tabs.size();
             TabView mTabView = null;
@@ -72,7 +75,7 @@ public class TabLayout extends LinearLayout implements View.OnClickListener {
                 mTabView.setTag(tabs.get(i));
                 mTabView.initData(tabs.get(i));
                 mTabView.setOnClickListener(this);
-                addView(mTabView);
+                addView(mTabView, params);
             }
 
         } else {
@@ -81,6 +84,9 @@ public class TabLayout extends LinearLayout implements View.OnClickListener {
 
     }
 
+    public int getCurrentTab() {
+        return index;
+    }
 
     @Override
     public void onClick(View v) {

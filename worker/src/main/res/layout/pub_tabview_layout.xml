@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="44dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.framework.view.IFView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/icon_font_home"
+        android:textColor="@color/pub_tab_color_selector"
+        android:textSize="20dp"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/pub_tab_color_selector"
+        android:textSize="12dp"
+        android:gravity="center"
+        tools:text="首页" />
+
+    <View
+        android:visibility="gone"
+        android:id="@+id/view_line"
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp" />
+
+</LinearLayout>
