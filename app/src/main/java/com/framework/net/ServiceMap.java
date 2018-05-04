@@ -17,6 +17,7 @@ import com.page.home.model.LinksResult;
 import com.page.home.model.NoticeResult;
 import com.page.home.model.QpListResult;
 import com.page.home.model.ShopRecResult;
+import com.page.map.PointResult;
 import com.page.pay.ProductPayResult;
 import com.page.pay.WeChatPayResult;
 import com.page.store.classify.model.ClassifyResult;
@@ -121,7 +122,7 @@ public enum ServiceMap implements Enums.IType, Serializable {
     submitWuyeFee("/submitWuyeFee.do", ubmitWuyeFeeResult.class),//物业代缴费
     wuyeFeeMonths("/wuyeFeeMonths.do", FeeMonthResult.class),//物业代缴费
     wuyeFeeOrders("/wuyeFeeOrders.do", FeeListResult.class),//物业代缴费
-    ;
+    towns("/towns.do", PointResult.class);
 
 
     private final String mType;

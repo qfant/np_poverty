@@ -1,17 +1,24 @@
 package com.page.party;
 
 import android.content.Context;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.baidu.mapapi.SDKInitializer;
+import com.baidu.mapapi.map.BaiduMap;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.TextureMapView;
 import com.framework.activity.BaseFragment;
 import com.framework.domain.param.BaseParam;
 import com.framework.net.NetworkParam;
@@ -27,6 +34,7 @@ import com.framework.view.LineDecoration;
 import com.framework.view.circlerefresh.CircleRefreshLayout;
 import com.framework.view.sivin.Banner;
 import com.framework.view.sivin.BannerAdapter;
+import com.page.home.activity.MainActivity;
 import com.page.home.activity.TextViewActivity;
 import com.page.home.activity.WebActivity;
 import com.page.home.model.HomeModel;
@@ -35,6 +43,7 @@ import com.page.home.model.LinksResult;
 import com.page.home.model.LinksResult.Data.Links;
 import com.page.home.model.NoticeResult;
 import com.page.home.model.NoticeResult.Data.Datas;
+import com.page.integral.IntegralActivity;
 import com.page.party.model.NewsResult;
 import com.page.party.model.NewsResult.NewsData.NewsItem;
 import com.page.home.view.MRecyclerView;
@@ -69,13 +78,19 @@ public class PHomeFragment extends BaseFragment {
     GridLayout glMode;
     @BindView(R.id.rv_711_list)
     MRecyclerView rv711List;
+    @BindView(R.id.bmapView)
+    TextureMapView mMapView;
+    @BindView(R.id.image_baidu)
+    ImageView imageBaido;
     private BannerAdapter bannerAdapter;
     private Unbinder unbinder;
     private MultiAdapter adapter711;
+    private BaiduMap mBaiduMap;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        SDKInitializer.initialize(getActivity().getApplicationContext());
         View view = onCreateViewWithTitleBar(inflater, container, R.layout.a_fragment_home_layout);
         unbinder = ButterKnife.bind(this, view);
         return view;
@@ -84,12 +99,26 @@ public class PHomeFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        setTitleBar("智慧党建", false);
+        setTitleBar("亳州智慧非公", false);
         setRefresh();
         setBanner();
         setModel();
-        set711();
-        setFlipper(NoticeResult.Data.mock());
+        setMap();
+//        set711();
+//        setFlipper(NoticeResult.Data.mock());
+    }
+
+    private void setMap() {
+        mMapView = (TextureMapView) getView().findViewById(R.id.bmapView);
+        mBaiduMap = mMapView.getMap();
+        mMapView.showScaleControl(false);
+        mMapView.showZoomControls(false);
+        imageBaido.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity) getActivity()).setCurrentTab(1);
+            }
+        });
     }
 
     private void setRefresh() {
@@ -119,10 +148,16 @@ public class PHomeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getNotices();
-        getLinks();
+        mMapView.onResume();
+//        getNotices();
+//        getLinks();
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        mMapView.onPause();
+    }
 
     private void set711() {
         adapter711 = new MultiAdapter<NewsItem>(getContext()).addTypeView(new ITypeView() {
@@ -152,21 +187,39 @@ public class PHomeFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+        mMapView.onDestroy();
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (hidden) {
+            onHide();
+        } else {
+            onShow();
+        }
+    }
+
+    protected void onShow() {
+        mMapView.onResume();
+//        mMapView.setVisibility(View.VISIBLE);
+    }
+
+    protected void onHide() {
+        mMapView.onPause();
+//        mMapView.setVisibility(View.GONE);
+    }
 
     private void setModel() {
         ArrayList<HomeModel> list = new ArrayList<>();
-        list.add(new HomeModel("党政公告", R.drawable.icon_notice));
-        list.add(new HomeModel("党建政策", R.drawable.icon_study_count));
-        list.add(new HomeModel("党建动态", R.drawable.icon_dynamic_phase));
-        list.add(new HomeModel("党建活动", R.drawable.icon_party_activity));
-        list.add(new HomeModel("党支部介绍", R.drawable.icon_partybranch_introduce));
-        list.add(new HomeModel("三务公开", R.drawable.icon_three_affairs));
-        list.add(new HomeModel("办事指南", R.drawable.icon_work_guide));
-        list.add(new HomeModel("廉政建设", R.drawable.icon_clear_build));
-        list.add(new HomeModel("先锋事迹", R.drawable.icon_employment_entrepreneurship));
-        list.add(new HomeModel("党建地图", R.drawable.icon_map));
+        list.add(new HomeModel("政策宣传", R.drawable.icon_notice));
+        list.add(new HomeModel("党建业务", R.drawable.icon_study_count));
+        list.add(new HomeModel("工作动态", R.drawable.icon_dynamic_phase));
+        list.add(new HomeModel("积分管理", R.drawable.icon_party_activity));
+        list.add(new HomeModel("党建管理", R.drawable.icon_partybranch_introduce));
+        list.add(new HomeModel("信息平台", R.drawable.icon_three_affairs));
+        list.add(new HomeModel("指导员管理", R.drawable.icon_work_guide));
+        list.add(new HomeModel("统计分析", R.drawable.icon_clear_build));
 
         for (final HomeModel homeModel : list) {
             ModeView itemView = new ModeView(getContext());
@@ -176,9 +229,19 @@ public class PHomeFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-//                    switch ((String) v.getTag()) {
-                    PNewListActivity.startActivity(getContext(), homeModel.title, "");
-//                    }
+                    switch ((String) v.getTag()) {
+                        case "政策宣传":
+                        case "党建业务":
+                        case "工作动态":
+                            PNewListActivity.startActivity(getContext(), homeModel.title, "");
+                            break;
+                        case "积分管理":
+                            qStartActivity(IntegralActivity.class);
+                            break;
+                        case "党建管理":
+                            qStartActivity(IntegralActivity.class);
+                            break;
+                    }
                 }
             });
             glMode.addView(itemView);

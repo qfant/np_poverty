@@ -8,7 +8,6 @@ import com.framework.activity.BaseFragment;
  */
 public class TabItem {
 
-    private final Bundle bundle;
     /**
      * logo
      */
@@ -20,6 +19,8 @@ public class TabItem {
 
 
     public Class<? extends BaseFragment> tagFragmentClz;
+    public boolean isAdd;
+    public Bundle bundle;
 
     public TabItem(String text, int[] icon, Class<? extends BaseFragment> tagFragmentClz, Bundle bundle) {
         this.icon = icon;

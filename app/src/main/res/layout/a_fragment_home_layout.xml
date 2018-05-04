@@ -21,7 +21,7 @@
             <com.framework.view.sivin.Banner
                 android:id="@+id/banner"
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="150dp"
                 android:background="@drawable/banner"
                 app:banner_pageChangeDuration="800"
                 app:banner_pointAutoPlayInterval="3"
@@ -34,12 +34,30 @@
                 app:banner_tipTextColor="#FFFFFF"
                 app:banner_tipTextSize="12sp" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+
+                <com.baidu.mapapi.map.TextureMapView
+                    android:id="@+id/bmapView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true" />
+
+                <ImageView
+                    android:id="@+id/image_baidu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true" />
+            </RelativeLayout>
+
+
             <android.support.v7.widget.GridLayout
                 android:id="@+id/gl_mode"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/pub_color_gray_line"
-                app:columnCount="5"
+                app:columnCount="4"
                 app:orientation="horizontal"
                 app:rowCount="2" />
 
@@ -47,11 +65,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:background="@color/pub_color_gray_line" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/pub_color_white"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:visibility="gone">
 
                 <View
                     android:layout_width="3dp"
@@ -75,14 +95,15 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/pub_color_gray_line" />
+                android:background="@color/pub_color_gray_line"
+                android:visibility="gone" />
 
             <com.page.home.view.MRecyclerView
                 android:id="@+id/rv_711_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/pub_color_white"
-                android:visibility="visible" />
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 </com.framework.view.circlerefresh.CircleRefreshLayout>

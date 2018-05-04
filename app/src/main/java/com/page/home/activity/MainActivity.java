@@ -13,6 +13,7 @@ import com.framework.activity.FragmentBackHelper;
 import com.framework.utils.ShopCarUtils;
 import com.framework.view.tab.TabLayout;
 import com.framework.view.tab.TabView;
+import com.page.map.MapFragment;
 import com.page.party.MineFragment;
 import com.page.party.PHomeFragment;
 import com.page.party.PManageFragment;
@@ -39,7 +40,6 @@ public class MainActivity extends MainTabActivity {
     @BindView(R.id.tl_tab)
     TabLayout tlTab;
     private boolean mIsExit;
-    private TabNumberReceiver tabNumberReceiver;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,16 +47,10 @@ public class MainActivity extends MainTabActivity {
         setContentView(R.layout.pub_activity_mian_layout);
         ButterKnife.bind(this);
         tabLayout = tlTab;
-        addTab("智慧党建", PHomeFragment.class, myBundle, R.string.icon_font_home);
-        addTab("党员管理", PManageFragment.class, myBundle, R.string.icon_font_manger);
-        addTab("党员生活", QpListFragment.class, myBundle, R.string.icon_font_camera);
+        addTab("首页", PHomeFragment.class, myBundle, R.string.icon_font_home);
+        addTab("党建地图", MapFragment.class, myBundle, R.string.icon_font_manger);
         addTab("个人中心", MineFragment.class, myBundle, R.string.icon_font_my);
         onPostCreate();
-        tabNumberReceiver = new TabNumberReceiver();
-        IntentFilter filter = new IntentFilter(REFRESH_TAB_ACTION);
-        registerReceiver(tabNumberReceiver, filter);
-
-
     }
 
     @Override
@@ -117,16 +111,6 @@ public class MainActivity extends MainTabActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(tabNumberReceiver);
-    }
-
-    public class TabNumberReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            TabView shopCarTab = (TabView) tabLayout.getChildAt(3);
-            shopCarTab.setNumber(ShopCarUtils.getInstance().getShopCarSize());
-        }
     }
 
 }

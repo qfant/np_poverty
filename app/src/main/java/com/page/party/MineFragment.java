@@ -48,16 +48,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             R.drawable.icon_certification,
             R.drawable.icon_integral,
             R.drawable.icon_activities,
-            R.drawable.icon_management,
-            R.drawable.icon_record,
-            R.drawable.icon_unity,
-            R.drawable.icon_voice,
-            R.drawable.icon_vote,
     };
 
-    public static String[] titleArr = {"我的书籍", "党员认证", "积分兑换", "我的活动"
-            , "村级管理", "学习记录", "结亲连心", "百姓心声", "在线投票"
-    };
+    public static String[] titleArr = {"修改头像", "修改密码", "使用帮助", "关于我们"};
 
     @Nullable
     @Override
@@ -78,19 +71,16 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             public void onItemOnClickListener(int pos) {
                 String path = null;
                 switch (pos) {
-                    case 0://个人资料
+                    case 0://修改头像
                         break;
                     case 1://修改密码
                         path = "mine/mine-modify-new-password.js";
                         break;
-                    case 2://意见反馈
+                    case 2://使用帮助
                         path = "mine/mine-advice-feedback.js";
                         break;
                     case 3://关于我们
                         path = "mine/mine-about-us.js";
-                        break;
-                    case 4://更多设置
-                        path = "mine/mine-more.js";
                         break;
                     default:
                         break;
@@ -118,7 +108,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             } else {
                 qStartActivity(LoginActivity.class);
             }
-        } else if (imageHead.equals(v)||v.equals(tvSetting)) {
+        } else if (imageHead.equals(v) || v.equals(tvSetting)) {
             qStartActivity(UserInfoActivity.class);
         }
     }

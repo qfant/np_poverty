@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/pub_color_red"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:background="#fff"
+            android:text="上海"
+            android:textColor="#333"
+            android:textSize="28dp" />
+    </LinearLayout>
+
+    <com.framework.view.IFView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/icon_font_maker"
+        android:textColor="@color/pub_color_red"
+        android:textSize="40dp" />
+</LinearLayout>

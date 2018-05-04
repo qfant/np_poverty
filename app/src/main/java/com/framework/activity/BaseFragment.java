@@ -399,7 +399,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
         }
     }
 
-    private final OnClickListener titleBarClickListener = new OnClickListener() {
+    protected  OnClickListener titleBarClickListener = new OnClickListener() {
         @Override
         public void onClick(View v) {
 
@@ -408,7 +408,6 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
             }
         }
 
-        ;
     };
 
     @Override

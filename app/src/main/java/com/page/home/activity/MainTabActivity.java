@@ -3,6 +3,9 @@ package com.page.home.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 
 import com.framework.view.tab.TabItem;
@@ -44,15 +47,46 @@ public class MainTabActivity extends BaseActivity implements TabLayout.OnTabClic
 
     @Override
     public void onTabClick(TabItem tabItem) {
-        sendBroadcast(new Intent(MainActivity.REFRESH_TAB_ACTION));
+        int index = mTabs.indexOf(tabItem);
+//                try {
+//            BaseFragment fragment = tabItem.tagFragmentClz.newInstance();
+//            getSupportFragmentManager().beginTransaction().replace(R.id.fl_content, fragment).commitAllowingStateLoss();
+//            tabLayout.setCurrentTab(mTabs.indexOf(tabItem));
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        }
         try {
-            int index = mTabs.indexOf(tabItem);
-            if (index == tabLayout.getCurrentTab()) {
-                return;
+            FragmentManager fragmentManager1 = getSupportFragmentManager();
+            if (fragmentManager1.findFragmentByTag(tabItem.text) == null && !tabItem.isAdd) {
+                tabItem.isAdd = true;
+                BaseFragment fragment = tabItem.tagFragmentClz.newInstance();
+                FragmentTransaction transaction = fragmentManager1.beginTransaction();
+                fragment.setArguments(tabItem.bundle);
+
+                transaction.add(R.id.fl_content, fragment, tabItem.text);
+                transaction.commitAllowingStateLoss();
             }
-            BaseFragment fragment = tabItem.tagFragmentClz.newInstance();
-            getSupportFragmentManager().beginTransaction().replace(R.id.fl_content, fragment).commitAllowingStateLoss();
-            setCurrentTab(index);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            for (int i = 0; i < mTabs.size(); i++) {
+                Fragment fragment = fragmentManager.findFragmentByTag(mTabs.get(i).text);
+                if (fragment != null) {
+                    if (i == index) {
+                        transaction.show(fragment);
+                    } else {
+                        transaction.hide(fragment);
+                    }
+                }
+            }
+            try {
+                transaction.commitAllowingStateLoss();
+            } catch (IllegalStateException e) {
+                //修复bug#101825：java.lang.IllegalStateException: Activity has been destroyed
+            }
+
+            tabLayout.setCurrentTab(mTabs.indexOf(tabItem));
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
