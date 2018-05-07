@@ -34,6 +34,7 @@ import com.framework.view.LineDecoration;
 import com.framework.view.circlerefresh.CircleRefreshLayout;
 import com.framework.view.sivin.Banner;
 import com.framework.view.sivin.BannerAdapter;
+import com.page.analysis.AnalysisActivity;
 import com.page.home.activity.MainActivity;
 import com.page.home.activity.TextViewActivity;
 import com.page.home.activity.WebActivity;
@@ -43,11 +44,14 @@ import com.page.home.model.LinksResult;
 import com.page.home.model.LinksResult.Data.Links;
 import com.page.home.model.NoticeResult;
 import com.page.home.model.NoticeResult.Data.Datas;
+import com.page.information.InfoPlatformActivity;
 import com.page.integral.IntegralActivity;
 import com.page.party.model.NewsResult;
 import com.page.party.model.NewsResult.NewsData.NewsItem;
 import com.page.home.view.MRecyclerView;
 import com.page.home.view.ModeView;
+import com.page.partymanger.PartyMangerActivity;
+import com.page.political.PoliticalManagerActivity;
 import com.page.store.home.model.FoodRecResult;
 import com.qfant.wuye.R;
 
@@ -239,7 +243,16 @@ public class PHomeFragment extends BaseFragment {
                             qStartActivity(IntegralActivity.class);
                             break;
                         case "党建管理":
-                            qStartActivity(IntegralActivity.class);
+                            qStartActivity(PartyMangerActivity.class);
+                            break;
+                        case "信息平台":
+                            qStartActivity(InfoPlatformActivity.class);
+                            break;
+                        case "指导员管理":
+                            qStartActivity(PoliticalManagerActivity.class);
+                            break;
+                        case "统计分析":
+                            qStartActivity(AnalysisActivity.class);
                             break;
                     }
                 }

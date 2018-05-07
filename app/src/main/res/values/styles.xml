@@ -3,6 +3,7 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowNoTitle">true</item>
         <item name="android:windowBackground">@color/pub_color_white</item>
+        <!--<item name="android:editTextBackground">@null</item>-->
     </style>
 
     <style name="Splash" parent="AppTheme">
@@ -39,13 +40,21 @@
         <item name="android:layout_width">0.5dp</item>
     </style>
 
-    <style name="pub_list"></style>
+    <style name="pub_list">
+        <item name="android:divider">@null</item>
+        <item name="android:dividerHeight">0dp</item>
+    </style>
 
     <style name="titleBarStyle">
-        <item name="android:id">@+id/title_bar</item>
+        <item name="android:id">@id/title_bar</item>
         <item name="android:background">@color/pub_color_white</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="edit_style">
+        <item name="android:editTextBackground">@null</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/pub_color_black</item>
+    </style>
 </resources>

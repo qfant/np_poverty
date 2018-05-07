@@ -49,10 +49,10 @@ public class MainApplication extends Application {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
+        final IWXAPI msgApi = WXAPIFactory.createWXAPI(applicationContext, null);
 // 将该app注册到微信
         msgApi.registerApp(AppConstants.APP_ID);
-        PushManager.getInstance().initialize(this, com.qfant.wuye.push.PushService.class);
+        PushManager.getInstance().initialize(applicationContext, com.qfant.wuye.push.PushService.class);
     }
 
 

@@ -8,12 +8,12 @@
 
     <ImageView
         android:id="@+id/about_iv_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:paddingLeft="3dp"
-        android:scaleType="centerInside"
+        android:scaleType="centerCrop"
         android:src="@drawable/logo" />
 
     <TextView
@@ -36,7 +36,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="6dp"
-        android:text="幸福宜居"
+        android:text="@string/app_name"
         android:textColor="@color/pub_color_black"
         android:textSize="@dimen/text_h14" />
 
@@ -48,7 +48,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
         android:paddingBottom="20dp"
-        android:text="Copyright © 2017 xingfuyijv. ALL RIGHTS RESERVED."
+        android:text="Copyright © 2018 . ALL RIGHTS RESERVED."
         android:textColor="@color/pub_color_black"
         android:textSize="@dimen/text_h10" />
 

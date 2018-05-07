@@ -17,6 +17,7 @@ import com.page.home.model.LinksResult;
 import com.page.home.model.NoticeResult;
 import com.page.home.model.QpListResult;
 import com.page.home.model.ShopRecResult;
+import com.page.information.InfoPlatformResult;
 import com.page.map.PointResult;
 import com.page.pay.ProductPayResult;
 import com.page.pay.WeChatPayResult;
@@ -48,7 +49,10 @@ import java.io.Serializable;
  * @author zexu
  */
 public enum ServiceMap implements Enums.IType, Serializable {
+    getPlatforms("/getPlatforms.do", InfoPlatformResult.class), //获取通讯录联系人
     OPENGATE("/opengate.do", BaseResult.class), //获取通讯录联系人
+
+
     getLinks("/getLinks.do", LinksResult.class),
     checkVersion("/checkVersion.do", BaseResult.class),
     alipayPayProduct("/alipayPayProduct.do", ProductPayResult.class),

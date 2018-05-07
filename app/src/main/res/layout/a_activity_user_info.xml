@@ -16,7 +16,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:background="@drawable/bg_user">
+            android:background="@color/pub_color_red">
 
             <TextView
                 android:id="@+id/tv_setting"

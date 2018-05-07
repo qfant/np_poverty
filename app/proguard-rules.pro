@@ -29,4 +29,7 @@
 -keep class com.alipay.android.app.IRemoteServiceCallback$Stub{*;}
 -keep class com.alipay.sdk.app.PayTask{ public *;}
 -keep class com.alipay.sdk.app.AuthTask{ public *;}
- -keep class com.gyf.barlibrary.* {*;}
+-keep class com.gyf.barlibrary.* {*;}
+-keep class com.baidu.** {*;}
+-dontwarn com.baidu.**
+-keep class vi.com.gdi.bgl.android.**{*;}

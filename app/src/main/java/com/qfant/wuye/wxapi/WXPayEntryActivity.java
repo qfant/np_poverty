@@ -5,9 +5,9 @@ import android.os.Bundle;
 
 import com.framework.activity.BaseActivity;
 import com.framework.app.AppConstants;
+import com.framework.utils.QLog;
 import com.page.pay.PayActivity;
 import com.qfant.wuye.R;
-import com.taobao.weex.devtools.common.LogUtil;
 import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
@@ -47,7 +47,7 @@ public class WXPayEntryActivity extends BaseActivity implements IWXAPIEventHandl
 
     @Override
     public void onResp(BaseResp resp) {
-        LogUtil.d(TAG, "onPayFinish, errCode = " + resp.errCode);
+        QLog.d(TAG, "onPayFinish, errCode = " + resp.errCode);
         if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
             Bundle bundle = new Bundle();
             bundle.putInt("resp", resp.errCode);

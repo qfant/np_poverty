@@ -13,6 +13,10 @@ import android.widget.TextView;
 import com.framework.activity.BaseFragment;
 import com.framework.utils.imageload.ImageLoad;
 import com.framework.view.CircleImageView;
+import com.page.uc.AboutUsActivity;
+import com.page.uc.AccountLoginActivity;
+import com.page.uc.ChangePwdActivity;
+import com.page.uc.DocsHelpActivity;
 import com.page.uc.LoginActivity;
 import com.page.uc.UCUtils;
 import com.page.uc.UserInfoActivity;
@@ -69,23 +73,22 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         adapter.setOnItemOnClickListener(new MineAdapter.OnItemOnClickListener() {
             @Override
             public void onItemOnClickListener(int pos) {
-                String path = null;
                 switch (pos) {
                     case 0://修改头像
+                        qStartActivity(AccountLoginActivity.class);
                         break;
                     case 1://修改密码
-                        path = "mine/mine-modify-new-password.js";
+                        qStartActivity(ChangePwdActivity.class);
                         break;
                     case 2://使用帮助
-                        path = "mine/mine-advice-feedback.js";
+                        qStartActivity(DocsHelpActivity.class);
                         break;
                     case 3://关于我们
-                        path = "mine/mine-about-us.js";
+                        qStartActivity(AboutUsActivity.class);
                         break;
                     default:
                         break;
                 }
-                showToast("功能开发中...");
             }
         });
         llHeader.setOnClickListener(this);
