@@ -3,12 +3,13 @@ package com.page.party;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.framework.activity.BaseActivity;
 import com.framework.net.NetworkParam;
@@ -32,6 +33,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by chenxi.cui on 2018/4/2.
@@ -42,6 +44,10 @@ public class PNewListActivity extends BaseActivity implements OnItemClickListene
     RecyclerView rvList;
     @BindView(R.id.refreshLayout)
     SwipRefreshLayout refreshLayout;
+    @BindView(R.id.input_search)
+    EditText inputSearch;
+    @BindView(R.id.text_search)
+    TextView textSearch;
     private MultiAdapter adapter;
 
     public static void startActivity(BaseActivity activity, String title, String url) {
@@ -80,8 +86,6 @@ public class PNewListActivity extends BaseActivity implements OnItemClickListene
         });
         rvList.addItemDecoration(new LineDecoration(this));
         rvList.setLayoutManager(new LinearLayoutManager(getContext()));
-        DefaultItemAnimator animator = new DefaultItemAnimator();
-        rvList.setItemAnimator(animator);
         rvList.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
         refreshLayout.setOnRefreshListener(this);
@@ -139,4 +143,8 @@ public class PNewListActivity extends BaseActivity implements OnItemClickListene
         startRequest(++index);
     }
 
+    @OnClick(R.id.text_search)
+    public void onViewClicked() {
+
+    }
 }
