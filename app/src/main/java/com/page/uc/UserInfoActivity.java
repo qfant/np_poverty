@@ -86,6 +86,10 @@ public class UserInfoActivity extends BaseActivity {
 
             }
         });
+        if (!UCUtils.getInstance().isLogin()) {
+            qStartActivity(AccountLoginActivity.class);
+            return;
+        }
         setData();
     }
 

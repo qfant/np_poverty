@@ -35,9 +35,11 @@ public class SignListViewHolder extends BaseViewHolder<SignListItem> {
     @Override
     public void onBindViewHolder(BaseViewHolder holder, SignListItem data, int position) {
         text1.setText("公司: " + data.partybranchname);
-        if ("1".equals(data.type)) {
+        if (1 == data.type) {
             text2.setText("签到：" + data.signdate);
+            text2.setTextColor(mContext.getResources().getColor(R.color.pub_color_gray_666));
         } else {
+            text2.setTextColor(mContext.getResources().getColor(R.color.pub_color_yellow));
             text2.setText("签退：" + data.signdate);
         }
         text3.setText(data.day);

@@ -146,9 +146,9 @@ public class SignListActivity extends BaseActivity implements OnItemClickListene
 
     @Override
     public void onItemClickListener(View view, EventListResult.Data.ActivityList data, int position) {
-        Bundle bundle = new Bundle();
-        bundle.putString(EventDetailActivity.ID, data.id);
-        qStartActivity(EventDetailActivity.class, bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putString(EventDetailActivity.ID, data.id);
+//        qStartActivity(EventDetailActivity.class, bundle);
     }
 
     @Override

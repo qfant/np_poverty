@@ -37,7 +37,7 @@ public class MeetingListViewHolder extends BaseViewHolder<MeetingItem> {
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, MeetingItem data, int position) {
-        text1.setText("会议:" + data.title);
+        text1.setText("会议: " + data.name);
         text2.setText("时间：" + data.startdate + "~" + data.enddate);
         text3.setText("地点：" + data.address);
         ImageLoad.loadPlaceholder(mContext, data.headpic, imagePic);

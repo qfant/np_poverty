@@ -11,6 +11,7 @@ import com.framework.net.NetworkParam;
 import com.framework.net.ServiceMap;
 import com.framework.net.TaskStatus;
 import com.page.uc.AccountLoginActivity;
+import com.page.uc.UCUtils;
 
 
 /**
@@ -107,6 +108,7 @@ public class HandlerCallbacks {
                                     intent.setClass(MainApplication.applicationContext, AccountLoginActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     MainApplication.applicationContext.startActivity(intent);
+                                    UCUtils.getInstance().saveUserInfo(null);
                                 } else {
                                     if (listener != null) {
                                         listener.onMsgSearchComplete(param);

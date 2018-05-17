@@ -20,7 +20,6 @@ import com.framework.utils.ArrayUtils;
 import com.framework.view.LineDecoration;
 import com.framework.view.pull.SwipRefreshLayout;
 import com.page.partymanger.MeetingInfoResult.MeetingInfoItem;
-import com.page.partymanger.MeetingListResult.MeetingItem;
 import com.qfant.wuye.R;
 
 import butterknife.BindView;
@@ -43,7 +42,7 @@ public class MeetingInfoActivity extends BaseActivity implements OnItemClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_manager_list_layout);
         ButterKnife.bind(this);
-        meetingId = myBundle.getInt("meetingID");
+        meetingId = myBundle.getInt("meetingId");
         setTitleBar("会议内容", true);
         setListView();
         startRequest(1);
@@ -58,7 +57,7 @@ public class MeetingInfoActivity extends BaseActivity implements OnItemClickList
 
             @Override
             public BaseViewHolder createViewHolder(Context mContext, ViewGroup parent) {
-                return new MeetingInfoViewHolder(mContext, LayoutInflater.from(mContext).inflate(R.layout.activity_meeting_item_layout, parent, false));
+                return new MeetingInfoViewHolder(mContext, LayoutInflater.from(mContext).inflate(R.layout.activity_meeting_info_item_layout, parent, false));
             }
         });
         rvList.addItemDecoration(new LineDecoration(this));
@@ -84,11 +83,11 @@ public class MeetingInfoActivity extends BaseActivity implements OnItemClickList
     public boolean onMsgSearchComplete(NetworkParam param) {
         if (param.key == ServiceMap.meetingStatementList) {
             MeetingInfoResult result = (MeetingInfoResult) param.result;
-            if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.statementList)) {
+            if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.meetingRecordList)) {
                 if ((int) param.ext == 1) {
-                    adapter.setData(result.data.statementList);
+                    adapter.setData(result.data.meetingRecordList);
                 } else {
-                    adapter.addData(result.data.statementList);
+                    adapter.addData(result.data.meetingRecordList);
                 }
             } else {
                 showToast("没有更多了");
@@ -100,9 +99,9 @@ public class MeetingInfoActivity extends BaseActivity implements OnItemClickList
 
     @Override
     public void onItemClickListener(View view, MeetingInfoItem data, int position) {
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", data.id);
-        qStartActivity(MeetingDetailActivity.class, bundle);
+//        Bundle bundle = new Bundle();
+//        bundle.putInt("id", data.id);
+//        qStartActivity(MeetingDetailActivity.class, bundle);
     }
 
     @Override

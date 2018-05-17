@@ -15,17 +15,26 @@ public class MeetingDetailResult extends BaseResult {
     public MeetingData data;
 
     public static class MeetingData implements Serializable {
-        public int totalNum;
-        public List<MeetingItem> meetingList;
+        public int statementcount;
+        public MeetingDetail meetingdetial;
+        public List<MeetingMember> memberList;
     }
 
-    public static class MeetingItem implements Serializable {
+    public static class MeetingMember implements Serializable {
+        public String username;
+        public String headpic;
+
+    }
+
+    public static class MeetingDetail implements Serializable {
         public String address;
+        public String theme;
+        public String partybranch_id;
+        public int id;
+        public String name;
+        public int department_id;
+        public int type;
         public String startdate;
         public String enddate;
-        public String name;
-        public int id;
-        public String headpic;
-        public String title;
     }
 }

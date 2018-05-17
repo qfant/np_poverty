@@ -152,6 +152,7 @@ public enum ServiceMap implements Enums.IType, Serializable {
     meetingStatementList("Meeting/meetingStatementList", MeetingInfoResult.class),
     submitStatement("Meeting/submitStatement", BaseResult.class),
     applyaccount("Member/applyaccount", BaseResult.class),
+    editPassword("Member/editPassword", BaseResult.class),
 
     ;
 

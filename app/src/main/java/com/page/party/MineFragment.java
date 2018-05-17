@@ -78,6 +78,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                         qStartActivity(UserInfoActivity.class);
                         break;
                     case 1://修改密码
+
                         qStartActivity(ChangePwdActivity.class);
                         break;
                     case 2://使用帮助
