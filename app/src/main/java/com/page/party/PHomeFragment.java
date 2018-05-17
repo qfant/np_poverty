@@ -59,7 +59,7 @@ import com.page.party.model.NewsResult;
 import com.page.party.model.NewsResult.NewsData.NewsItem;
 import com.page.home.view.MRecyclerView;
 import com.page.home.view.ModeView;
-import com.page.partymanger.PartyMangerActivity;
+import com.page.partymanger.MeetingListActivity;
 import com.page.political.PoliticalManagerActivity;
 import com.page.political.SignParam;
 import com.page.political.SignStatusResult;
@@ -324,7 +324,7 @@ public class PHomeFragment extends BaseFragment {
                             qStartActivity(IntegralActivity.class);
                             break;
                         case "党建管理":
-                            qStartActivity(PartyMangerActivity.class);
+                            qStartActivity(MeetingListActivity.class);
                             break;
                         case "信息平台":
                             qStartActivity(InfoPlatformActivity.class);

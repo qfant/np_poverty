@@ -15,6 +15,7 @@ import com.framework.utils.imageload.ImageLoad;
 import com.framework.view.CircleImageView;
 import com.page.uc.AboutUsActivity;
 import com.page.uc.AccountLoginActivity;
+import com.page.uc.ApplyAccountActivity;
 import com.page.uc.ChangePwdActivity;
 import com.page.uc.DocsHelpActivity;
 import com.page.uc.UCUtils;
@@ -74,7 +75,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             public void onItemOnClickListener(int pos) {
                 switch (pos) {
                     case 0://修改头像
-                        qStartActivity(AccountLoginActivity.class);
+                        qStartActivity(UserInfoActivity.class);
                         break;
                     case 1://修改密码
                         qStartActivity(ChangePwdActivity.class);
@@ -97,8 +98,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void setData() {
-        tvName.setText("习大大");
-        tvJob.setText("中华人民共和国主席");
+        tvName.setText(UCUtils.getInstance().getUserInfo().phone);
+//        tvJob.setText("");
+        tvJob.setVisibility(View.GONE);
         ImageLoad.loadPlaceholder(getContext(), "", imageHead);
     }
 

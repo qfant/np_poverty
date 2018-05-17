@@ -22,6 +22,8 @@ import com.page.map.NearbyResult;
 import com.page.map.PointResult;
 import com.page.party.model.NewsDetailResult;
 import com.page.party.model.NewsResult;
+import com.page.partymanger.MeetingDetailResult;
+import com.page.partymanger.MeetingInfoResult;
 import com.page.partymanger.MeetingListResult;
 import com.page.pay.ProductPayResult;
 import com.page.pay.WeChatPayResult;
@@ -146,6 +148,10 @@ public enum ServiceMap implements Enums.IType, Serializable {
     worklogList("Member/worklogList", WorkLogListResult.class),
     submitWorklog("Member/submitWorklog", BaseResult.class),
     meetingList("Meeting/meetingList", MeetingListResult.class),
+    meetingDetail("Meeting/meetingDetail", MeetingDetailResult.class),
+    meetingStatementList("Meeting/meetingStatementList", MeetingInfoResult.class),
+    submitStatement("Meeting/submitStatement", BaseResult.class),
+    applyaccount("Member/applyaccount", BaseResult.class),
 
     ;
 

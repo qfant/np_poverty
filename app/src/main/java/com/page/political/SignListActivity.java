@@ -80,7 +80,7 @@ public class SignListActivity extends BaseActivity implements OnItemClickListene
 
             @Override
             public BaseViewHolder createViewHolder(Context mContext, ViewGroup parent) {
-                return new ViewHolder(mContext, LayoutInflater.from(mContext).inflate(R.layout.pub_activity_eventlist_item_layout, parent, false));
+                return new SignListViewHolder(mContext, LayoutInflater.from(mContext).inflate(R.layout.activity_sign_list_item_layout, parent, false));
             }
         });
         rvList.addItemDecoration(new LineDecoration(this));

@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.framework.activity.BaseActivity;
 import com.framework.net.NetworkParam;
@@ -20,6 +19,7 @@ import com.framework.rvadapter.manage.ITypeView;
 import com.framework.utils.ArrayUtils;
 import com.framework.view.LineDecoration;
 import com.framework.view.pull.SwipRefreshLayout;
+import com.page.partymanger.MeetingInfoResult.MeetingInfoItem;
 import com.page.partymanger.MeetingListResult.MeetingItem;
 import com.qfant.wuye.R;
 
@@ -30,34 +30,35 @@ import butterknife.ButterKnife;
  * Created by chenxi.cui on 2018/5/7.
  */
 
-public class PartyMangerActivity extends BaseActivity implements OnItemClickListener<MeetingItem>, SwipRefreshLayout.OnRefreshListener {
+public class MeetingInfoActivity extends BaseActivity implements OnItemClickListener<MeetingInfoItem>, SwipRefreshLayout.OnRefreshListener {
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     @BindView(R.id.refreshLayout)
     SwipRefreshLayout srlDownRefresh;
-    private MultiAdapter<MeetingItem> adapter;
+    private MultiAdapter<MeetingInfoItem> adapter;
+    private int meetingId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_manager_list_layout);
         ButterKnife.bind(this);
-        setTitleBar("党员管理", true);
+        meetingId = myBundle.getInt("meetingID");
+        setTitleBar("会议内容", true);
         setListView();
         startRequest(1);
-
     }
 
     private void setListView() {
-        adapter = new MultiAdapter<MeetingItem>(getContext()).addTypeView(new ITypeView<MeetingItem>() {
+        adapter = new MultiAdapter<MeetingInfoItem>(getContext()).addTypeView(new ITypeView<MeetingInfoItem>() {
             @Override
-            public boolean isForViewType(MeetingItem item, int position) {
+            public boolean isForViewType(MeetingInfoItem item, int position) {
                 return true;
             }
 
             @Override
             public BaseViewHolder createViewHolder(Context mContext, ViewGroup parent) {
-                return new ViewHolder(mContext, LayoutInflater.from(mContext).inflate(R.layout.activity_meeting_item_layout, parent, false));
+                return new MeetingInfoViewHolder(mContext, LayoutInflater.from(mContext).inflate(R.layout.activity_meeting_item_layout, parent, false));
             }
         });
         rvList.addItemDecoration(new LineDecoration(this));
@@ -69,25 +70,25 @@ public class PartyMangerActivity extends BaseActivity implements OnItemClickList
 
 
     private void startRequest(int page) {
-        PartyManagerParam param = new PartyManagerParam();
-        param.pageNo = page;
+        MeetingInfoParam param = new MeetingInfoParam();
+        param.meetingid = meetingId;
         if (page == 1) {
-            Request.startRequest(param, page, ServiceMap.meetingList, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
+            Request.startRequest(param, page, ServiceMap.meetingStatementList, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
         } else {
-            Request.startRequest(param, page, ServiceMap.meetingList, mHandler);
+            Request.startRequest(param, page, ServiceMap.meetingStatementList, mHandler);
         }
     }
 
 
     @Override
     public boolean onMsgSearchComplete(NetworkParam param) {
-        if (param.key == ServiceMap.meetingList) {
-            MeetingListResult result = (MeetingListResult) param.result;
-            if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.meetingList)) {
+        if (param.key == ServiceMap.meetingStatementList) {
+            MeetingInfoResult result = (MeetingInfoResult) param.result;
+            if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.statementList)) {
                 if ((int) param.ext == 1) {
-                    adapter.setData(result.data.meetingList);
+                    adapter.setData(result.data.statementList);
                 } else {
-                    adapter.addData(result.data.meetingList);
+                    adapter.addData(result.data.statementList);
                 }
             } else {
                 showToast("没有更多了");
@@ -98,8 +99,10 @@ public class PartyMangerActivity extends BaseActivity implements OnItemClickList
     }
 
     @Override
-    public void onItemClickListener(View view, MeetingItem data, int position) {
-//        PNewsInfoActivity.startActivity(this, data.title, data.content, data.id);
+    public void onItemClickListener(View view, MeetingInfoItem data, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", data.id);
+        qStartActivity(MeetingDetailActivity.class, bundle);
     }
 
     @Override

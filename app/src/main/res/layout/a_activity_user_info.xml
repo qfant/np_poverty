@@ -29,11 +29,12 @@
                 android:textSize="14dp" />
 
             <com.framework.view.CircleImageView
+
                 android:id="@+id/image_head"
-                android:layout_width="66dp"
-                android:layout_height="66dp"
+                android:layout_width="76dp"
+                android:layout_height="76dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="60dp"
                 app:civ_border_color="#fff"
                 app:civ_border_overlay="true"
                 app:civ_border_width="2dp"
@@ -41,11 +42,11 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/image_head"
+                android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
-                android:layout_below="@+id/image_head"
                 android:orientation="vertical">
 
                 <TextView

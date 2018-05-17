@@ -19,11 +19,9 @@ public class SignListResult extends BaseResult {
     }
 
     public static class SignListItem implements Serializable {
-        public int signin;
-        public int signout;
-        public double latitude;
-        public double longitude;
-        public String companyname;
-        public int id;
+        public String signdate;
+        public String day;
+        public String partybranchname;
+        public int type;
     }
 }

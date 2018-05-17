@@ -39,9 +39,11 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:visibility="gone"
         android:background="@color/pub_color_gray_line" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_nickname"
         android:layout_width="match_parent"
         android:layout_height="55dp"

@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by shucheng.qu on 2017/8/9.
  */
 
-public class ViewHolder extends BaseViewHolder<MeetingItem> {
+public class MeetingListViewHolder extends BaseViewHolder<MeetingItem> {
 
 
     @BindView(R.id.image_pic)
@@ -29,7 +29,7 @@ public class ViewHolder extends BaseViewHolder<MeetingItem> {
     @BindView(R.id.text_3)
     TextView text3;
 
-    public ViewHolder(Context context, View itemView) {
+    public MeetingListViewHolder(Context context, View itemView) {
         super(context, itemView);
 //        R.layout.activity_meeting_item_layout;
         ButterKnife.bind(this, itemView);

@@ -42,7 +42,6 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_margin="4dp"
         android:background="@color/pub_color_gray_line"></View>
 
     <com.framework.view.pull.SwipRefreshLayout
