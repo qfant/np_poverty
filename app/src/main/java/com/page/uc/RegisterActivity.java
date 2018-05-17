@@ -141,7 +141,7 @@ public class RegisterActivity extends BaseActivity {
         } else if (param.key == ServiceMap.quickRegister) {
             RegiserResult regiserResult = (RegiserResult) param.result;
             if (regiserResult.bstatus.code == 0) {
-                qBackToActivity(LoginActivity.class, null);
+                qBackToActivity(AccountLoginActivity.class, null);
                 showToast(regiserResult.bstatus.des);
             }
         }

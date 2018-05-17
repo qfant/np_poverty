@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,6 @@ import com.page.party.model.NewsResult.NewsData.NewsItem;
 import com.qfant.wuye.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,11 +49,12 @@ public class PNewListActivity extends BaseActivity implements OnItemClickListene
     @BindView(R.id.text_search)
     TextView textSearch;
     private MultiAdapter adapter;
+    private int ftype;
 
-    public static void startActivity(BaseActivity activity, String title, String url) {
+    public static void startActivity(BaseActivity activity, String title, int type) {
         Bundle bundle = new Bundle();
         bundle.putString("title", title);
-        bundle.putString("url", url);
+        bundle.putInt("type", type);
         Intent intent = new Intent(activity, PNewListActivity.class);
         intent.putExtras(bundle);
         activity.qStartActivity(intent);
@@ -65,10 +66,10 @@ public class PNewListActivity extends BaseActivity implements OnItemClickListene
         setContentView(R.layout.a_activity_new_list_layout);
         ButterKnife.bind(this);
         String title = myBundle.getString("title");
-        String url = myBundle.getString("url");
+        ftype = myBundle.getInt("type", 1);
         setTitleBar(title, true);
         setListView();
-//            startRequest(1);
+        startRequest(1, "");
     }
 
     private void setListView() {
@@ -89,26 +90,30 @@ public class PNewListActivity extends BaseActivity implements OnItemClickListene
         rvList.setAdapter(adapter);
         adapter.setOnItemClickListener(this);
         refreshLayout.setOnRefreshListener(this);
-        List<NewsItem> mock = NewsResult.NewsData.mock();
-        adapter.setData(mock);
     }
 
-    private void startRequest(int pager) {
+    private void startRequest(int pager, String keyword) {
 //            if (serviceMap == null) return;
         ServeParam param = new ServeParam();
         param.pageNo = pager;
-        Request.startRequest(param, pager, ServiceMap.checkVersion, mHandler);
+        param.type = ftype;
+        param.keyword = keyword;
+        if (ftype == 3) {
+            Request.startRequest(param, pager, ServiceMap.worknewsList, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
+        }else {
+            Request.startRequest(param, pager, ServiceMap.newsList, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
+        }
     }
 
     @Override
     public boolean onMsgSearchComplete(NetworkParam param) {
-        if (param.key == ServiceMap.alipayPayProduct) {
-            ServeResult serveResult = (ServeResult) param.result;
-            if (serveResult != null && serveResult.data != null && !ArrayUtils.isEmpty(serveResult.data.waterList)) {
+        if (param.key == ServiceMap.newsList||param.key == ServiceMap.worknewsList) {
+            NewsResult serveResult = (NewsResult) param.result;
+            if (serveResult != null && serveResult.data != null && !ArrayUtils.isEmpty(serveResult.data.newsList)) {
                 if ((int) param.ext == 1) {
-                    adapter.setData(serveResult.data.waterList);
+                    adapter.setData(serveResult.data.newsList);
                 } else {
-                    adapter.addData(serveResult.data.waterList);
+                    adapter.addData(serveResult.data.newsList);
                 }
             } else {
                 if ((int) param.ext == 1) {
@@ -130,21 +135,25 @@ public class PNewListActivity extends BaseActivity implements OnItemClickListene
 
     @Override
     public void onItemClickListener(View view, NewsItem data, int position) {
-        PNewsInfoActivity.startActivity(this, data.title, data.content);
+        PNewsInfoActivity.startActivity(this, data.title, data.intro, data.id);
     }
 
     @Override
     public void onRefresh(int index) {
-        startRequest(1);
+        startRequest(1, "");
     }
 
     @Override
     public void onLoad(int index) {
-        startRequest(++index);
+        startRequest(++index, "");
     }
 
     @OnClick(R.id.text_search)
     public void onViewClicked() {
-
+        String s = inputSearch.getText().toString();
+        if (TextUtils.isEmpty(s)) {
+            return;
+        }
+        startRequest(1, s);
     }
 }

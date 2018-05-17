@@ -7,7 +7,9 @@ import com.framework.domain.param.BaseParam;
  */
 
 public class ServeParam extends BaseParam {
+    public int type = 1;
     public int pageNo = 1;//第几页
     public int pageSize = 20;//分页大小
 
+    public String keyword;
 }

@@ -40,8 +40,12 @@ public class ViewHolder extends BaseViewHolder<NewsItem> {
         this.data = data;
         if (data != null) {
             title.setText(data.title);
-            tvTime.setText( data.time);
-            tvRead.setText("已阅：" + data.readCount);
+            tvTime.setText(data.createtime);
+            if (data.readCount == 0) {
+                tvRead.setText("");
+            }else {
+                tvRead.setText("已阅：" + data.readCount);
+            }
             ImageLoad.loadPlaceholder(mContext, data.pic, ivImage,R.drawable.moren,R.drawable.moren);
         }
     }

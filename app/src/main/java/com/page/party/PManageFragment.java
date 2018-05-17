@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.framework.activity.BaseFragment;
 import com.framework.domain.param.BaseParam;
@@ -27,14 +26,11 @@ import com.framework.view.LineDecoration;
 import com.framework.view.circlerefresh.CircleRefreshLayout;
 import com.framework.view.sivin.Banner;
 import com.framework.view.sivin.BannerAdapter;
-import com.page.home.activity.TextViewActivity;
 import com.page.home.activity.WebActivity;
 import com.page.home.model.HomeModel;
 import com.page.home.model.LinksParam;
 import com.page.home.model.LinksResult;
 import com.page.home.model.LinksResult.Data.Links;
-import com.page.home.model.NoticeResult;
-import com.page.home.model.NoticeResult.Data.Datas;
 import com.page.home.view.MRecyclerView;
 import com.page.home.view.ModeView;
 import com.page.party.model.NewsResult;
@@ -139,7 +135,7 @@ public class PManageFragment extends BaseFragment {
         adapter711.setOnItemClickListener(new OnItemClickListener<NewsItem>() {
             @Override
             public void onItemClickListener(View view, NewsItem data, int position) {
-                PNewsInfoActivity.startActivity(getContext(), data.title, data.content);
+                PNewsInfoActivity.startActivity(getContext(), data.title, data.intro);
             }
         });
         adapter711.setData(NewsResult.NewsData.mock());
@@ -172,7 +168,7 @@ public class PManageFragment extends BaseFragment {
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
 //                    switch ((String) v.getTag()) {
-                    PNewListActivity.startActivity(getContext(), homeModel.title, "");
+                    PNewListActivity.startActivity(getContext(), homeModel.title, 1);
 //                    }
                 }
             });

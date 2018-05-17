@@ -8,7 +8,7 @@ import com.framework.domain.response.BaseResult;
  * 08-21 23:06:47.386 2937-3061/com.haolb.client V/response: 		"isSupport":0,
  * 08-21 23:06:47.386 2937-3061/com.haolb.client V/response: 		"token":"1a880b0b5302480f93355c415a4850b0",
  * 08-21 23:06:47.386 2937-3061/com.haolb.client V/response: 		"nickname":"DyCtmF",
- * 08-21 23:06:47.386 2937-3061/com.haolb.client V/response: 		"userId":207,
+ * 08-21 23:06:47.386 2937-3061/com.haolb.client V/response: 		"id":207,
  * 08-21 23:06:47.386 2937-3061/com.haolb.client V/response: 		"cityid":1,
  * 08-21 23:06:47.386 2937-3061/com.haolb.client V/response: 		"phone":"15811508404",
  * 08-21 23:06:47.386 2937-3061/com.haolb.client V/response: 		"expireTime":"1508513744131",
@@ -24,10 +24,12 @@ public class LoginResult extends BaseResult {
     public static class LoginData implements BaseData {
         public String token;
         public String portrait;
-        public String userId;
+        public String id;
         public String phone;
         public String roomId;
         public String info;
         public String nickname;
+        public String departmentid;
+        public String type;
     }
 }

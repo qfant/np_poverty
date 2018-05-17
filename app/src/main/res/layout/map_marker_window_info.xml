@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ll_bottom"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/hotel_map_marker_hotel_bg"
-    android:orientation="vertical">
+    android:background="#eeffffff"
+    android:orientation="vertical"
+    android:visibility="gone"
+    tools:visibility="visible">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/tv_title"
@@ -17,41 +22,40 @@
             android:layout_weight="1"
             android:text="李庄"
             android:textColor="#333"
-            android:textSize="28dp" />
+            android:textSize="14dp" />
 
         <com.framework.view.IFView
             android:id="@+id/tv_close"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="10dp"
             android:text="X"
             android:textColor="#666"
-            android:textSize="30dp" />
+            android:textSize="15dp" />
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:background="#999" />
+        android:layout_height="1dp"
+        android:background="#999"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tv_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="500dp"
         android:ellipsize="end"
         android:padding="10dp"
         android:text="主管单位:您嘎嘎嘎嘎嘎"
         android:textColor="#333"
-        android:textSize="28dp" />
+        android:textSize="14dp" />
 
     <TextView
         android:id="@+id/tv_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxWidth="500dp"
         android:padding="10dp"
         android:text="党员阵地"
         android:textColor="#3E97FA"
-        android:textSize="28dp" />
+        android:textSize="14dp" />
 </LinearLayout>

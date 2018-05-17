@@ -180,7 +180,7 @@ public final class Tuski {
     }
 
     /**
-     * Clears (and removes from {@link Activity}'s content view, if necessary) all tuskies for the provided activity
+     * Clears (and removes from {@link Activity}'s intro view, if necessary) all tuskies for the provided activity
      *
      * @param activity - The {@link Activity} to clear the tuskies for.
      */
@@ -287,7 +287,7 @@ public final class Tuski {
 
         this.tuskiView = initializeTuskiViewGroup(resources);
 
-        // create content view
+        // create intro view
         RelativeLayout contentView = initializeContentView(resources);
         this.tuskiView.addView(contentView);
     }

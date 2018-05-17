@@ -36,7 +36,7 @@ public class TextViewActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         if (myBundle == null) finish();
-        content = myBundle.getString("content");
+        content = myBundle.getString("intro");
         setTitleBar("通知详情", true);
         serviceMap = (ServiceMap) myBundle.getSerializable(SERVICEMAP);
         if (TextUtils.isEmpty(content)) {
@@ -60,6 +60,6 @@ public class TextViewActivity extends BaseActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        myBundle.putString("content", content);
+        myBundle.putString("intro", content);
     }
 }

@@ -249,7 +249,7 @@ final class TuskiHandler extends Handler {
             while (iterator.hasNext()) {
                 final Tuski c = iterator.next();
                 if (c.equals(tuski) && c.getActivity() != null) {
-                    // remove the Tuski from the content view
+                    // remove the Tuski from the intro view
                     if (tuski.isShowing()) {
                         ((ViewGroup) c.getView().getParent()).removeView(c.getView());
                     }
@@ -284,7 +284,7 @@ final class TuskiHandler extends Handler {
     }
 
     /**
-     * Removes all {@link Tuski}s for the provided activity. This will remove tuski from {@link Activity}s content view
+     * Removes all {@link Tuski}s for the provided activity. This will remove tuski from {@link Activity}s intro view
      * immediately.
      */
     void clearTuskisForActivity(Activity activity) {
@@ -293,7 +293,7 @@ final class TuskiHandler extends Handler {
             while (iterator.hasNext()) {
                 Tuski tuski = iterator.next();
                 if (tuski.getActivity() != null && tuski.getActivity().equals(activity)) {
-                    // remove the tuski from the content view
+                    // remove the tuski from the intro view
                     if (tuski.isShowing()) {
                         ((ViewGroup) tuski.getView().getParent()).removeView(tuski.getView());
                     }

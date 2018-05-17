@@ -319,7 +319,7 @@ public class HomeFragment extends BaseFragment {
                         @Override
                         public void onClick(View v) {
                             Bundle bundle = new Bundle();
-                            bundle.putString("content", item.content);
+                            bundle.putString("intro", item.content);
                             qStartActivity(TextViewActivity.class, bundle);
                         }
                     });

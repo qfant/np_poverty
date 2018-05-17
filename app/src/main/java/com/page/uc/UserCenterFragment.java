@@ -105,7 +105,7 @@ public class UserCenterFragment extends BaseFragment {
                 if (UCUtils.getInstance().isLogin()) {
                     qStartActivity(UserInfoActivity.class);
                 } else {
-                    qStartActivity(LoginActivity.class);
+                    qStartActivity(AccountLoginActivity.class);
                 }
                 break;
             case R.id.image_setting:

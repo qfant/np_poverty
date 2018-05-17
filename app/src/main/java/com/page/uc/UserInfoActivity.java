@@ -116,7 +116,7 @@ public class UserInfoActivity extends BaseActivity {
                 UCUtils.getInstance().saveUserInfo(null);
                 ShopCarUtils.getInstance().clearData();//清空购物车
                 Intent intent = new Intent();
-                intent.setClass(getContext(), LoginActivity.class);
+                intent.setClass(getContext(), AccountLoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
                 qStartActivity(intent);
                 finish();

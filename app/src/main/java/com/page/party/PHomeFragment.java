@@ -1,24 +1,32 @@
 package com.page.party;
 
 import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.MapView;
-import com.baidu.mapapi.map.Marker;
+import com.baidu.mapapi.map.BitmapDescriptor;
+import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.map.MarkerOptions;
+import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.TextureMapView;
+import com.baidu.mapapi.model.LatLng;
 import com.framework.activity.BaseFragment;
 import com.framework.domain.param.BaseParam;
 import com.framework.net.NetworkParam;
@@ -46,12 +54,15 @@ import com.page.home.model.NoticeResult;
 import com.page.home.model.NoticeResult.Data.Datas;
 import com.page.information.InfoPlatformActivity;
 import com.page.integral.IntegralActivity;
+import com.page.map.PointResult;
 import com.page.party.model.NewsResult;
 import com.page.party.model.NewsResult.NewsData.NewsItem;
 import com.page.home.view.MRecyclerView;
 import com.page.home.view.ModeView;
 import com.page.partymanger.PartyMangerActivity;
 import com.page.political.PoliticalManagerActivity;
+import com.page.political.SignParam;
+import com.page.political.SignStatusResult;
 import com.page.store.home.model.FoodRecResult;
 import com.qfant.wuye.R;
 
@@ -90,6 +101,9 @@ public class PHomeFragment extends BaseFragment {
     private Unbinder unbinder;
     private MultiAdapter adapter711;
     private BaiduMap mBaiduMap;
+    LatLng centerPoint = new LatLng(33.865347, 115.776416);
+    private boolean isFirstLocation = true;
+    private LocationClient mLocationClient;
 
     @Nullable
     @Override
@@ -123,6 +137,7 @@ public class PHomeFragment extends BaseFragment {
                 ((MainActivity) getActivity()).setCurrentTab(1);
             }
         });
+        initMap();
     }
 
     private void setRefresh() {
@@ -153,6 +168,7 @@ public class PHomeFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         mMapView.onResume();
+        mLocationClient.start();
 //        getNotices();
 //        getLinks();
     }
@@ -161,6 +177,7 @@ public class PHomeFragment extends BaseFragment {
     public void onPause() {
         super.onPause();
         mMapView.onPause();
+        mLocationClient.stop();
     }
 
     private void set711() {
@@ -181,17 +198,77 @@ public class PHomeFragment extends BaseFragment {
         adapter711.setOnItemClickListener(new OnItemClickListener<NewsItem>() {
             @Override
             public void onItemClickListener(View view, NewsItem data, int position) {
-                PNewsInfoActivity.startActivity(getContext(), data.title, data.content);
+                PNewsInfoActivity.startActivity(getContext(), data.title, data.intro);
             }
         });
         adapter711.setData(NewsResult.NewsData.mock());
+    }
+
+    private void initMap() {
+        mBaiduMap = mMapView.getMap();
+        mBaiduMap.setMyLocationEnabled(true);
+        initLocation();
+    }
+
+    private void initLocation() {
+        //定位客户端的设置
+        mLocationClient = new LocationClient(getActivity());
+        MyLocationListener mLocationListener = new MyLocationListener();
+        //注册监听
+        mLocationClient.registerLocationListener(mLocationListener);
+        //配置定位
+        LocationClientOption option = new LocationClientOption();
+        option.setCoorType("bd09ll");//坐标类型
+        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
+        option.setOpenGps(true);//打开Gps
+        option.setScanSpan(60 * 1000);//1000毫秒定位一次
+        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+        mLocationClient.setLocOption(option);
+        mLocationClient.start();
+    }
+
+    //自定义的定位监听
+    private class MyLocationListener implements BDLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            //将获取的location信息给百度map
+            MyLocationData data = new MyLocationData.Builder()
+                    .accuracy(location.getRadius())
+                    .direction(100)
+                    .latitude(location.getLatitude())
+                    .longitude(location.getLongitude())
+                    .build();
+            mBaiduMap.setMyLocationData(data);
+            centerPoint = new LatLng(location.getLatitude(), location.getLongitude());
+            requestSignStatus(false);
+            MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(centerPoint);
+            mBaiduMap.setMapStatus(status);//直接到中间
+            if (isFirstLocation) {
+                mBaiduMap.animateMapStatus(status);//动画的方式到中间
+                isFirstLocation = false;
+            }
+        }
+    }
+
+    private void requestSignStatus(boolean isBlock) {
+        if (isBlock) {
+            Request.startRequest(new SignParam(centerPoint.latitude, centerPoint.longitude), ServiceMap.signstatus, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
+        } else {
+            Request.startRequest(new SignParam(centerPoint.latitude, centerPoint.longitude), ServiceMap.signstatus, mHandler, Request.RequestFeature.CANCELABLE);
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
-        mMapView.onDestroy();
+        if (mMapView != null) {
+            mMapView.onDestroy();
+        }
+        if (mLocationClient != null) {
+            mLocationClient.stop();
+            mLocationClient = null;
+        }
     }
 
     @Override
@@ -235,9 +312,13 @@ public class PHomeFragment extends BaseFragment {
                     Bundle bundle = new Bundle();
                     switch ((String) v.getTag()) {
                         case "政策宣传":
+                            PNewListActivity.startActivity(getContext(), homeModel.title, 1);
+                            break;
                         case "党建业务":
+                            PNewListActivity.startActivity(getContext(), homeModel.title, 2);
+                            break;
                         case "工作动态":
-                            PNewListActivity.startActivity(getContext(), homeModel.title, "");
+                            PNewListActivity.startActivity(getContext(), homeModel.title, 3);
                             break;
                         case "积分管理":
                             qStartActivity(IntegralActivity.class);
@@ -306,12 +387,16 @@ public class PHomeFragment extends BaseFragment {
 
     @Override
     public boolean onMsgSearchComplete(NetworkParam param) {
-        if (param.key == ServiceMap.getLinks) {
+        if (ServiceMap.signstatus == param.key) {
+            SignStatusResult result = (SignStatusResult) param.result;
+            if (param.result.bstatus.code == 0) {
+                updateSignStatus(result.data);
+            }
+        } else if (param.key == ServiceMap.getLinks) {
             LinksResult linksResult = (LinksResult) param.result;
             if (linksResult != null && linksResult.data != null && linksResult.data.links != null) {
                 updataBanner(linksResult.data.links);
             }
-
         } else if (param.key == ServiceMap.getNoticeList) {
             NoticeResult result = (NoticeResult) param.result;
             if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.datas)) {
@@ -324,6 +409,43 @@ public class PHomeFragment extends BaseFragment {
         return false;
     }
 
+    private void updateSignStatus(SignStatusResult.SignStatus signstatus) {
+        List<PointResult.PointItem> pointItems = new ArrayList<>();
+        PointResult.PointItem pointItem = new PointResult.PointItem();
+        pointItems.add(pointItem);
+        pointItem.lat = signstatus.latitude;
+        pointItem.lon = signstatus.longitude;
+        pointItem.name = signstatus.companyname;
+        addOvers(pointItems);
+    }
+    private void addOvers(List<PointResult.PointItem> pointItems) {
+        if (pointItems == null) {
+            return;
+        }
+        mBaiduMap.clear();
+        for (PointResult.PointItem item : pointItems) {
+            //定义Maker坐标点
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("item", item);
+            LatLng point = new LatLng(item.lat, item.lon);
+            View inflate = LayoutInflater.from(getContext()).inflate(R.layout.map_text_option, null);
+            TextView text = (TextView) inflate.findViewById(R.id.text);
+            text.setText("我在 " + item.name + " 附近");
+            text.setVisibility(View.VISIBLE);
+            BitmapDescriptor bitmap = BitmapDescriptorFactory
+                    .fromView(inflate);
+            OverlayOptions option = new MarkerOptions()
+                    .position(point)
+                    .extraInfo(bundle)
+                    .zIndex(15)
+                    .icon(bitmap);
+            mBaiduMap.addOverlay(option);
+//            MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(point);
+//            mBaiduMap.setMapStatus(msu);
+        }
+
+    }
+
     private void setFlipper(List<Datas> datas) {
         flipper.removeAllViews();
         for (final Datas item : datas) {
@@ -334,7 +456,7 @@ public class PHomeFragment extends BaseFragment {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("content", item.content);
+                    bundle.putString("intro", item.content);
                     qStartActivity(TextViewActivity.class, bundle);
                 }
             });

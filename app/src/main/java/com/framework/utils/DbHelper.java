@@ -35,7 +35,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String initSql1 = "create table " + FRIEND_TABLE_NAME
 			+ "(_id integer primary key ,"//
 			+ "account text,"//
-			+ "userId integer,"//
+			+ "id integer,"//
 			+ "nickname text,"//
 			+ "portrait text,"//
 			+ "sex integer,"//
@@ -47,17 +47,17 @@ public class DbHelper extends SQLiteOpenHelper {
 			+ "(_id integer primary key ,"//
 			+ "lastTime text,"//
 			+ "lastMessage text,"//
-			+ "userId integer," +
+			+ "id integer," +
 			"myId integer);";
 
 	private static final String initSql3 = "create table " + MESSAGE_TABLE_NAME
 			+ "(_id integer primary key ,"//
-			+ "content text,"//
+			+ "intro text,"//
 			+ "time long,"//
 			+ "category integer,"//
 			+ "type integer,"//
 			+ "status integer,"//
-			+ "userId integer," //
+			+ "id integer," //
 			+ "uuid text," //
 			+ "filePath text," //
 			+ "fileName text," //

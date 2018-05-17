@@ -17,7 +17,6 @@ import com.page.uc.AboutUsActivity;
 import com.page.uc.AccountLoginActivity;
 import com.page.uc.ChangePwdActivity;
 import com.page.uc.DocsHelpActivity;
-import com.page.uc.LoginActivity;
 import com.page.uc.UCUtils;
 import com.page.uc.UserInfoActivity;
 import com.qfant.wuye.R;
@@ -109,7 +108,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             if (UCUtils.getInstance().isLogin()) {
                 qStartActivity(UserInfoActivity.class);
             } else {
-                qStartActivity(LoginActivity.class);
+                qStartActivity(AccountLoginActivity.class);
             }
         } else if (imageHead.equals(v) || v.equals(tvSetting)) {
             qStartActivity(UserInfoActivity.class);

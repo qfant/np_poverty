@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#bbffffff"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/text_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/pub_color_yellow"
+            android:textSize="22dp"
+            android:textStyle="bold"
+            tools:text="15:50:02" />
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:textColor="@color/pub_color_black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            tools:text="2018.04.04 星期二" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ll_bottom"
+        android:background="#bbffffff"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textColor="@color/pub_color_yellow"
+        android:textSize="20dp"
+        tools:text="附近没有企业"></TextView>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#bbffffff"
+        android:orientation="horizontal"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp">
+
+        <LinearLayout
+            android:id="@+id/ll_1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/text_1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/pub_guide_selector"
+                android:enabled="true"
+                android:gravity="center"
+                android:text="签到"
+                android:textColor="#fff"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/text_2"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/pub_guide_selector"
+                android:enabled="true"
+                android:gravity="center"
+                android:text="签退"
+                android:textColor="#fff"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/text_3"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/pub_guide_selector"
+                android:enabled="true"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="考勤记录"
+                android:textColor="#fff"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/text_4"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/pub_guide_selector"
+                android:enabled="true"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="工作日志"
+                android:textColor="#fff"
+                android:textSize="16dp" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

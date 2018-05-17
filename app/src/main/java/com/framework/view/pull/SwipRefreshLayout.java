@@ -30,7 +30,7 @@ import com.qfant.wuye.R;
  * whenever the swipe to refresh gesture is completed. The SwipeRefreshLayout
  * will notify the listener each and every time the gesture is completed again;
  * the listener is responsible for correctly determining when to actually
- * initiate a refresh of its content. If the listener determines there should
+ * initiate a refresh of its intro. If the listener determines there should
  * not be a refresh, it must call setRefreshing(false) to cancel any visual
  * indication of a refresh. If an activity wishes to show just the progress
  * animation, it should call setRefreshing(true). To disable the gesture and
@@ -41,7 +41,7 @@ import com.qfant.wuye.R;
  * also be made the target of the gesture and will be forced to match both the
  * width and the height supplied in this layout. The SwipeRefreshLayout does not
  * provide accessibility events; instead, a menu item must be provided to allow
- * refresh of the content wherever this gesture is used.
+ * refresh of the intro wherever this gesture is used.
  * </p>
  */
 
@@ -209,7 +209,7 @@ public class SwipRefreshLayout extends ViewGroup {
 
     /**
      * The refresh indicator starting and resting position is always positioned
-     * near the top of the refreshing content. This position is a consistent
+     * near the top of the refreshing intro. This position is a consistent
      * location, but can be adjusted in either direction based on whether or not
      * there is a toolbar or actionbar present.
      *
@@ -233,7 +233,7 @@ public class SwipRefreshLayout extends ViewGroup {
 
     /**
      * The refresh indicator resting position is always positioned near the top
-     * of the refreshing content. This position is a consistent location, but
+     * of the refreshing intro. This position is a consistent location, but
      * can be adjusted in either direction based on whether or not there is a
      * toolbar or actionbar present.
      *

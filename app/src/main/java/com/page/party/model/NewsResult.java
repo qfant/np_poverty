@@ -18,6 +18,11 @@ public class NewsResult extends BaseResult {
     public static class NewsData implements Serializable {
         public int totalNum;
         public List<NewsItem> newsList;
+        public List<NewsItem> workNewsList;
+
+        public void setWorkNewsList(List<NewsItem> workNewsList) {
+            this.newsList = workNewsList;
+        }
 
         public static List<NewsItem> mock(){
             List<NewsItem> newsList = new ArrayList<>();
@@ -34,11 +39,12 @@ public class NewsResult extends BaseResult {
 
         public static class NewsItem implements Serializable {
             public String id;
-            public String title ="全面深化农村改革加壳推进农业现代化";
-            public String time ="2018.04.02";
-            public int readCount = 100;
+            public String title ="";
+            public String createtime ="";
+            public int readCount = 0;
             public String pic = "";
-            public String content = "";
+            public String intro = "";
+            public String type = "";
         }
     }
 }

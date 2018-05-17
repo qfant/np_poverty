@@ -19,6 +19,9 @@ import com.page.party.PHomeFragment;
 import com.page.party.PManageFragment;
 import com.page.party.QpListFragment;
 import com.page.store.orderdetails.activity.OrderDetailsActivity;
+import com.page.uc.AccountLoginActivity;
+import com.page.uc.UCUtils;
+import com.page.uc.UserInfoActivity;
 import com.qfant.wuye.R;
 import com.page.uc.UserCenterFragment;
 
@@ -53,6 +56,7 @@ public class MainActivity extends MainTabActivity {
         onPostCreate();
     }
 
+
     @Override
     public void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -71,6 +75,9 @@ public class MainActivity extends MainTabActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if (!UCUtils.getInstance().isLogin()) {
+//            qStartActivity(AccountLoginActivity.class);
+        }
         sendBroadcast(new Intent(REFRESH_TAB_ACTION));
     }
 

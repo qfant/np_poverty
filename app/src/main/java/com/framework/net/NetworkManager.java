@@ -14,13 +14,12 @@ import com.alibaba.fastjson.JSON;
 import com.framework.app.AppConstants;
 import com.framework.app.MainApplication;
 import com.framework.app.NetConnChangeReceiver;
-import com.haolb.client.utils.SecureUtil;
-import com.igexin.sdk.PushManager;
-import com.page.uc.UCUtils;
 import com.framework.domain.param.CommonParam;
 import com.framework.domain.response.BaseResult;
 import com.framework.utils.EqualUtils;
 import com.framework.utils.QLog;
+import com.haolb.client.utils.SecureUtil;
+import com.page.uc.UCUtils;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -183,18 +182,18 @@ public class NetworkManager implements TaskListener {
             String token = UCUtils.getInstance().getToken();
             networkTask.param.param.cparam.token = TextUtils.isEmpty(token) ? "" : token;
             networkTask.param.param.cparam.platform = "1";
-            networkTask.param.param.cparam.roomId = UCUtils.getInstance().getUserInfo().roomId;
-//            networkTask.param.param.cparam.cid = PushManager.getInstance().getClientid(MainApplication.applicationContext);
+//            networkTask.param.param.cparam.type = UCUtils.getInstance().getUserInfo().type;
             String bjson = JSON.toJSONString(networkTask.param.param);
             String b = SecureUtil.encode(bjson, networkTask.param.ke);
-            networkTask.param.url = "b=" + b + "&key=" + networkTask.param.ke + "&ver=1";
+            networkTask.param.url = "b=" + b + "&key=" + networkTask.param.ke + "&ver=1" ;
             if (networkTask.cancel) {
                 return null;
             }
 
             if (AppConstants.DEBUG) {
                 synchronized (QLog.class) {
-                    QLog.v("request", "API=" + networkTask.param.key.name());
+                    QLog.v("request", hostUrl );
+                    QLog.v("request", "API=" + networkTask.param.key.getDesc());
                     QLog.v("request", networkTask.param.url);
                     QLog.v("request", "b=" + JSON.toJSONString(networkTask.param.param, true));
                 }
@@ -204,14 +203,14 @@ public class NetworkManager implements TaskListener {
             try {
                 HttpPost request;
 
-                if (networkTask.param.key.getCode() == ServiceMap.NET_TASKTYPE_CONTROL) {
+                if(networkTask.param.key.getCode() == ServiceMap.NET_TASKTYPE_CONTROL) {
                     request = new HttpPost(hostUrl);
                     request.addHeader("Content-Type", "application/x-www-form-urlencoded");
                     // request.addHeader("User-Agent",
                     // "Mozilla/5.0 (Linux; U; Android 2.2) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1");
                     request.setEntity(new StringEntity(networkTask.param.url));
-                } else if (networkTask.param.key.getCode() == ServiceMap.NET_TASKTYPE_FILE) {
-                    if (TextUtils.isEmpty(networkTask.param.filePath)) {
+                } else if(networkTask.param.key.getCode() == ServiceMap.NET_TASKTYPE_FILE) {
+                    if(TextUtils.isEmpty(networkTask.param.filePath)) {
                         request = new HttpPost(hostUrl);
                         request.addHeader("Content-Type", "application/x-www-form-urlencoded");
                         // request.addHeader("User-Agent",
@@ -219,7 +218,7 @@ public class NetworkManager implements TaskListener {
                         request.setEntity(new StringEntity(networkTask.param.url));
                     } else {
                         String url = hostUrl;
-                        if (url.lastIndexOf("?") != -1) {
+                        if(url.lastIndexOf("?") != -1) {
                             url += "&";
                         } else {
                             url += "?";
@@ -252,7 +251,7 @@ public class NetworkManager implements TaskListener {
                 if (httpClient != null) {
                     httpClient.getConnectionManager().shutdown();
                 }
-                if (fis != null) {
+                if(fis != null) {
                     try {
                         fis.close();
                     } catch (IOException e) {
@@ -274,7 +273,7 @@ public class NetworkManager implements TaskListener {
 ////            			FriendListResult friendListResult = (FriendListResult) baseResult;
 //            			String uidStr = UCUtils.getInstance().getUserid();
 //            			int myId = Integer.parseInt(uidStr);
-////            			friendListResult.datas.friendList = FriendManager.sync(friendListResult.datas.friendList,myId);
+////            			friendListResult.data.friendList = FriendManager.sync(friendListResult.data.friendList,myId);
 //            		}
 //            	}
                 return baseResult;
@@ -288,7 +287,6 @@ public class NetworkManager implements TaskListener {
             Message m = null;
             if (!networkTask.cancel) {
                 networkTask.param.result = result;
-
                 if (networkTask.handler != null) {
                     if (networkTask.param.result != null) {
                         m = networkTask.handler.obtainMessage(TaskStatus.SUCCESS, networkTask.param);
@@ -327,7 +325,7 @@ public class NetworkManager implements TaskListener {
      * 不设置上限
      */
     private final int maxCount = Integer.MAX_VALUE;
-    public static final Uri PREFERRED_APN_URI = Uri.parse("content://telephony/carriers/preferapn");
+    public static final Uri PREFERRED_APN_URI = Uri.parse("intro://telephony/carriers/preferapn");
     // 电信CTWAP时apn的名称:#777,ctwap
     public static final String CTWAP_APN_NAME_1 = "#777";
     public static final String CTWAP_APN_NAME_2 = "ctwap";
@@ -671,12 +669,7 @@ public class NetworkManager implements TaskListener {
     public static String getIMEI() {
         TelephonyManager telephonyManager = (TelephonyManager) MainApplication.getInstance().getSystemService(
                 Context.TELEPHONY_SERVICE);
-        String ret = "";
-        try {
-            ret = telephonyManager.getDeviceId();
-        } catch (Exception e) {
-
-        }
+        String ret = telephonyManager.getDeviceId();
         return ret;
     }
 
@@ -691,13 +684,14 @@ public class NetworkManager implements TaskListener {
     }
 
     /**
+     *
      * @param proxyHost 代理host
      * @param proxyPort 代理port
-     *                  <p>
-     *                  <pre>
-     *                                                                       CMWAP 10.0.0.172:80
-     *                                                                       CTWAP 10.0.0.200
-     *                                                                     </pre>
+     *
+     *            <pre>
+     *   CMWAP 10.0.0.172:80
+     *   CTWAP 10.0.0.200
+     * </pre>
      * @return httpClient
      */
     public static HttpClient getHttpClient(String proxyHost, int proxyPort) {
@@ -741,7 +735,7 @@ public class NetworkManager implements TaskListener {
         String apnName = "";
         try {
             Cursor cursor = MainApplication.getInstance().getContentResolver()
-                    .query(PREFERRED_APN_URI, new String[]{"_id", "apn", "type"}, null, null, null);
+                    .query(PREFERRED_APN_URI, new String[] { "_id", "apn", "type" }, null, null, null);
             if (cursor != null) {
                 cursor.moveToFirst();
                 int counts = cursor.getCount();

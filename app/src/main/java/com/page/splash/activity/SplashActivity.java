@@ -8,9 +8,6 @@ import android.support.annotation.Nullable;
 import com.framework.activity.BaseActivity;
 import com.igexin.sdk.PushManager;
 import com.page.home.activity.MainActivity;
-import com.page.uc.LoginActivity;
-import com.page.uc.UCUtils;
-import com.qfant.wuye.R;
 
 
 /**
