@@ -18,6 +18,7 @@ import com.page.home.model.NoticeResult;
 import com.page.home.model.QpListResult;
 import com.page.home.model.ShopRecResult;
 import com.page.information.InfoPlatformResult;
+import com.page.integral.IntegralResult;
 import com.page.map.NearbyResult;
 import com.page.map.PointResult;
 import com.page.party.model.NewsDetailResult;
@@ -47,6 +48,7 @@ import com.page.uc.bean.RegiserResult;
 import com.page.uc.bean.RoomsResult;
 import com.page.uc.bean.UnitsResult;
 import com.page.uc.bean.UpdateMyPortraitResult;
+import com.page.uc.bean.UserHelpResult;
 import com.page.uc.payfee.model.ubmitWuyeFeeResult;
 import com.page.uc.payfee.model.FeeListResult;
 import com.page.uc.payfee.model.FeeMonthResult;
@@ -153,6 +155,9 @@ public enum ServiceMap implements Enums.IType, Serializable {
     submitStatement("Meeting/submitStatement", BaseResult.class),
     applyaccount("Member/applyaccount", BaseResult.class),
     editPassword("Member/editPassword", BaseResult.class),
+    integral("Member/integral", IntegralResult.class),
+    InfoList("Info/InfoList", InfoPlatformResult.class),
+    useHelp("Info/useHelp", UserHelpResult.class),
 
     ;
 

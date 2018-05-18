@@ -115,8 +115,7 @@ public class MapFragment extends BaseFragment implements BaiduMap.OnMarkerClickL
                     .longitude(location.getLongitude())
                     .build();
             mBaiduMap.setMyLocationData(data);
-            // TODO: 2018/5/17 del
-//            centerPoint = new LatLng(location.getLatitude(), location.getLongitude());
+            centerPoint = new LatLng(location.getLatitude(), location.getLongitude());
             requestSignStatus(false);
             MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(centerPoint);
             mBaiduMap.setMapStatus(status);//直接到中间
@@ -160,6 +159,7 @@ public class MapFragment extends BaseFragment implements BaiduMap.OnMarkerClickL
         TextView tvTitle = (TextView) layout.findViewById(R.id.tv_title);
         TextView tvClose = (TextView) layout.findViewById(R.id.tv_close);
         tvLink.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
+        tvLink.setVisibility(View.GONE);
         tvTitle.setText("位置:  "+item.address);
         StringBuffer sb = new StringBuffer();
         sb.append("主管单位: ");

@@ -2,21 +2,27 @@ package com.page.information;
 
 import com.framework.domain.response.BaseResult;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by chenxi.cui on 2017/9/17.
+ * Created by shucheng.qu on 2017/8/30.
  */
 
 public class InfoPlatformResult extends BaseResult {
-    public InfoPlatformData data;
 
-    public static class InfoPlatformData implements BaseData {
-        public List<InfoPlatformItem> infoPlatformlist;
+
+    public InfoData data;
+
+    public static class InfoData implements Serializable {
+        public int totalNum;
+        public List<InfoItem> infoListResult;
     }
-    public static class InfoPlatformItem implements BaseData {
-        public String name;
+
+    public static class InfoItem implements Serializable {
+        public String address;
+        public int id;
         public String phone;
-        public String portrait;
+        public String name;
     }
 }
