@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,8 +23,6 @@ import com.framework.utils.ArrayUtils;
 import com.framework.view.LineDecoration;
 import com.framework.view.pull.SwipRefreshLayout;
 import com.page.integral.IntegralResult.IntegralItem;
-import com.page.partymanger.MeetingListParam;
-import com.page.partymanger.MeetingListViewHolder;
 import com.qfant.wuye.R;
 
 import butterknife.BindView;
@@ -47,7 +46,12 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
     @BindView(R.id.refreshLayout)
     SwipRefreshLayout srlDownRefresh;
     private MultiAdapter<IntegralItem> adapter;
-    private IntegralResult.IntegralData data = new IntegralResult.IntegralData();
+    private IntegralResult.IntegralData data = null;
+    private int mYear;
+    private int mType;
+    private int mArea;
+    private int mQuarter;
+    private boolean isFirst = true;
 
 
     @Override
@@ -56,7 +60,7 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
         setContentView(R.layout.pub_activity_integral_layout);
         ButterKnife.bind(this);
         setTitleBar("积分管理", true);
-        initData();
+//        initData();
         setListView();
         startRequest(1);
     }
@@ -89,14 +93,18 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
 
     private void setSpinner3() {
         ArrayAdapter<CharSequence> adapter1 = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
-        String[] arr1 = data.getQuarter();
+        final String[] arr1 = data.getQuarter();
         adapter1.addAll(arr1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner3.setAdapter(adapter1);
         spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                if (isFirst) {
+                    return;
+                }
+                mQuarter = data.quarter.get(position).id;
+                startRequest(1);
             }
 
             @Override
@@ -104,19 +112,23 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
 
             }
         });
-        spinner3.setSelection(0);
+//        spinner3.setSelection(0);
     }
 
     private void setSpinner2() {
         ArrayAdapter<CharSequence> adapter1 = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
-        String[] arr1 = data.getArea();
+        final String[] arr1 = data.getArea();
         adapter1.addAll(arr1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner2.setAdapter(adapter1);
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                if (isFirst) {
+                    return;
+                }
+                mArea = data.area.get(position).id;
+                startRequest(1);
             }
 
             @Override
@@ -124,19 +136,23 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
 
             }
         });
-        spinner2.setSelection(0);
+//        spinner2.setSelection(0);
     }
 
     private void setSpinner1() {
         ArrayAdapter<CharSequence> adapter1 = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
-        String[] arr1 = data.getType();
+        final String[] arr1 = data.getType();
         adapter1.addAll(arr1);
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(adapter1);
         spinner1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                if (isFirst) {
+                    return;
+                }
+                mType = data.type.get(position).id;
+                startRequest(1);
             }
 
             @Override
@@ -144,19 +160,23 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
 
             }
         });
-        spinner1.setSelection(0);
+//        spinner1.setSelection(0);
     }
 
     private void setSpinner() {
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
-        CharSequence[] arr = data.getYear();
+        final String[] arr = data.getYear();
         adapter.addAll(arr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
+                if (isFirst) {
+                    return;
+                }
+                mYear = data.year.get(position).id;
+                startRequest(1);
             }
 
             @Override
@@ -164,12 +184,16 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
 
             }
         });
-        spinner.setSelection(0);
+//        spinner.setSelection(0);
     }
 
     private void startRequest(int page) {
         IntegralParam param = new IntegralParam();
         param.pageNo = page;
+        param.area = mArea;
+        param.quarter = mQuarter;
+        param.type = mType;
+        param.year = mYear;
         if (page == 1) {
             Request.startRequest(param, page, ServiceMap.integral, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
         } else {
@@ -183,7 +207,11 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
         if (param.key == ServiceMap.integral) {
             IntegralResult result = (IntegralResult) param.result;
             if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.integralList)) {
-                initData();
+                if (data == null) {
+                    data = result.data;
+                    initData();
+                    isFirst = false;
+                }
                 if ((int) param.ext == 1) {
                     adapter.setData(result.data.integralList);
                 } else {

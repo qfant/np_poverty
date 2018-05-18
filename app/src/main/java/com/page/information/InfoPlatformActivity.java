@@ -104,9 +104,9 @@ public class InfoPlatformActivity extends BaseActivity implements OnItemClickLis
 
     @Override
     public void onItemClickListener(View view, InfoItem data, int position) {
-//        Bundle bundle = new Bundle();
-//        bundle.putInt("id", data.id);
-//        qStartActivity(MeetingDetailActivity.class, bundle);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", data.id);
+        qStartActivity(InfoDetailActivity.class, bundle);
     }
 
     @Override

@@ -17,6 +17,7 @@ import com.page.home.model.LinksResult;
 import com.page.home.model.NoticeResult;
 import com.page.home.model.QpListResult;
 import com.page.home.model.ShopRecResult;
+import com.page.information.InfoDetailResult;
 import com.page.information.InfoPlatformResult;
 import com.page.integral.IntegralResult;
 import com.page.map.NearbyResult;
@@ -157,6 +158,7 @@ public enum ServiceMap implements Enums.IType, Serializable {
     editPassword("Member/editPassword", BaseResult.class),
     integral("Member/integral", IntegralResult.class),
     InfoList("Info/InfoList", InfoPlatformResult.class),
+    InfoDetail("Info/InfoDetail", InfoDetailResult.class),
     useHelp("Info/useHelp", UserHelpResult.class),
 
     ;

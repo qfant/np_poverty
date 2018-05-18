@@ -9,4 +9,8 @@ import com.framework.domain.param.BaseParam;
 public class IntegralParam extends BaseParam {
     public int pageNo = 1;
     public int pageSize = 20;
+    public int year;
+    public int type;
+    public int area;
+    public int quarter;
 }
