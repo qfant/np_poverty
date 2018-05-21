@@ -7,7 +7,7 @@ import com.framework.domain.param.BaseParam;
  */
 
 public class MapParam extends BaseParam {
-//    villageid content
+//    managerId content
     public String content;
-    public String villageid;
+    public String managerId;
 }

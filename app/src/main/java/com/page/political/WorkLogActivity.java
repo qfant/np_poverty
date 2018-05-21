@@ -1,5 +1,6 @@
 package com.page.political;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,14 +10,13 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.model.LatLng;
 import com.framework.activity.BaseActivity;
 import com.framework.net.NetworkParam;
 import com.framework.net.Request;
 import com.framework.net.ServiceMap;
+import com.framework.utils.ArrayUtils;
+import com.framework.view.AddView;
 import com.qfant.wuye.R;
 
 import butterknife.BindView;
@@ -31,6 +31,8 @@ public class WorkLogActivity extends BaseActivity {
     EditText inputTitle;
     @BindView(R.id.input_content)
     EditText inputContent;
+    @BindView(R.id.addView)
+    AddView addView;
     private String addrStr;
     private LocationClient mLocationClient;
 
@@ -46,6 +48,7 @@ public class WorkLogActivity extends BaseActivity {
             }
         });
         initLocation();
+        addView.setAddNumber(1);
     }
 
     private void initLocation() {
@@ -99,8 +102,13 @@ public class WorkLogActivity extends BaseActivity {
     }
 
     private void submitRequest() {
+        String[] imageUrls = addView.getImageUrls();
         String title = inputTitle.getText().toString();
         String content = inputContent.getText().toString();
+        if (ArrayUtils.isEmpty(imageUrls)) {
+            showToast("请上传图片");
+            return;
+        }
         if (TextUtils.isEmpty(title)) {
             showErrorTip(inputTitle, "请输入标题");
             return;
@@ -113,6 +121,7 @@ public class WorkLogActivity extends BaseActivity {
         param.title = title;
         param.content = content;
         param.address = addrStr;
+        param.pic1 = imageUrls[0];
         Request.startRequest(param, ServiceMap.submitWorklog, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
     }
 
@@ -125,7 +134,14 @@ public class WorkLogActivity extends BaseActivity {
             } else {
                 showToast(param.result.bstatus.des);
             }
+        }else if (param.key == ServiceMap.uploadPic) {
+            addView.onMsgSearchComplete(param);
         }
         return super.onMsgSearchComplete(param);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        addView.onActivityResult(requestCode, resultCode, data);
     }
 }

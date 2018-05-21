@@ -24,15 +24,14 @@ import com.framework.utils.cache.ImageLoader;
 import com.framework.utils.imageload.ImageLoad;
 import com.framework.view.CircleImageView;
 import com.igexin.sdk.PushManager;
-import com.page.home.activity.MainActivity;
-import com.qfant.wuye.R;
 import com.page.uc.bean.LoginResult;
-import com.page.uc.bean.NickNameResult;
 import com.page.uc.bean.UpdateMyPortraitParam;
 import com.page.uc.bean.UpdateMyPortraitResult;
+import com.page.uc.bean.UserInfoResult;
 import com.page.uc.chooseavatar.OnChoosePictureListener;
 import com.page.uc.chooseavatar.UpLoadHeadImageDialog;
 import com.page.uc.chooseavatar.YCLTools;
+import com.qfant.wuye.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -66,6 +65,10 @@ public class UserInfoActivity extends BaseActivity {
     TextView tvPhone;
     @BindView(R.id.ll_phone)
     LinearLayout llPhone;
+    @BindView(R.id.tv_dname)
+    TextView tvDname;
+    @BindView(R.id.ll_dname)
+    LinearLayout llDname;
 
 
     @Override
@@ -90,6 +93,7 @@ public class UserInfoActivity extends BaseActivity {
             qStartActivity(AccountLoginActivity.class);
             return;
         }
+        Request.startRequest(new BaseParam(), ServiceMap.myInfo, mHandler, BLOCK, CANCELABLE);
         setData();
     }
 
@@ -98,6 +102,7 @@ public class UserInfoActivity extends BaseActivity {
         ImageLoad.loadPlaceholder(this, instance.portrait, imageHead);
         tvPhone.setText(instance.phone);
         tvNickname.setText(instance.nickname);
+        tvDname.setText(instance.dname);
 //        tvSex.setText(instance.nickname);
         tvSex.setVisibility(View.GONE);
     }
@@ -121,7 +126,7 @@ public class UserInfoActivity extends BaseActivity {
                 ShopCarUtils.getInstance().clearData();//清空购物车
                 Intent intent = new Intent();
                 intent.setClass(getContext(), AccountLoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 qStartActivity(intent);
                 finish();
 //                Request.startRequest(new BaseParam(), ServiceMap.customerLogout, mHandler);
@@ -157,9 +162,19 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     public boolean onMsgSearchComplete(NetworkParam param) {
-
-        if (param.key.equals(ServiceMap.updateNickname)) {
-
+        if (param.key == ServiceMap.myInfo) {
+            if (param.result.bstatus.code == 0) {
+                UserInfoResult userInfoResult = (UserInfoResult) param.result;
+                LoginResult.LoginData userInfo = UCUtils.getInstance().getUserInfo();
+                userInfo.portrait = userInfoResult.data.headpic;
+                userInfo.nickname = userInfoResult.data.truename;
+                userInfo.dname = userInfoResult.data.dname;
+                UCUtils.getInstance().saveUserInfo(userInfo);
+                setData();
+            } else {
+                showToast(param.result.bstatus.des);
+            }
+        } else if (param.key.equals(ServiceMap.updateNickname)) {
             if (param.result.bstatus.code == 0) {
                 UCUtils.getInstance().saveUsername((String) param.ext);
                 showToast(param.result.bstatus.des);

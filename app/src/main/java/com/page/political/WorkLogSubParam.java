@@ -10,4 +10,5 @@ public class WorkLogSubParam extends BaseParam {
     public String title;
     public String content;
     public String address;
+    public String pic1;
 }

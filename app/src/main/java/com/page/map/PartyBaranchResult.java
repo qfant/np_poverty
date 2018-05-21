@@ -2,19 +2,18 @@ package com.page.map;
 
 import com.framework.domain.response.BaseResult;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by chenxi.cui on 2017/9/30.
  */
 
-public class NearbyResult extends BaseResult {
-    public NearbyData data;
+public class PartyBaranchResult extends BaseResult {
+    public PartyBaranchData data;
 
 
-    public static class NearbyData implements BaseData {
-        public List<NearbyItem> partyBranchList;
+    public static class PartyBaranchData implements BaseData {
+        public String content;
     }
 
     public static class NearbyItem implements BaseData {

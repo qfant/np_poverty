@@ -437,7 +437,7 @@ public class PHomeFragment extends BaseFragment {
             OverlayOptions option = new MarkerOptions()
                     .position(point)
                     .extraInfo(bundle)
-                    .zIndex(15)
+                    .zIndex(10)
                     .icon(bitmap);
             mBaiduMap.addOverlay(option);
 //            MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(point);

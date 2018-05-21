@@ -21,6 +21,7 @@ import com.page.information.InfoDetailResult;
 import com.page.information.InfoPlatformResult;
 import com.page.integral.IntegralResult;
 import com.page.map.NearbyResult;
+import com.page.map.PartyBaranchResult;
 import com.page.map.PointResult;
 import com.page.party.model.NewsDetailResult;
 import com.page.party.model.NewsResult;
@@ -50,6 +51,7 @@ import com.page.uc.bean.RoomsResult;
 import com.page.uc.bean.UnitsResult;
 import com.page.uc.bean.UpdateMyPortraitResult;
 import com.page.uc.bean.UserHelpResult;
+import com.page.uc.bean.UserInfoResult;
 import com.page.uc.payfee.model.ubmitWuyeFeeResult;
 import com.page.uc.payfee.model.FeeListResult;
 import com.page.uc.payfee.model.FeeMonthResult;
@@ -89,7 +91,7 @@ public enum ServiceMap implements Enums.IType, Serializable {
     customerLogin("Member/login", LoginResult.class),
     customerLogout("customerLogout.do", BaseResult.class),
     updateNickname("updateNickname.do", NickNameResult.class),
-    UPDATE_MY_PROTRAIT("updateMyPortrait.do", UpdateMyPortraitResult.class, ServiceMap.NET_TASKTYPE_FILE),
+    UPDATE_MY_PROTRAIT("Member/updateMyPortrait", UpdateMyPortraitResult.class, ServiceMap.NET_TASKTYPE_FILE),
     uploadPic("Index/uploadPic", UpdateMyPortraitResult.class, ServiceMap.NET_TASKTYPE_FILE),
 
     getWaters("getWaters.do", ServeResult.class),//送水
@@ -160,6 +162,10 @@ public enum ServiceMap implements Enums.IType, Serializable {
     InfoList("Info/InfoList", InfoPlatformResult.class),
     InfoDetail("Info/InfoDetail", InfoDetailResult.class),
     useHelp("Info/useHelp", UserHelpResult.class),
+    myInfo("Member/myInfo", UserInfoResult.class),
+    zixun("Company/zixun", BaseResult.class),
+    partyBranchIntro("Company/partyBranchIntro", PartyBaranchResult.class),
+    nearbySearch("Company/nearbySearch", NearbyResult.class),
 
     ;
 

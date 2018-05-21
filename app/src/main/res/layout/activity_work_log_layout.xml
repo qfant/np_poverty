@@ -8,6 +8,19 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="图片"
+        android:textColor="#333"
+        android:textSize="16dp" />
+
+    <com.framework.view.AddView
+        android:id="@+id/addView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="-26dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="标题"
         android:textColor="#333"
         android:textSize="16dp" />
@@ -33,7 +46,6 @@
         android:layout_height="wrap_content"
         android:gravity="top"
         android:hint="请输入日志内容"
-        android:minLines="20"
         android:textColor="#333"
         android:textSize="16dp" />
 </LinearLayout>

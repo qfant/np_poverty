@@ -75,6 +75,5 @@ public class UCUtils {
         LoginData data = getUserInfo();
         data.nickname = username;
         saveUserInfo(data);
-
     }
 }

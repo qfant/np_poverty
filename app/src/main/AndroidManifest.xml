@@ -59,6 +59,11 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.page.map.NearBySearchActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
             android:name="com.page.party.PNewListActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />

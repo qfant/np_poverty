@@ -31,5 +31,8 @@ public class LoginResult extends BaseResult {
         public String nickname;
         public String departmentid;
         public String type;
+
+        public String dname;
+//        public String truename;
     }
 }

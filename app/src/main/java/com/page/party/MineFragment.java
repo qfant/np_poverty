@@ -95,14 +95,19 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         llHeader.setOnClickListener(this);
         imageHead.setOnClickListener(this);
         tvSetting.setOnClickListener(this);
+    }
+
+    @Override
+    public void onResume() {
         setData();
+        super.onResume();
     }
 
     private void setData() {
         tvName.setText(UCUtils.getInstance().getUserInfo().phone);
 //        tvJob.setText("");
         tvJob.setVisibility(View.GONE);
-        ImageLoad.loadPlaceholder(getContext(), "", imageHead);
+        ImageLoad.loadPlaceholder(getContext(), UCUtils.getInstance().getPortrait(), imageHead);
     }
 
     @Override

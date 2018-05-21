@@ -39,11 +39,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:visibility="gone"
         android:background="@color/pub_color_gray_line" />
 
     <LinearLayout
-        android:visibility="gone"
         android:id="@+id/ll_nickname"
         android:layout_width="match_parent"
         android:layout_height="55dp"
@@ -57,7 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="昵称"
+            android:text="姓名"
             android:textColor="@color/pub_color_black"
             android:textSize="14dp" />
 
@@ -65,7 +63,6 @@
             android:id="@+id/tv_nickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:text="昵称"
             android:textColor="@color/pub_color_gray_666"
             android:textSize="14dp" />
@@ -73,12 +70,15 @@
         <ImageView
             android:layout_width="12dp"
             android:layout_height="12dp"
+            android:layout_marginLeft="10dp"
+            android:visibility="gone"
             android:src="@drawable/right_arrow_icon" />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
+        android:visibility="gone"
         android:background="@color/pub_color_gray_line" />
 
     <LinearLayout
@@ -115,6 +115,37 @@
             android:src="@drawable/right_arrow_icon" />
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/pub_color_gray_line" />
+
+    <LinearLayout
+        android:id="@+id/ll_dname"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@color/pub_color_white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="部门"
+            android:textColor="@color/pub_color_black"
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/tv_dname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="手机"
+            android:textColor="@color/pub_color_gray_666"
+            android:textSize="14dp" />
+    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
