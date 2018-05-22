@@ -45,6 +45,7 @@ import com.framework.rvadapter.adapter.MultiAdapter;
 import com.framework.rvadapter.click.OnItemClickListener;
 import com.framework.rvadapter.holder.BaseViewHolder;
 import com.framework.rvadapter.manage.ITypeView;
+import com.framework.utils.ArrayUtils;
 import com.framework.view.IFView;
 import com.framework.view.LineDecoration;
 import com.page.map.NearbyResult.NearbyItem;
@@ -462,7 +463,15 @@ public class MapFragment extends BaseFragment implements BaiduMap.OnMarkerClickL
         } else if (ServiceMap.nearbySearch == param.key) {
             NearbyResult result = (NearbyResult) param.result;
             if (param.result.bstatus.code == 0) {
-                adapter.setData(result.data.partyBranchList);
+                if (!ArrayUtils.isEmpty(result.data.partyBranchList)) {
+                    adapter.setData(result.data.partyBranchList);
+                    mHandler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            llSearchView.setVisibility(View.VISIBLE);
+                        }
+                    },1000);
+                }
             } else {
                 showToast(param.result.bstatus.des);
             }
