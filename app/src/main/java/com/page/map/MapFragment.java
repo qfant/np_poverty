@@ -279,13 +279,13 @@ public class MapFragment extends BaseFragment implements BaiduMap.OnMarkerClickL
         @Override
         public void onReceiveLocation(BDLocation location) {
             //将获取的location信息给百度map
-            MyLocationData data = new MyLocationData.Builder()
-                    .accuracy(location.getRadius())
-                    .direction(100)
-                    .latitude(location.getLatitude())
-                    .longitude(location.getLongitude())
-                    .build();
-            mBaiduMap.setMyLocationData(data);
+//            MyLocationData data = new MyLocationData.Builder()
+//                    .accuracy(location.getRadius())
+//                    .direction(100)
+//                    .latitude(location.getLatitude())
+//                    .longitude(location.getLongitude())
+//                    .build();
+//            mBaiduMap.setMyLocationData(data);
             if (isFirstLocation) {
                 centerPoint = new LatLng(location.getLatitude(), location.getLongitude());
                 requestSignStatus(false);
@@ -432,6 +432,12 @@ public class MapFragment extends BaseFragment implements BaiduMap.OnMarkerClickL
                     .icon(bitmap);
             mBaiduMap.addOverlay(option);
         }
+        BitmapDescriptor bitmap = BitmapDescriptorFactory
+                .fromResource(R.drawable.icon_gcoding);
+        OverlayOptions option = new MarkerOptions()
+                .position(centerPoint)
+                .icon(bitmap);
+        mBaiduMap.addOverlay(option);
     }
 
 

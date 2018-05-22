@@ -20,6 +20,7 @@ import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MarkerOptions;
@@ -54,6 +55,7 @@ import com.page.home.model.NoticeResult;
 import com.page.home.model.NoticeResult.Data.Datas;
 import com.page.information.InfoPlatformActivity;
 import com.page.integral.IntegralActivity;
+import com.page.map.NearbyResult;
 import com.page.map.PointResult;
 import com.page.party.model.NewsResult;
 import com.page.party.model.NewsResult.NewsData.NewsItem;
@@ -138,6 +140,7 @@ public class PHomeFragment extends BaseFragment {
             }
         });
         initMap();
+//        imageBaido.setVisibility(View.GONE);
     }
 
     private void setRefresh() {
@@ -208,6 +211,28 @@ public class PHomeFragment extends BaseFragment {
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setMyLocationEnabled(true);
         initLocation();
+        mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
+
+                                                   @Override
+                                                   public void onMapStatusChangeStart(MapStatus arg0) {
+                                                       // 手势操作地图，设置地图状态等操作导致地图状态开始改变。
+                                                   }
+
+                                                   @Override
+                                                   public void onMapStatusChange(MapStatus mapStatus) {
+
+                                                   }
+
+                                                   @Override
+                                                   public void onMapStatusChangeFinish(MapStatus arg0) {
+                                                       // 地图状态改变结束
+                                                       //target地图操作的中心点。
+                                                       LatLng target = mBaiduMap.getMapStatus().target;
+                                                       centerPoint = target;
+                                                       requestSignStatus(false);
+                                                   }
+                                               }
+        );
     }
 
     private void initLocation() {
@@ -232,13 +257,13 @@ public class PHomeFragment extends BaseFragment {
         @Override
         public void onReceiveLocation(BDLocation location) {
             //将获取的location信息给百度map
-            MyLocationData data = new MyLocationData.Builder()
-                    .accuracy(location.getRadius())
-                    .direction(100)
-                    .latitude(location.getLatitude())
-                    .longitude(location.getLongitude())
-                    .build();
-            mBaiduMap.setMyLocationData(data);
+//            MyLocationData data = new MyLocationData.Builder()
+//                    .accuracy(location.getRadius())
+//                    .direction(100)
+//                    .latitude(location.getLatitude())
+//                    .longitude(location.getLongitude())
+//                    .build();
+//            mBaiduMap.setMyLocationData(data);
             centerPoint = new LatLng(location.getLatitude(), location.getLongitude());
             requestSignStatus(false);
             MapStatusUpdate status = MapStatusUpdateFactory.newLatLng(centerPoint);
@@ -252,9 +277,9 @@ public class PHomeFragment extends BaseFragment {
 
     private void requestSignStatus(boolean isBlock) {
         if (isBlock) {
-            Request.startRequest(new SignParam(centerPoint.latitude, centerPoint.longitude), ServiceMap.signstatus, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
+            Request.startRequest(new SignParam(centerPoint.latitude, centerPoint.longitude), ServiceMap.nearby, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
         } else {
-            Request.startRequest(new SignParam(centerPoint.latitude, centerPoint.longitude), ServiceMap.signstatus, mHandler, Request.RequestFeature.CANCELABLE);
+            Request.startRequest(new SignParam(centerPoint.latitude, centerPoint.longitude), ServiceMap.nearby, mHandler, Request.RequestFeature.CANCELABLE);
         }
     }
 
@@ -387,10 +412,10 @@ public class PHomeFragment extends BaseFragment {
 
     @Override
     public boolean onMsgSearchComplete(NetworkParam param) {
-        if (ServiceMap.signstatus == param.key) {
-            SignStatusResult result = (SignStatusResult) param.result;
+        if (ServiceMap.nearby == param.key) {
+            NearbyResult result = (NearbyResult) param.result;
             if (param.result.bstatus.code == 0) {
-                updateSignStatus(result.data);
+                addOvers(result.data.partyBranchList);
             }
         } else if (param.key == ServiceMap.getLinks) {
             LinksResult linksResult = (LinksResult) param.result;
@@ -409,28 +434,19 @@ public class PHomeFragment extends BaseFragment {
         return false;
     }
 
-    private void updateSignStatus(SignStatusResult.SignStatus signstatus) {
-        List<PointResult.PointItem> pointItems = new ArrayList<>();
-        PointResult.PointItem pointItem = new PointResult.PointItem();
-        pointItems.add(pointItem);
-        pointItem.lat = signstatus.latitude;
-        pointItem.lon = signstatus.longitude;
-        pointItem.name = signstatus.companyname;
-        addOvers(pointItems);
-    }
-    private void addOvers(List<PointResult.PointItem> pointItems) {
-        if (pointItems == null) {
+    private void addOvers(List<NearbyResult.NearbyItem> nearbyItems) {
+        if (nearbyItems == null) {
             return;
         }
         mBaiduMap.clear();
-        for (PointResult.PointItem item : pointItems) {
+        for (NearbyResult.NearbyItem item : nearbyItems) {
             //定义Maker坐标点
             Bundle bundle = new Bundle();
             bundle.putSerializable("item", item);
-            LatLng point = new LatLng(item.lat, item.lon);
+            LatLng point = new LatLng(item.latitude, item.longitude);
             View inflate = LayoutInflater.from(getContext()).inflate(R.layout.map_text_option, null);
             TextView text = (TextView) inflate.findViewById(R.id.text);
-            text.setText("我在 " + item.name + " 附近");
+            text.setText(item.name);
             text.setVisibility(View.VISIBLE);
             BitmapDescriptor bitmap = BitmapDescriptorFactory
                     .fromView(inflate);
@@ -440,10 +456,13 @@ public class PHomeFragment extends BaseFragment {
                     .zIndex(10)
                     .icon(bitmap);
             mBaiduMap.addOverlay(option);
-//            MapStatusUpdate msu = MapStatusUpdateFactory.newLatLng(point);
-//            mBaiduMap.setMapStatus(msu);
         }
-
+        BitmapDescriptor bitmap = BitmapDescriptorFactory
+                .fromResource(R.drawable.icon_gcoding);
+        OverlayOptions option = new MarkerOptions()
+                .position(centerPoint)
+                .icon(bitmap);
+        mBaiduMap.addOverlay(option);
     }
 
     private void setFlipper(List<Datas> datas) {
