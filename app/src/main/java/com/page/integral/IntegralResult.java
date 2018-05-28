@@ -118,5 +118,6 @@ public class IntegralResult extends BaseResult {
         public int score;
         public String title;
         public String createtime;
+        public String name;
     }
 }

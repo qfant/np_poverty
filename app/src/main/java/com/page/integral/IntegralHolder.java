@@ -35,7 +35,7 @@ public class IntegralHolder extends BaseViewHolder<IntegralResult.IntegralItem> 
 
     @Override
     public void onBindViewHolder(BaseViewHolder holder, IntegralResult.IntegralItem data, int position) {
-        text1.setText("企业:" + data.title);
+        text1.setText("企业:" + data.name);
         text2.setText("时间：" + data.createtime);
         text3.setText("积分：" + data.score + "分");
 //        ImageLoad.loadPlaceholder(mContext, data.headpic, imagePic);

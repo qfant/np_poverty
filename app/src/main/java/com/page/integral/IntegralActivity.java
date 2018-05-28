@@ -45,13 +45,13 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
     RecyclerView rvList;
     @BindView(R.id.refreshLayout)
     SwipRefreshLayout srlDownRefresh;
-    private MultiAdapter<IntegralItem> adapter;
     private IntegralResult.IntegralData data = null;
     private int mYear;
     private int mType;
     private int mArea;
     private int mQuarter;
     private boolean isFirst = true;
+    private IntegralAdapter adapter;
 
 
     @Override
@@ -66,17 +66,18 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
     }
 
     private void setListView() {
-        adapter = new MultiAdapter<IntegralItem>(getContext()).addTypeView(new ITypeView<IntegralItem>() {
-            @Override
-            public boolean isForViewType(IntegralItem item, int position) {
-                return true;
-            }
-
-            @Override
-            public BaseViewHolder createViewHolder(Context mContext, ViewGroup parent) {
-                return new IntegralHolder(mContext, LayoutInflater.from(mContext).inflate(R.layout.activity_meeting_item_layout, parent, false));
-            }
-        });
+//        adapter = new MultiAdapter<IntegralItem>(getContext()).addTypeView(new ITypeView<IntegralItem>() {
+//            @Override
+//            public boolean isForViewType(IntegralItem item, int position) {
+//                return true;
+//            }
+//
+//            @Override
+//            public BaseViewHolder createViewHolder(Context mContext, ViewGroup parent) {
+//                return new IntegralHolder(mContext, LayoutInflater.from(mContext).inflate(R.layout.activity_meeting_item_layout, parent, false));
+//            }
+//        });
+        adapter = new IntegralAdapter(R.layout.activity_meeting_item_layout);
         rvList.addItemDecoration(new LineDecoration(this));
         rvList.setLayoutManager(new LinearLayoutManager(getContext()));
         rvList.setAdapter(adapter);
@@ -213,7 +214,7 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
                     isFirst = false;
                 }
                 if ((int) param.ext == 1) {
-                    adapter.setData(result.data.integralList);
+                    adapter.setNewData(result.data.integralList);
                 } else {
                     adapter.addData(result.data.integralList);
                 }

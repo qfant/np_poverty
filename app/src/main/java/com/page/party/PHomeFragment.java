@@ -322,7 +322,7 @@ public class PHomeFragment extends BaseFragment {
         list.add(new HomeModel("党建业务", R.drawable.icon_study_count));
         list.add(new HomeModel("工作动态", R.drawable.icon_dynamic_phase));
         list.add(new HomeModel("积分管理", R.drawable.icon_party_activity));
-        list.add(new HomeModel("党建管理", R.drawable.icon_partybranch_introduce));
+        list.add(new HomeModel("党员管理", R.drawable.icon_partybranch_introduce));
         list.add(new HomeModel("信息平台", R.drawable.icon_three_affairs));
         list.add(new HomeModel("指导员管理", R.drawable.icon_work_guide));
         list.add(new HomeModel("统计分析", R.drawable.icon_clear_build));
@@ -348,17 +348,20 @@ public class PHomeFragment extends BaseFragment {
                         case "积分管理":
                             qStartActivity(IntegralActivity.class);
                             break;
-                        case "党建管理":
-                            qStartActivity(MeetingListActivity.class);
+                        case "党员管理":
+                            showToast("正在研发中");
+//                            qStartActivity(MeetingListActivity.class);
                             break;
                         case "信息平台":
-                            qStartActivity(InfoPlatformActivity.class);
+                            showToast("正在研发中");
+//                            qStartActivity(InfoPlatformActivity.class);
                             break;
                         case "指导员管理":
                             qStartActivity(PoliticalManagerActivity.class);
                             break;
                         case "统计分析":
-                            qStartActivity(AnalysisActivity.class);
+                            showToast("正在研发中");
+//                            qStartActivity(AnalysisActivity.class);
                             break;
                     }
                 }

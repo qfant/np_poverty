@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,13 +92,16 @@ public class SignListActivity extends BaseActivity implements OnItemClickListene
     }
 
     private void showYear() {
-        new YearPickerDialog(this, R.style.list_dialog_style, new DatePickerDialog.OnDateSetListener() {
+        Calendar calendar = Calendar.getInstance();
+        Context themed = new ContextThemeWrapper(this,
+                android.R.style.Theme_Holo_Light_Dialog);
+        FixedHoloDatePickerDialog datePicker = new FixedHoloDatePickerDialog(themed, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, monthOfYear);
-                if (mYear == year || mMonth == monthOfYear) {
+                if (mYear == year && mMonth == monthOfYear) {
                     return;
                 }
                 mYear = year;
@@ -105,7 +109,26 @@ public class SignListActivity extends BaseActivity implements OnItemClickListene
                 setYear();
                 startRequest(1);
             }
-        }, mYear, mMonth, 1).show();
+        }, calendar.get(Calendar.YEAR), calendar
+                .get(Calendar.MONTH), calendar
+                .get(Calendar.DAY_OF_MONTH)); //上下文，点击回调,Calendar年月日
+        datePicker.setHasNoDay(true);
+        datePicker.show();
+//        new YearPickerDialog(this, R.style.list_dialog_style, new DatePickerDialog.OnDateSetListener() {
+//            @Override
+//            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                Calendar calendar = Calendar.getInstance();
+//                calendar.set(Calendar.YEAR, year);
+//                calendar.set(Calendar.MONTH, monthOfYear);
+//                if (mYear == year && mMonth == monthOfYear) {
+//                    return;
+//                }
+//                mYear = year;
+//                mMonth = monthOfYear;
+//                setYear();
+//                startRequest(1);
+//            }
+//        }, mYear, mMonth, 1).show();
     }
 
     private void setYear() {
