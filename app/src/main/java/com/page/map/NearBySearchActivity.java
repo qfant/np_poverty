@@ -43,7 +43,7 @@ public class NearBySearchActivity extends BaseActivity implements BaiduMap.OnMar
     @BindView(R.id.tv_title)
     TextView tvTitle;
     @BindView(R.id.tv_close)
-    IFView tvClose;
+    TextView tvClose;
     @BindView(R.id.tv_info)
     TextView tvInfo;
     @BindView(R.id.tv_link)

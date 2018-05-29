@@ -11,13 +11,14 @@
         android:layout_height="65dp"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="12dp"
-        android:layout_marginRight="10dp"
+
         android:layout_marginTop="10dp"
         android:scaleType="centerCrop"
         tools:background="@color/pub_color_gray_999"
         android:src="@drawable/moren" />
 
     <LinearLayout
+        android:layout_marginLeft="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginRight="16dp"

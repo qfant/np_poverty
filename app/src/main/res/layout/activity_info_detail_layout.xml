@@ -4,47 +4,13 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
-    <com.framework.view.CircleImageView
-        android:id="@+id/image_pic"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginLeft="10dp"
-        android:visibility="gone" />
-
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:paddingBottom="10dp"
-        android:paddingLeft="15dp"
-        android:paddingTop="10dp">
-
-        <TextView
-            android:id="@+id/text_1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="党委学习"
-            android:textColor="#333"
-            android:textSize="16dp" />
-
-        <TextView
-            android:id="@+id/text_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:text="地点:xxx"
-            android:textColor="@color/pub_color_blue_press"
-            android:textSize="14dp" />
-
-        <TextView
-            android:id="@+id/text_3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="内容:xxxx"
-            android:textColor="#666"
-            android:textSize="14dp" />
-    </LinearLayout>
-
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/pub_color_gray_f5f5f5" />
 
 </LinearLayout>

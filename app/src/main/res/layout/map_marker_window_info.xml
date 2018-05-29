@@ -9,6 +9,17 @@
     android:visibility="gone"
     tools:visibility="visible">
 
+    <TextView
+        android:id="@+id/tv_close"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="right"
+        android:layout_margin="15dp"
+        android:background="@drawable/ext_cancel"
+        android:padding="10dp"
+        android:textColor="#666"
+        android:textSize="24dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,15 +35,6 @@
             android:text="李庄"
             android:textColor="#333"
             android:textSize="14dp" />
-
-        <com.framework.view.IFView
-            android:id="@+id/tv_close"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp"
-            android:text="X"
-            android:textColor="#666"
-            android:textSize="15dp" />
     </LinearLayout>
 
     <TextView

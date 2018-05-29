@@ -349,12 +349,12 @@ public class PHomeFragment extends BaseFragment {
                             qStartActivity(IntegralActivity.class);
                             break;
                         case "党员管理":
-                            showToast("正在研发中");
+                            showToast("请联系管理员");
 //                            qStartActivity(MeetingListActivity.class);
                             break;
                         case "信息平台":
-                            showToast("正在研发中");
-//                            qStartActivity(InfoPlatformActivity.class);
+//                            showToast("正在研发中");
+                            qStartActivity(InfoPlatformActivity.class);
                             break;
                         case "指导员管理":
                             qStartActivity(PoliticalManagerActivity.class);
