@@ -54,6 +54,7 @@ import com.page.home.model.LinksResult.Data.Links;
 import com.page.home.model.NoticeResult;
 import com.page.home.model.NoticeResult.Data.Datas;
 import com.page.information.InfoPlatformActivity;
+import com.page.information.InfoPlatformListActivity;
 import com.page.integral.IntegralActivity;
 import com.page.map.NearbyResult;
 import com.page.map.PointResult;
@@ -354,7 +355,7 @@ public class PHomeFragment extends BaseFragment {
                             break;
                         case "信息平台":
 //                            showToast("正在研发中");
-                            qStartActivity(InfoPlatformActivity.class);
+                            qStartActivity(InfoPlatformListActivity.class);
                             break;
                         case "指导员管理":
                             qStartActivity(PoliticalManagerActivity.class);

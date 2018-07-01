@@ -11,10 +11,7 @@
         android:layout_height="65dp"
         android:layout_marginBottom="12dp"
         android:layout_marginLeft="12dp"
-
         android:layout_marginTop="10dp"
-        android:scaleType="centerCrop"
-        tools:background="@color/pub_color_gray_999"
         android:src="@drawable/moren" />
 
     <LinearLayout

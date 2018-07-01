@@ -41,6 +41,8 @@ public class InfoViewHolder extends BaseViewHolder<InfoItem> {
         text2.setText("电话：" + data.phone);
         text3.setText("地址：" + data.address);
         text2.setTag(data.phone);
+        text2.setVisibility(View.GONE);
+        text3.setVisibility(View.GONE);
 //        ImageLoad.loadPlaceholder(mContext, data.headpic, imagePic);
     }
 
