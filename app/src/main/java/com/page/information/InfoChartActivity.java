@@ -25,8 +25,6 @@ import java.util.List;
 public class InfoChartActivity extends BaseActivity {
     @BindView(R.id.bar_chart1)
     BarChart barChart1;
-    @BindView(R.id.ll_1)
-    LinearLayout ll1;
     @BindView(R.id.bar_chart2)
     BarChart barChart2;
     @BindView(R.id.ll_0)
@@ -111,7 +109,7 @@ public class InfoChartActivity extends BaseActivity {
         barChartManager2.setXAxis(2f, 0f, 2);
     }
 
-    @OnClick({R.id.bar_chart1, R.id.ll_1, R.id.bar_chart2, R.id.ll_0})
+    @OnClick({R.id.bar_chart1, R.id.bar_chart2, R.id.ll_0})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bar_chart1:
@@ -121,7 +119,6 @@ public class InfoChartActivity extends BaseActivity {
                 bundle.putInt("type", 2);
                 qStartActivity(InfoPlatformActivity.class, bundle);
                 break;
-            case R.id.ll_1:
             case R.id.bar_chart2:
                 Bundle bundle1 = new Bundle();
                 bundle1.putInt("id", item.id);
