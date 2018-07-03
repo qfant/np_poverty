@@ -182,7 +182,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
 
     public void shareText(String subject, String text) {
         Intent intent = new Intent(Intent.ACTION_SEND);
-        //	intent.setType("image/*");//
+        //	intent.setType("headpic/*");//
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, text);
@@ -234,7 +234,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
     @Override
     public void qStartImageShare(String shareContent, Uri uri) {
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("image/*");
+        intent.setType("headpic/*");
         if (uri == null) {
             qStartShareActivity(null, shareContent);
             return;

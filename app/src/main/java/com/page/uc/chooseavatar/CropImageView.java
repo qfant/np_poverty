@@ -925,7 +925,7 @@ public class CropImageView extends ImageView {
     // Public methods //////////////////////////////////////////////////////////////////////////////
 
     /**
-     * Get source image bitmap
+     * Get source headpic bitmap
      *
      * @return src bitmap
      */
@@ -934,9 +934,9 @@ public class CropImageView extends ImageView {
     }
 
     /**
-     * Set source image bitmap
+     * Set source headpic bitmap
      *
-     * @param bitmap src image bitmap
+     * @param bitmap src headpic bitmap
      */
     @Override
     public void setImageBitmap(Bitmap bitmap) {
@@ -946,9 +946,9 @@ public class CropImageView extends ImageView {
     }
 
     /**
-     * Set source image resource id
+     * Set source headpic resource id
      *
-     * @param resId source image resource id
+     * @param resId source headpic resource id
      */
     @Override
     public void setImageResource(int resId) {
@@ -958,7 +958,7 @@ public class CropImageView extends ImageView {
     }
 
     /**
-     * Set image drawable.
+     * Set headpic drawable.
      *
      * @param drawable
      */
@@ -970,7 +970,7 @@ public class CropImageView extends ImageView {
     }
 
     /**
-     * Set image uri
+     * Set headpic uri
      *
      * @param uri
      */
@@ -989,7 +989,7 @@ public class CropImageView extends ImageView {
     }
 
     /**
-     * Rotate image.
+     * Rotate headpic.
      *
      * @param degrees angle of ration in degrees.
      */
@@ -1005,9 +1005,9 @@ public class CropImageView extends ImageView {
     }
 
     /**
-     * Get cropped image bitmap
+     * Get cropped headpic bitmap
      *
-     * @return cropped image bitmap
+     * @return cropped headpic bitmap
      */
     public Bitmap getCroppedBitmap() {
         Bitmap source = getBitmap();
@@ -1029,12 +1029,12 @@ public class CropImageView extends ImageView {
     }
 
     /**
-     * Get cropped rect image bitmap
+     * Get cropped rect headpic bitmap
      * <p/>
-     * This method always returns rect image.
-     * (If you need a square image with CropMode.CIRCLE, you can use this method.)
+     * This method always returns rect headpic.
+     * (If you need a square headpic with CropMode.CIRCLE, you can use this method.)
      *
-     * @return cropped image bitmap
+     * @return cropped headpic bitmap
      */
     public Bitmap getRectBitmap() {
         Bitmap source = getBitmap();
@@ -1054,10 +1054,10 @@ public class CropImageView extends ImageView {
     }
 
     /**
-     * Crop the square image in a circular
+     * Crop the square headpic in a circular
      *
-     * @param square image bitmap
-     * @return circular image bitmap
+     * @param square headpic bitmap
+     * @return circular headpic bitmap
      */
     public Bitmap getCircularBitmap(Bitmap square) {
         if (square == null) return null;
@@ -1131,7 +1131,7 @@ public class CropImageView extends ImageView {
     }
 
     /**
-     * Set image overlay color
+     * Set headpic overlay color
      *
      * @param overlayColor color resId or color int(ex. 0xFFFFFFFF)
      */

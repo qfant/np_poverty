@@ -54,7 +54,7 @@ class CircleImageView extends android.support.v7.widget.AppCompatImageView {
             circle.getPaint().setShadowLayer(mShadowRadius, shadowXOffset,
                     shadowYOffset, KEY_SHADOW_COLOR);
             final int padding = (int) mShadowRadius;
-            // set padding so the inner image sits correctly within the shadow.
+            // set padding so the inner headpic sits correctly within the shadow.
             setPadding(padding, padding, padding, padding);
         }
         circle.getPaint().setColor(color);
@@ -95,7 +95,7 @@ class CircleImageView extends android.support.v7.widget.AppCompatImageView {
     }
 
     /**
-     * Update the background color of the circle image view.
+     * Update the background color of the circle headpic view.
      */
     public void setBackgroundColor(int colorRes) {
         if (getBackground() instanceof ShapeDrawable) {

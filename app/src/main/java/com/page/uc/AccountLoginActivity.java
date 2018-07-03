@@ -42,12 +42,12 @@ public class AccountLoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_login_layout);
         ButterKnife.bind(this);
-        setTitleBar("登录", false);
+        setTitleBar("登录", true);
     }
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
+        super.onBackPressed();
     }
 
 

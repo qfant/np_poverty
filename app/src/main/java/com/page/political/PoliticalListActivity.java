@@ -30,7 +30,7 @@ import com.qfant.wuye.R;
  * Created by chenxi.cui on 2018/5/16.
  */
 
-public class PoliticalListActivity extends BaseActivity implements OnItemClickListener<EventListResult.Data.ActivityList>, SwipRefreshLayout.OnRefreshListener {
+public class PoliticalListActivity extends BaseActivity implements OnItemClickListener<PoliticalItem>, SwipRefreshLayout.OnRefreshListener {
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     @BindView(R.id.refreshLayout)
@@ -100,7 +100,7 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
         rvList.addItemDecoration(new LineDecoration(this));
         rvList.setLayoutManager(new LinearLayoutManager(getContext()));
         rvList.setAdapter(adapter);
-        adapter.setOnItemClickListener(this);
+//        adapter.setOnItemClickListener(this);
         srlDownRefresh.setOnRefreshListener(this);
 //        holder.setPoCallback(new PoliticalListViewHolder.PoCallback() {
 //            @Override
@@ -173,7 +173,7 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
     }
 
     @Override
-    public void onItemClickListener(View view, EventListResult.Data.ActivityList data, int position) {
+    public void onItemClickListener(View view,PoliticalItem data, int position) {
 //        Bundle bundle = new Bundle();
 //        bundle.putString(EventDetailActivity.ID, data.id);
 //        qStartActivity(EventDetailActivity.class, bundle);

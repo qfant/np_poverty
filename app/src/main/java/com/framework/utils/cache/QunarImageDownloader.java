@@ -150,7 +150,7 @@ public class QunarImageDownloader implements Downloader {
 		if (snapshot != null) {
 			is = snapshot.getInputStream(DISK_CACHE_INDEX);
 		} else {
-			throw new ResponseException("download image error url is:" + uri,0,0);
+			throw new ResponseException("download headpic error url is:" + uri,0,0);
 		}
 
 		return new Response(is, fromCache);
@@ -194,7 +194,7 @@ public class QunarImageDownloader implements Downloader {
 		if (snapshot != null) {
 			is = snapshot.getInputStream(DISK_CACHE_INDEX);
 		} else {
-			throw new ResponseException("download image error url is:" + uri,networkPolicy,0);
+			throw new ResponseException("download headpic error url is:" + uri,networkPolicy,0);
 		}
 
 		return new Response(is, fromCache);

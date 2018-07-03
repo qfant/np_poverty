@@ -47,7 +47,7 @@ public class ViewHolder extends BaseViewHolder<NewsItem> {
                 tvRead.setText("已阅：" + data.readCount);
             }
 //            ivImage.setVisibility(View.GONE);
-            ImageLoad.loadPlaceholder(mContext, data.image, ivImage,R.drawable.moren,R.drawable.moren);
+            ImageLoad.loadPlaceholder(mContext, data.headpic, ivImage,R.drawable.moren,R.drawable.moren);
         }
     }
 

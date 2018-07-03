@@ -18,7 +18,7 @@ public class IntentFactory {
 		case 0:
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			uri = Uri.fromFile(new File(path));
-			intent.setDataAndType(uri, "image/*");
+			intent.setDataAndType(uri, "headpic/*");
 			break;
 		case 1:
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

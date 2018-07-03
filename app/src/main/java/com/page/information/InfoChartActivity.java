@@ -63,8 +63,6 @@ public class InfoChartActivity extends BaseActivity {
     private void setData(TongjiResult.TojiData data) {
         BarChart barChart1 = (BarChart) findViewById(R.id.bar_chart1);
         BarChart barChart2 = (BarChart) findViewById(R.id.bar_chart2);
-        LinearLayout ll1 = (LinearLayout) findViewById(R.id.ll_1);
-        LinearLayout ll0 = (LinearLayout) findViewById(R.id.ll_0);
         BarChartManager barChartManager1 = new BarChartManager(barChart1);
         BarChartManager barChartManager2 = new BarChartManager(barChart2);
 

@@ -33,7 +33,7 @@ public class PoliticalListViewHolder extends BaseViewHolder<PoliticalListResult.
     public PoliticalListViewHolder(Context mContext, View inflate, PoCallback poCallback) {
         super(mContext, inflate);
         ButterKnife.bind(this, itemView);
-        this.callback = callback;
+        this.callback = poCallback;
     }
 
     @Override

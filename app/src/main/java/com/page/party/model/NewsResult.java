@@ -42,7 +42,7 @@ public class NewsResult extends BaseResult {
             public String title ="";
             public String createtime ="";
             public int readCount = 0;
-            public String image = "";
+            public String headpic = "";
             public String intro = "";
             public String type = "";
         }

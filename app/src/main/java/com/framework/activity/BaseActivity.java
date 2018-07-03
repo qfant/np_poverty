@@ -552,7 +552,7 @@ public abstract class BaseActivity extends FragmentActivity implements
 
     public void shareText(String subject, String text) {
         Intent intent = new Intent(Intent.ACTION_SEND);
-        // intent.setType("image/*");//
+        // intent.setType("headpic/*");//
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_SUBJECT, subject);
         intent.putExtra(Intent.EXTRA_TEXT, text);
@@ -597,7 +597,7 @@ public abstract class BaseActivity extends FragmentActivity implements
     @Override
     public void qStartImageShare(String shareContent, Uri shareUri) {
 //		Intent intent = new Intent(Intent.ACTION_SEND);
-//		intent.setType("image/*");
+//		intent.setType("headpic/*");
 //		if (shareUri == null) {
 //			qStartShareActivity(null, shareContent);
 //			return;
