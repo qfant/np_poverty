@@ -10,4 +10,6 @@ public class InfoPlatformParam extends BaseParam {
     public String name;
     public int managerId;
     public int type;
+    public int pageNo = 1;
+    public int pageSize = 20;
 }
