@@ -11,22 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
-
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
-import com.baidu.mapapi.map.BaiduMap;
-import com.baidu.mapapi.map.BitmapDescriptor;
-import com.baidu.mapapi.map.BitmapDescriptorFactory;
-import com.baidu.mapapi.map.MapStatus;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
-import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.OverlayOptions;
-import com.baidu.mapapi.map.TextureMapView;
+import com.baidu.mapapi.map.*;
 import com.baidu.mapapi.model.LatLng;
 import com.framework.activity.BaseFragment;
 import com.framework.domain.param.BaseParam;
@@ -43,7 +36,6 @@ import com.framework.view.LineDecoration;
 import com.framework.view.circlerefresh.CircleRefreshLayout;
 import com.framework.view.sivin.Banner;
 import com.framework.view.sivin.BannerAdapter;
-import com.page.analysis.AnalysisActivity;
 import com.page.home.activity.MainActivity;
 import com.page.home.activity.TextViewActivity;
 import com.page.home.activity.WebActivity;
@@ -53,28 +45,20 @@ import com.page.home.model.LinksResult;
 import com.page.home.model.LinksResult.Data.Links;
 import com.page.home.model.NoticeResult;
 import com.page.home.model.NoticeResult.Data.Datas;
-import com.page.information.InfoPlatformActivity;
+import com.page.home.view.MRecyclerView;
+import com.page.home.view.ModeView;
 import com.page.information.InfoPlatformListActivity;
 import com.page.integral.IntegralActivity;
 import com.page.map.NearbyResult;
-import com.page.map.PointResult;
 import com.page.party.model.NewsResult;
 import com.page.party.model.NewsResult.NewsData.NewsItem;
-import com.page.home.view.MRecyclerView;
-import com.page.home.view.ModeView;
-import com.page.partymanger.MeetingListActivity;
-import com.page.political.PoliticalManagerActivity;
+import com.page.political.PoliticalListActivity;
 import com.page.political.SignParam;
-import com.page.political.SignStatusResult;
 import com.page.store.home.model.FoodRecResult;
 import com.qfant.wuye.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 import static com.page.community.serve.activity.ServeActivity.TITLE;
 
@@ -358,7 +342,7 @@ public class PHomeFragment extends BaseFragment {
                             qStartActivity(InfoPlatformListActivity.class);
                             break;
                         case "指导员管理":
-                            qStartActivity(PoliticalManagerActivity.class);
+                            qStartActivity(PoliticalListActivity.class);
                             break;
                         case "统计分析":
                             showToast("正在研发中");

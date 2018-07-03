@@ -100,6 +100,7 @@ public class PoliticalManagerActivity extends BaseActivity {
         } else {
             Request.startRequest(new SignParam(centerPoint.latitude, centerPoint.longitude), ServiceMap.signstatus, mHandler, Request.RequestFeature.CANCELABLE);
         }
+        Request.startRequest(new SignParam(centerPoint.latitude, centerPoint.longitude), ServiceMap.signoutNum, mHandler, Request.RequestFeature.CANCELABLE);
     }
 
     private void initMap() {

@@ -20,6 +20,7 @@ import com.framework.utils.ArrayUtils;
 import com.framework.view.LineDecoration;
 import com.framework.view.pull.SwipRefreshLayout;
 import com.page.information.InfoPlatformResult.InfoItem;
+import com.page.information.ManagermentResult.ManagermentItem;
 import com.qfant.wuye.R;
 
 import java.util.ArrayList;
@@ -33,32 +34,32 @@ import butterknife.ButterKnife;
  * Created by chenxi.cui on 2018/5/7.
  */
 
-public class InfoPlatformListActivity extends BaseActivity implements OnItemClickListener<String>, SwipRefreshLayout.OnRefreshListener {
+public class InfoPlatformListActivity extends BaseActivity implements OnItemClickListener<ManagermentItem>, SwipRefreshLayout.OnRefreshListener {
     @BindView(R.id.rv_list)
     RecyclerView rvList;
     @BindView(R.id.refreshLayout)
     SwipRefreshLayout srlDownRefresh;
-    private MultiAdapter<String> adapter;
+    private MultiAdapter<ManagermentItem> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_manager_list_layout);
         ButterKnife.bind(this);
-        setTitleBar("信息平台", true);
+        setTitleBar("主管单位", true);
         setListView();
-//        startRequest(1);
+        startRequest(1);
         List<InfoItem> infos = new ArrayList<>();
         InfoItem infoItem = new InfoItem();
 //        谯城区，涡阳县，蒙城县 利辛县，谯城经开区，亳芜产业园区，亳州经开区
         String [] aa ={"谯城区","涡阳县","蒙城县","利辛县","谯城经开区","亳芜产业园区","亳州经开区"};
-        adapter.setData(Arrays.asList(aa));
+//        adapter.setData(Arrays.asList(aa));
     }
 
     private void setListView() {
-        adapter = new MultiAdapter<String>(getContext()).addTypeView(new ITypeView<String>() {
+        adapter = new MultiAdapter<ManagermentItem>(getContext()).addTypeView(new ITypeView<ManagermentItem>() {
             @Override
-            public boolean isForViewType(String item, int position) {
+            public boolean isForViewType(ManagermentItem item, int position) {
                 return true;
             }
 
@@ -75,28 +76,36 @@ public class InfoPlatformListActivity extends BaseActivity implements OnItemClic
     }
 
 
-//    private void startRequest(int page) {
-//        InfoParam param = new InfoParam();
-//        param.pageNo = page;
-//        if (page == 1) {
-//            Request.startRequest(param, page, ServiceMap.InfoList, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
-//        } else {
-//            Request.startRequest(param, page, ServiceMap.InfoList, mHandler);
-//        }
-//    }
-
+    private void startRequest(int page) {
+        InfoParam param = new InfoParam();
+        param.pageNo = page;
+        if (page == 1) {
+            Request.startRequest(param, page, ServiceMap.managermentList, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
+        } else {
+            Request.startRequest(param, page, ServiceMap.managermentList, mHandler);
+        }
+    }
 
 
     @Override
-    public void onItemClickListener(View view, String data, int position) {
+    public boolean onMsgSearchComplete(NetworkParam param) {
+        if (param.key == ServiceMap.managermentList) {
+            ManagermentResult result = (ManagermentResult) param.result;
+            adapter.setData(result.data);
+        }
+        return super.onMsgSearchComplete(param);
+    }
+
+    @Override
+    public void onItemClickListener(View view, ManagermentItem data, int position) {
         Bundle bundle = new Bundle();
-        bundle.putString("id", data);
+        bundle.putSerializable("id", data);
         qStartActivity(InfoChartActivity.class, bundle);
     }
 
     @Override
     public void onRefresh(int index) {
-//        startRequest(1);
+        startRequest(1);
     }
 
     @Override

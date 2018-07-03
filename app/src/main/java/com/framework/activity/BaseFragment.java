@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Handler.Callback;
 import android.support.v4.app.Fragment;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -521,7 +522,7 @@ public abstract class BaseFragment extends Fragment implements OnClickListener,
                 R.layout.tip_dialog, null);
         TextView textView = (TextView) view.findViewById(R.id.textview);// new
         // TextView(this);
-        textView.setText(text);
+        textView.setText(Html.fromHtml(text));
         TextView textView1 = (TextView) view.findViewById(R.id.textview1);// new
         // TextView(this);
         if (TextUtils.isEmpty(title)) {

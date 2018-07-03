@@ -19,6 +19,8 @@ import com.page.home.model.QpListResult;
 import com.page.home.model.ShopRecResult;
 import com.page.information.InfoDetailResult;
 import com.page.information.InfoPlatformResult;
+import com.page.information.ManagermentResult;
+import com.page.information.TongjiResult;
 import com.page.integral.IntegralResult;
 import com.page.map.NearbyResult;
 import com.page.map.PartyBaranchResult;
@@ -30,6 +32,7 @@ import com.page.partymanger.MeetingInfoResult;
 import com.page.partymanger.MeetingListResult;
 import com.page.pay.ProductPayResult;
 import com.page.pay.WeChatPayResult;
+import com.page.political.PoliticalListResult;
 import com.page.political.SignListResult;
 import com.page.political.SignStatusResult;
 import com.page.political.WorkLogListResult;
@@ -147,8 +150,16 @@ public enum ServiceMap implements Enums.IType, Serializable {
     towns("towns.do", PointResult.class),
     nearby("Company/nearby", NearbyResult.class),
     signstatus("Member/signstatus", SignStatusResult.class),
+    queryByZhidao("Company/queryByZhidao", PoliticalListResult.class),
+    signinNum("Member/signinNum", SignStatusResult.class),
+    signoutNum("Member/signoutNum", SignStatusResult.class),
     signin("Member/signin", SignStatusResult.class),
     signout("Member/signout", SignStatusResult.class),
+    tongji ("Info/tongji", TongjiResult.class),
+    tongji2  ("Info/tongji2", TongjiResult.class),
+    queryNumByScale("Info/queryNumByScale", SignStatusResult.class),
+    queryNumByIsparty("Info/queryNumByIsparty", SignStatusResult.class),
+    queryNumBIsstardand("Info/queryNumBIsstardand", SignStatusResult.class),
     signList("Member/signList", SignListResult.class),
     worklogList("Member/worklogList", WorkLogListResult.class),
     submitWorklog("Member/submitWorklog", BaseResult.class),
@@ -160,6 +171,8 @@ public enum ServiceMap implements Enums.IType, Serializable {
     editPassword("Member/editPassword", BaseResult.class),
     integral("Member/integral", IntegralResult.class),
     InfoList("Info/InfoList", InfoPlatformResult.class),
+    managermentList("Company/managermentList", ManagermentResult.class),
+    companyList("Company/companyList", InfoPlatformResult.class),
     InfoDetail("Info/InfoDetail", InfoDetailResult.class),
     useHelp("Info/useHelp", UserHelpResult.class),
     myInfo("Member/myInfo", UserInfoResult.class),

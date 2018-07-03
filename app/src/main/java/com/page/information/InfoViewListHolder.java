@@ -14,11 +14,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.page.information.ManagermentResult.*;
+
 /**
  * Created by shucheng.qu on 2017/8/9.
  */
 
-public class InfoViewListHolder extends BaseViewHolder<String> {
+public class InfoViewListHolder extends BaseViewHolder<ManagermentItem> {
     @BindView(R.id.text_1)
     TextView text1;
 
@@ -29,8 +31,9 @@ public class InfoViewListHolder extends BaseViewHolder<String> {
     }
 
     @Override
-    public void onBindViewHolder(BaseViewHolder holder, String data, int position) {
-        text1.setText( data);
+    public void onBindViewHolder(BaseViewHolder holder, ManagermentItem data, int position) {
+        text1.setText(data.name);
+
 //        ImageLoad.loadPlaceholder(mContext, data.headpic, imagePic);
     }
 

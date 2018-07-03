@@ -4,10 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.EditText;
+import android.widget.TextView;
+import butterknife.OnClick;
 import com.framework.activity.BaseActivity;
 import com.framework.net.NetworkParam;
 import com.framework.net.Request;
@@ -34,6 +38,10 @@ public class InfoPlatformActivity extends BaseActivity implements OnItemClickLis
     RecyclerView rvList;
     @BindView(R.id.refreshLayout)
     SwipRefreshLayout srlDownRefresh;
+    @BindView(R.id.input_search)
+    EditText inputSearch;
+    @BindView(R.id.text_search)
+    TextView textSearch;
     private MultiAdapter<InfoItem> adapter;
     private int id;
     private int type;
@@ -41,7 +49,7 @@ public class InfoPlatformActivity extends BaseActivity implements OnItemClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_party_manager_list_layout);
+        setContentView(R.layout.activity_info_manager_list_layout);
         ButterKnife.bind(this);
         id = myBundle.getInt("id");
         type = myBundle.getInt("type");
@@ -50,7 +58,19 @@ public class InfoPlatformActivity extends BaseActivity implements OnItemClickLis
         startRequest(1);
 
     }
-
+    @OnClick(R.id.text_search)
+    public void onViewClicked() {
+        String s = inputSearch.getText().toString();
+        if (TextUtils.isEmpty(s)) {
+            return;
+        }
+        InfoPlatformParam param = new InfoPlatformParam();
+        param.managerId = id;
+        param.type = type;
+        param.name = s;
+        Request.startRequest(param, 1, ServiceMap.InfoList, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
+//        startRequest(1, s);
+    }
     private void setListView() {
         adapter = new MultiAdapter<InfoItem>(getContext()).addTypeView(new ITypeView<InfoItem>() {
             @Override
@@ -74,8 +94,8 @@ public class InfoPlatformActivity extends BaseActivity implements OnItemClickLis
     private void startRequest(int page) {
         CompanyParam param = new CompanyParam();
         param.managerId = id;
-        param.pageNo = page;
         param.type = type;
+        param.pageNo = page;
         if (page == 1) {
             Request.startRequest(param, page, ServiceMap.companyList, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
         } else {
@@ -93,6 +113,18 @@ public class InfoPlatformActivity extends BaseActivity implements OnItemClickLis
                     adapter.setData(result.data.newsList);
                 } else {
                     adapter.addData(result.data.newsList);
+                }
+            } else {
+                showToast("没有更多了");
+            }
+            srlDownRefresh.setRefreshing(false);
+        } else  if (param.key == ServiceMap.InfoList) {
+            InfoPlatformResult result = (InfoPlatformResult) param.result;
+            if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.infoListResult)) {
+                if ((int) param.ext == 1) {
+                    adapter.setData(result.data.infoListResult);
+                } else {
+                    adapter.addData(result.data.infoListResult);
                 }
             } else {
                 showToast("没有更多了");

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.baidu.platform.comapi.map.B;
@@ -56,10 +57,10 @@ public class PNewsInfoActivity extends BaseActivity {
         setTitleBar(title, true);
         NewsParam param = new NewsParam();
         param.id = id;
-//        Request.startRequest(param, ServiceMap.newsDetail, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
-        if (url != null) {
-            tvContent.setText(Html.fromHtml(url));
-        }
+        Request.startRequest(param, ServiceMap.newsDetail, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
+//        if (url != null) {
+//            tvContent.setText(Html.fromHtml(url));
+//        }
     }
 
     @Override
