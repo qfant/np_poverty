@@ -97,9 +97,9 @@ public class InfoPlatformActivity extends BaseActivity implements OnItemClickLis
         param.type = type;
         param.pageNo = page;
         if (page == 1) {
-            Request.startRequest(param, page, ServiceMap.companyList, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
+            Request.startRequest(param, page, ServiceMap.InfoList, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
         } else {
-            Request.startRequest(param, page, ServiceMap.companyList, mHandler);
+            Request.startRequest(param, page, ServiceMap.InfoList, mHandler);
         }
     }
 
@@ -120,11 +120,11 @@ public class InfoPlatformActivity extends BaseActivity implements OnItemClickLis
             srlDownRefresh.setRefreshing(false);
         } else  if (param.key == ServiceMap.InfoList) {
             InfoPlatformResult result = (InfoPlatformResult) param.result;
-            if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.infoListResult)) {
+            if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.infoList)) {
                 if ((int) param.ext == 1) {
-                    adapter.setData(result.data.infoListResult);
+                    adapter.setData(result.data.infoList);
                 } else {
-                    adapter.addData(result.data.infoListResult);
+                    adapter.addData(result.data.infoList);
                 }
             } else {
                 showToast("没有更多了");

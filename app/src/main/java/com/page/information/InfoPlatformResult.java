@@ -17,7 +17,7 @@ public class InfoPlatformResult extends BaseResult {
     public static class InfoData implements Serializable {
         public int totalNum;
         public List<InfoItem> newsList;
-        public List<InfoItem> infoListResult;
+        public List<InfoItem> infoList;
     }
 
     public static class InfoItem implements Serializable {
