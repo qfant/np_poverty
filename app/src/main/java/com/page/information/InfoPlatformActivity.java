@@ -7,10 +7,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.framework.activity.BaseActivity;
-import com.framework.domain.param.BaseParam;
 import com.framework.net.NetworkParam;
 import com.framework.net.Request;
 import com.framework.net.ServiceMap;
@@ -22,10 +20,6 @@ import com.framework.utils.ArrayUtils;
 import com.framework.view.LineDecoration;
 import com.framework.view.pull.SwipRefreshLayout;
 import com.page.information.InfoPlatformResult.InfoItem;
-import com.page.partymanger.MeetingDetailActivity;
-import com.page.partymanger.MeetingListParam;
-import com.page.partymanger.MeetingListResult;
-import com.page.partymanger.MeetingListViewHolder;
 import com.qfant.wuye.R;
 
 import butterknife.BindView;
@@ -41,12 +35,16 @@ public class InfoPlatformActivity extends BaseActivity implements OnItemClickLis
     @BindView(R.id.refreshLayout)
     SwipRefreshLayout srlDownRefresh;
     private MultiAdapter<InfoItem> adapter;
+    private int id;
+    private int type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_manager_list_layout);
         ButterKnife.bind(this);
+        id = myBundle.getInt("id");
+        type = myBundle.getInt("type");
         setTitleBar("信息平台", true);
         setListView();
         startRequest(1);
@@ -74,25 +72,27 @@ public class InfoPlatformActivity extends BaseActivity implements OnItemClickLis
 
 
     private void startRequest(int page) {
-        InfoParam param = new InfoParam();
+        CompanyParam param = new CompanyParam();
+        param.managerId = id;
         param.pageNo = page;
+        param.type = type;
         if (page == 1) {
-            Request.startRequest(param, page, ServiceMap.InfoList, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
+            Request.startRequest(param, page, ServiceMap.companyList, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
         } else {
-            Request.startRequest(param, page, ServiceMap.InfoList, mHandler);
+            Request.startRequest(param, page, ServiceMap.companyList, mHandler);
         }
     }
 
 
     @Override
     public boolean onMsgSearchComplete(NetworkParam param) {
-        if (param.key == ServiceMap.InfoList) {
+        if (param.key == ServiceMap.companyList) {
             InfoPlatformResult result = (InfoPlatformResult) param.result;
-            if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.infoListResult)) {
+            if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.newsList)) {
                 if ((int) param.ext == 1) {
-                    adapter.setData(result.data.infoListResult);
+                    adapter.setData(result.data.newsList);
                 } else {
-                    adapter.addData(result.data.infoListResult);
+                    adapter.addData(result.data.newsList);
                 }
             } else {
                 showToast("没有更多了");
