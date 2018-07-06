@@ -107,17 +107,16 @@ public class InfoChartActivity extends BaseActivity {
         barChartManager2.setXAxis(2f, 0f, 2);
     }
 
-    @OnClick({R.id.bar_chart1, R.id.bar_chart2, R.id.ll_0})
+    @OnClick({R.id.text_1, R.id.text_2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.bar_chart1:
-            case R.id.ll_0:
+            case R.id.text_2:
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", item.id);
                 bundle.putInt("type", 2);
                 qStartActivity(InfoPlatformActivity.class, bundle);
                 break;
-            case R.id.bar_chart2:
+            case R.id.text_1:
                 Bundle bundle1 = new Bundle();
                 bundle1.putInt("id", item.id);
                 bundle1.putInt("type", 1);

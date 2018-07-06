@@ -98,11 +98,11 @@ public class PNewListActivity extends BaseActivity implements OnItemClickListene
         param.pageNo = pager;
         param.type = ftype;
         param.keyword = keyword;
-        if (ftype == 3) {
-            Request.startRequest(param, pager, ServiceMap.worknewsList, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
-        }else {
+//        if (ftype == 3) {
+//            Request.startRequest(param, pager, ServiceMap.worknewsList, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
+//        }else {
             Request.startRequest(param, pager, ServiceMap.newsList, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
-        }
+//        }
     }
 
     @Override
