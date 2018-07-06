@@ -19,6 +19,13 @@ public class PoliticalListResult extends BaseResult {
         public int signout;
         public int worklog;
         public List<PoliticalItem> partyBranchList;
+        public List<SignItem> signins;
+        public List<SignItem> signouts;
+        public List<SignItem> worklogs;
+    }
+    public static class SignItem implements Serializable{
+        public float shuliang;
+        public String name;
     }
 
     //"createtime":"2018-05-28 15:06",

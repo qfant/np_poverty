@@ -1,6 +1,7 @@
 package com.page.political;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,9 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 import com.framework.activity.BaseActivity;
 import com.framework.net.NetworkParam;
 import com.framework.net.Request;
@@ -22,9 +21,17 @@ import com.framework.rvadapter.manage.ITypeView;
 import com.framework.utils.ArrayUtils;
 import com.framework.view.LineDecoration;
 import com.framework.view.pull.SwipRefreshLayout;
-import com.page.community.eventlist.model.EventListResult;
+import com.github.mikephil.charting.charts.BarChart;
+import com.page.information.BarChartManager;
 import com.page.political.PoliticalListResult.PoliticalItem;
 import com.qfant.wuye.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by chenxi.cui on 2018/5/16.
@@ -35,12 +42,10 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
     RecyclerView rvList;
     @BindView(R.id.refreshLayout)
     SwipRefreshLayout srlDownRefresh;
-    @BindView(R.id.text_0)
-    TextView text0;
-    @BindView(R.id.text_1)
-    TextView text1;
-    @BindView(R.id.text_2)
-    TextView text2;
+    @BindView(R.id.bar_chart1)
+    BarChart barChart1;
+    @BindView(R.id.bar_chart2)
+    BarChart barChart2;
     @BindView(R.id.text_4)
     TextView text4;
     private MultiAdapter<PoliticalItem> adapter;
@@ -71,7 +76,7 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
 
             @Override
             public BaseViewHolder createViewHolder(Context mContext, ViewGroup parent) {
-                return new PoliticalListViewHolder(mContext, LayoutInflater.from(mContext).inflate(R.layout.activity_po_list_item_layout, parent, false),new PoliticalListViewHolder.PoCallback() {
+                return new PoliticalListViewHolder(mContext, LayoutInflater.from(mContext).inflate(R.layout.activity_po_list_item_layout, parent, false), new PoliticalListViewHolder.PoCallback() {
                     @Override
                     public void callback1(PoliticalItem data) {
                         if (data.signin == 0) {
@@ -167,13 +172,81 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
     }
 
     private void setData(PoliticalListResult.PoliticalData data) {
-        text0.setText("签到数:" + data.signin);
-        text1.setText("签退数:" + data.signout);
-        text2.setText("工作日志数:" + data.worklog);
+
+        BarChartManager barChartManager1 = new BarChartManager(barChart1);
+        BarChartManager barChartManager2 = new BarChartManager(barChart2);
+
+        //设置x轴的数据
+        ArrayList<Float> xValues = new ArrayList<>();
+//        for (int i = 0; i <2; i++) {
+//            xValues.add((float) i);
+//        }
+
+        //设置y轴的数据()
+        List<List<Float>> yValues = new ArrayList<>();
+        List<List<Float>> yValues1 = new ArrayList<>();
+//        for (int i = 0; i < 2; i++) {
+//            List<Float> yValue = new ArrayList<>();
+//            for (int j = 0; j <2; j++) {
+//                yValue.add((float) (Math.random() * 80));
+//            }
+//            yValues.add(yValues);
+//        }
+        if (data.signins != null) {
+            List<Float> sum = new ArrayList<>();
+            for (int i=0;i<data.signins.size();i++) {
+                sum.add(data.signins.get(i).shuliang);
+            }
+            yValues.add(sum);
+
+            List<Float> sum1 = new ArrayList<>();
+            for (int i=0;i<data.signouts.size();i++) {
+                sum1.add(data.signouts.get(i).shuliang);
+            }
+            yValues.add(sum1);
+        }
+        if (data.worklogs != null) {
+            List<Float> sum = new ArrayList<>();
+            for (int i=0;i<data.worklogs.size();i++) {
+                sum.add(data.worklogs.get(i).shuliang);
+            }
+            yValues1.add(sum);
+        }
+
+        //颜色集合
+        List<Integer> colours = new ArrayList<>();
+        colours.add(Color.GREEN);
+        colours.add(Color.BLUE);
+
+        //线的名字集合
+        List<String> names = new ArrayList<>();
+        if (data.signins != null) {
+            for (int i=0;i<data.signins.size();i++) {
+                names.add(data.signins.get(i).name);
+                xValues.add((float) i);
+            }
+        }
+
+        List<String> names1 = new ArrayList<>();
+        ArrayList<Float> xValues1 = new ArrayList<>();
+        if (data.worklogs != null) {
+            for (int i=0;i<data.worklogs.size();i++) {
+                names1.add(data.worklogs.get(i).name);
+                xValues1.add((float) i);
+            }
+        }
+
+        //创建多条折线的图表
+        barChartManager1.showBarChart(xValues, yValues, names, colours);
+//        barChartManager2.showBarChart(xValues1, yValues1, names1, colours);
+        barChartManager2.showBarChart(xValues1, yValues.get(0), names1.get(1), colours.get(0));
+
+        barChartManager1.setXAxis(2f, 0f, xValues.size());
+        barChartManager2.setXAxis(2f, 0f, xValues1.size());
     }
 
     @Override
-    public void onItemClickListener(View view,PoliticalItem data, int position) {
+    public void onItemClickListener(View view, PoliticalItem data, int position) {
 //        Bundle bundle = new Bundle();
 //        bundle.putString(EventDetailActivity.ID, data.id);
 //        qStartActivity(EventDetailActivity.class, bundle);
