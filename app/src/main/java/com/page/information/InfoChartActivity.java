@@ -27,8 +27,7 @@ public class InfoChartActivity extends BaseActivity {
     BarChart barChart1;
     @BindView(R.id.bar_chart2)
     BarChart barChart2;
-    @BindView(R.id.ll_0)
-    LinearLayout ll0;
+
     private ManagermentItem item;
 
     @Override
