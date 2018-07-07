@@ -12,6 +12,8 @@ import com.framework.net.NetworkParam;
 import com.framework.net.Request;
 import com.framework.net.ServiceMap;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.page.information.ManagermentResult.ManagermentItem;
 import com.qfant.wuye.R;
 
@@ -85,7 +87,30 @@ public class InfoChartActivity extends BaseActivity {
 //            }
 //            yValues.add(yValues);
 //        }
-
+        barChart1.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                if(value==0){
+                    return ".                                                            非公企业";
+                } else if (value == 1) {
+                    return ".                                                            社会组织";
+                }else {
+                    return "";
+                }
+            }
+        });
+        barChart2.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                if(value==0){
+                    return ".                                                            非公企业";
+                } else if (value == 1) {
+                    return ".                                                            社会组织";
+                }else {
+                    return "";
+                }
+            }
+        });
         //颜色集合
         List<Integer> colours = new ArrayList<>();
         colours.add(Color.GREEN);
@@ -106,18 +131,16 @@ public class InfoChartActivity extends BaseActivity {
         barChartManager2.setXAxis(2f, 0f, 2);
     }
 
-    @OnClick({R.id.text_1, R.id.text_2,R.id.text_3, R.id.text_4})
+    @OnClick({R.id.text_1, R.id.text_2})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.text_2:
-            case R.id.text_4:
                 Bundle bundle = new Bundle();
                 bundle.putInt("id", item.id);
                 bundle.putInt("type", 2);
                 qStartActivity(InfoPlatformActivity.class, bundle);
                 break;
             case R.id.text_1:
-            case R.id.text_3:
                 Bundle bundle1 = new Bundle();
                 bundle1.putInt("id", item.id);
                 bundle1.putInt("type", 1);

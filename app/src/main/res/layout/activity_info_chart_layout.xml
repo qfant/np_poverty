@@ -13,41 +13,14 @@
             android:id="@+id/bar_chart1"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="-45dp"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/text_3"
-                android:text="非公企业"
-                android:layout_margin="10dp"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:textSize="9dp"
-                android:gravity="center"
-                android:textColor="#333"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:id="@+id/text_4"
-                android:text="社会组织"
-                android:layout_margin="10dp"
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:textSize="9dp"
-                android:gravity="center"
-                android:textColor="#333"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/bar_chart2"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             android:layout_height="200dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:layout_marginTop="-45dp"
             android:layout_height="wrap_content">
             <TextView
                 android:id="@+id/text_1"
@@ -55,7 +28,7 @@
                 android:layout_margin="10dp"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:textSize="9dp"
+                android:textSize="16dp"
                 android:gravity="center"
                 android:textColor="#333"
                 android:layout_height="wrap_content" />
@@ -65,7 +38,7 @@
                 android:layout_margin="10dp"
                 android:layout_width="wrap_content"
                 android:layout_weight="1"
-                android:textSize="9dp"
+                android:textSize="16dp"
                 android:gravity="center"
                 android:textColor="#333"
                 android:layout_height="wrap_content" />
