@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.framework.activity.BaseActivity;
@@ -22,6 +23,10 @@ import com.framework.utils.ArrayUtils;
 import com.framework.view.LineDecoration;
 import com.framework.view.pull.SwipRefreshLayout;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.CombinedChart;
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.page.information.BarChartManager;
 import com.page.political.PoliticalListResult.PoliticalItem;
 import com.qfant.wuye.R;
@@ -48,6 +53,10 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
     BarChart barChart2;
     @BindView(R.id.text_4)
     TextView text4;
+    @BindView(R.id.chart1)
+    CombinedChart chart1;
+    @BindView(R.id.ll_top)
+    LinearLayout llTop;
     private MultiAdapter<PoliticalItem> adapter;
 
     @Override
@@ -176,6 +185,8 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
         BarChartManager barChartManager1 = new BarChartManager(barChart1);
         BarChartManager barChartManager2 = new BarChartManager(barChart2);
 
+        XAxis xAxis = barChart1.getXAxis();
+
         //设置x轴的数据
         ArrayList<Float> xValues = new ArrayList<>();
 //        for (int i = 0; i <2; i++) {
@@ -194,21 +205,21 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
 //        }
         if (data.signins != null) {
             List<Float> sum = new ArrayList<>();
-            for (int i=0;i<data.signins.size();i++) {
-                sum.add(data.signins.get(i).shuliang);
+            for (int i = 0; i < data.signins.size(); i++) {
+                sum.add((float) data.signins.get(i).shuliang);
             }
             yValues.add(sum);
 
             List<Float> sum1 = new ArrayList<>();
-            for (int i=0;i<data.signouts.size();i++) {
-                sum1.add(data.signouts.get(i).shuliang);
+            for (int i = 0; i < data.signouts.size(); i++) {
+                sum1.add((float) data.signouts.get(i).shuliang);
             }
             yValues.add(sum1);
         }
         if (data.worklogs != null) {
             List<Float> sum = new ArrayList<>();
-            for (int i=0;i<data.worklogs.size();i++) {
-                sum.add(data.worklogs.get(i).shuliang);
+            for (int i = 0; i < data.worklogs.size(); i++) {
+                sum.add((float) data.worklogs.get(i).shuliang);
             }
             yValues1.add(sum);
         }
@@ -217,32 +228,59 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
         List<Integer> colours = new ArrayList<>();
         colours.add(Color.GREEN);
         colours.add(Color.BLUE);
-
+        List<Integer> colours1 = new ArrayList<>();
+        colours1.add(Color.RED);
         //线的名字集合
-        List<String> names = new ArrayList<>();
+        final List<String> names = new ArrayList<>();
         if (data.signins != null) {
-            for (int i=0;i<data.signins.size();i++) {
+            for (int i = 0; i < data.signins.size(); i++) {
                 names.add(data.signins.get(i).name);
                 xValues.add((float) i);
             }
         }
 
-        List<String> names1 = new ArrayList<>();
+        final List<String> names1 = new ArrayList<>();
         ArrayList<Float> xValues1 = new ArrayList<>();
         if (data.worklogs != null) {
-            for (int i=0;i<data.worklogs.size();i++) {
+            for (int i = 0; i < data.worklogs.size(); i++) {
                 names1.add(data.worklogs.get(i).name);
                 xValues1.add((float) i);
             }
         }
 
         //创建多条折线的图表
-        barChartManager1.showBarChart(xValues, yValues, names, colours);
-//        barChartManager2.showBarChart(xValues1, yValues1, names1, colours);
-        barChartManager2.showBarChart(xValues1, yValues.get(0), names1.get(1), colours.get(0));
+        xAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                if (value == 0) {
+                    return "";
+                }
+                return   names.get((int) value - 1) + "                                        .";
+            }
+        });
+        barChart2.getXAxis().setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                if(names1.size()<value){
+                    return "";
+                }
+                return  names1.get((int) value ) + "";
 
-        barChartManager1.setXAxis(2f, 0f, xValues.size());
-        barChartManager2.setXAxis(2f, 0f, xValues1.size());
+            }
+        });
+        List<String> libs = new ArrayList<>();
+        libs.add("签到");
+        libs.add("签退");
+        List<String> libs1 = new ArrayList<>();
+        libs1.add("工作日志");
+        barChartManager1.showBarChart(xValues, yValues, libs, colours);
+//        barChartManager2.showBarChart(xValues1, yValues1, libs1, colours1);
+        barChartManager2.showBarChart(xValues1, yValues1.get(0), libs1.get(0), colours1.get(0));
+
+        barChartManager1.setXAxis(names.size(), 0f, names.size());
+//        barChartManager2.setXAxis(names1.size(), 0f, names1.size());
+//        barChartManager2.setXAxis(names1.size()+2, -2f, names1.size());
+//        barChartManager2.setXAxis(2f, -1f,2);
     }
 
     @Override

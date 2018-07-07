@@ -52,6 +52,7 @@ import com.page.integral.IntegralActivity;
 import com.page.map.NearbyResult;
 import com.page.party.model.NewsResult;
 import com.page.party.model.NewsResult.NewsData.NewsItem;
+import com.page.political.CombinedChartActivity;
 import com.page.political.PoliticalListActivity;
 import com.page.political.SignParam;
 import com.page.store.home.model.FoodRecResult;
@@ -342,6 +343,7 @@ public class PHomeFragment extends BaseFragment {
                             qStartActivity(InfoPlatformListActivity.class);
                             break;
                         case "指导员管理":
+//                            qStartActivity(CombinedChartActivity.class);
                             qStartActivity(PoliticalListActivity.class);
                             break;
                         case "统计分析":

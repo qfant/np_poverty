@@ -24,7 +24,7 @@ public class PoliticalListResult extends BaseResult {
         public List<SignItem> worklogs;
     }
     public static class SignItem implements Serializable{
-        public float shuliang;
+        public int shuliang;
         public String name;
     }
 
