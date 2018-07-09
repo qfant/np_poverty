@@ -297,7 +297,7 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
 
     @Override
     public void onLoad(int index) {
-        startRequest(++index);
+//        startRequest(++index);
     }
 
     @OnClick(R.id.text_4)
