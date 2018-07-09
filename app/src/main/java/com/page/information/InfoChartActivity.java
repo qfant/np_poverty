@@ -113,16 +113,16 @@ public class InfoChartActivity extends BaseActivity {
         });
         //颜色集合
         List<Integer> colours = new ArrayList<>();
-        colours.add(Color.GREEN);
+        colours.add(Color.RED);
         colours.add(Color.BLUE);
 
         //线的名字集合
         List<String> names = new ArrayList<>();
-        names.add("数量");
-        names.add("规模以上企业");
+        names.add("平台数量");
+        names.add("单独组建数量");
         List<String> names1 = new ArrayList<>();
-        names1.add("成立党支部比例");
-        names1.add("标准化建设达标比例");
+        names1.add("单独组建率");
+        names1.add("标准化达标率");
 
         //创建多条折线的图表
         barChartManager1.showBarChart(xValues, yValues, names, colours);
