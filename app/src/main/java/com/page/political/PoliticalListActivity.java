@@ -281,6 +281,7 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
 //        barChartManager2.setXAxis(names1.size(), 0f, names1.size());
 //        barChartManager2.setXAxis(names1.size()+2, -2f, names1.size());
 //        barChartManager2.setXAxis(2f, -1f,2);
+//        sss
     }
 
     @Override
