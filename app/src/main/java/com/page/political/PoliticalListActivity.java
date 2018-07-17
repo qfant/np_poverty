@@ -226,7 +226,7 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
 
         //颜色集合
         List<Integer> colours = new ArrayList<>();
-        colours.add(Color.GREEN);
+        colours.add(Color.RED);
         colours.add(Color.BLUE);
         List<Integer> colours1 = new ArrayList<>();
         colours1.add(Color.RED);

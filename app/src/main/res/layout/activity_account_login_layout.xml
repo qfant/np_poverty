@@ -86,7 +86,8 @@
                     android:layout_height="wrap_content"
                     android:hint="请输入密码"
                     android:textColor="@color/pub_color_black"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    android:inputType="textPassword"/>
             </LinearLayout>
 
             <View
