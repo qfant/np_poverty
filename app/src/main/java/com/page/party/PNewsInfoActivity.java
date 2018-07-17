@@ -24,8 +24,8 @@ import butterknife.ButterKnife;
  */
 
 public class PNewsInfoActivity extends BaseActivity {
-    @BindView(R.id.tv_content)
-    TextView tvContent;
+    @BindView(R.id.web_view)
+    WebView tvContent;
 
     public static void startActivity(BaseActivity activity, String title, String url, String id) {
         Bundle bundle = new Bundle();
@@ -55,20 +55,21 @@ public class PNewsInfoActivity extends BaseActivity {
         String url = myBundle.getString("url");
         String id = myBundle.getString("id");
         setTitleBar(title, true);
-        NewsParam param = new NewsParam();
-        param.id = id;
-        Request.startRequest(param, ServiceMap.newsDetail, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
+//        NewsParam param = new NewsParam();
+//        param.id = id;
+//        Request.startRequest(param, ServiceMap.newsDetail, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
 //        if (url != null) {
 //            tvContent.setText(Html.fromHtml(url));
 //        }
+        tvContent.loadUrl(url);
     }
 
     @Override
     public boolean onMsgSearchComplete(NetworkParam param) {
-        if (param.key == ServiceMap.newsDetail) {
-            NewsDetailResult result = (NewsDetailResult) param.result;
-            tvContent.setText(Html.fromHtml(result.data.newsdetialResult.intro));
-        }
+//        if (param.key == ServiceMap.newsDetail) {
+//            NewsDetailResult result = (NewsDetailResult) param.result;
+//            tvContent.setText(Html.fromHtml(result.data.newsdetialResult.intro));
+//        }
         return super.onMsgSearchComplete(param);
     }
 

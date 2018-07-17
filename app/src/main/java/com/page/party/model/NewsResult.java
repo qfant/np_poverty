@@ -44,6 +44,7 @@ public class NewsResult extends BaseResult {
             public int readCount = 0;
             public String headpic = "";
             public String intro = "";
+            public String detailurl = "";
             public String type = "";
         }
     }

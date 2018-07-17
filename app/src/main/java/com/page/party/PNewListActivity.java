@@ -25,6 +25,7 @@ import com.framework.view.LineDecoration;
 import com.framework.view.pull.SwipRefreshLayout;
 import com.page.community.serve.model.ServeParam;
 import com.page.community.serve.model.ServeResult;
+import com.page.home.activity.WebActivity;
 import com.page.party.model.NewsResult;
 import com.page.party.model.NewsResult.NewsData.NewsItem;
 import com.qfant.wuye.R;
@@ -34,6 +35,8 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.page.community.serve.activity.ServeActivity.TITLE;
 
 /**
  * Created by chenxi.cui on 2018/4/2.
@@ -135,7 +138,11 @@ public class PNewListActivity extends BaseActivity implements OnItemClickListene
 
     @Override
     public void onItemClickListener(View view, NewsItem data, int position) {
-        PNewsInfoActivity.startActivity(this, data.title, data.intro, data.id);
+//        WebActivity.startActivity(this, data.title, data.detailurl, data.id);
+        Bundle bundle = new Bundle();
+        bundle.putString(TITLE, data.title);
+        bundle.putString(WebActivity.URL, data.detailurl);
+        qStartActivity(WebActivity.class, bundle);
     }
 
     @Override
