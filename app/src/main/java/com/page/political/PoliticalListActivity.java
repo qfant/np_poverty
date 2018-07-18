@@ -157,8 +157,10 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
     public boolean onMsgSearchComplete(NetworkParam param) {
         if (param.key == ServiceMap.queryByZhidao) {
             final PoliticalListResult result = (PoliticalListResult) param.result;
-            if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.partyBranchList)) {
+            if (result != null && result.data != null){
                 setData(result.data);
+            }
+            if (result != null && result.data != null && !ArrayUtils.isEmpty(result.data.partyBranchList)) {
                 if ((int) param.ext == 1) {
                     adapter.clearData();
                     adapter.setData(result.data.partyBranchList);
