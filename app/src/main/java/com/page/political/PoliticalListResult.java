@@ -44,6 +44,7 @@ public class PoliticalListResult extends BaseResult {
         public int id;
         public String name;
         public int signin;
+        public int signout;
         public double latitude;
     }
 }

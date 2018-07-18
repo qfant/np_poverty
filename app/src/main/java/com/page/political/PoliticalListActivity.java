@@ -11,6 +11,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
+import com.baidu.mapapi.map.MapStatusUpdate;
+import com.baidu.mapapi.map.MapStatusUpdateFactory;
+import com.baidu.mapapi.model.LatLng;
 import com.framework.activity.BaseActivity;
 import com.framework.net.NetworkParam;
 import com.framework.net.Request;
@@ -28,6 +35,7 @@ import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.page.information.BarChartManager;
+import com.page.map.MapFragment;
 import com.page.political.PoliticalListResult.PoliticalItem;
 import com.qfant.wuye.R;
 
@@ -58,6 +66,7 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
     @BindView(R.id.ll_top)
     LinearLayout llTop;
     private MultiAdapter<PoliticalItem> adapter;
+    private LocationClient mLocationClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +74,38 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
         setContentView(R.layout.activity_po_list_layout);
         ButterKnife.bind(this);
         setTitleBar("指导员管理", true);
+        initMap();
         setListView();
         startRequest(1);
+    }
+
+    private void initMap() {
+        //定位客户端的设置
+        mLocationClient = new LocationClient(this);
+        MyLocationListener mLocationListener = new MyLocationListener();
+        //注册监听
+        mLocationClient.registerLocationListener(mLocationListener);
+        //配置定位
+        LocationClientOption option = new LocationClientOption();
+        option.setCoorType("bd09ll");//坐标类型
+        option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
+        option.setOpenGps(true);//打开Gps
+        option.setScanSpan(60 * 1000);//1000毫秒定位一次
+        option.setIsNeedLocationPoiList(true);//可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
+        mLocationClient.setLocOption(option);
+        mLocationClient.start();
+    }
+
+    LatLng centerPoint = new LatLng(33.747383, 115.785038);
+    private BDLocation mLocation = new BDLocation();
+    //自定义的定位监听
+    private class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation location) {
+            mLocation = location;
+            centerPoint = new LatLng(location.getLatitude(), location.getLongitude());
+        }
     }
 
 
@@ -92,18 +131,18 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
                             showToast("已经签到");
                             return;
                         }
-                        SignParam signParam = new SignParam(data.latitude, data.longitude);
+                        SignParam signParam = new SignParam(centerPoint.latitude, centerPoint.longitude);
                         signParam.id = data.id;
                         Request.startRequest(signParam, ServiceMap.signin, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
                     }
 
                     @Override
                     public void callback2(PoliticalItem data) {
-                        if (data.signin == 1) {
+                        if (data.signout == 0) {
                             showToast("已经签退");
                             return;
                         }
-                        SignParam signParam1 = new SignParam(data.latitude, data.longitude);
+                        SignParam signParam1 = new SignParam(centerPoint.latitude, centerPoint.longitude);
                         signParam1.id = data.id;
                         Request.startRequest(signParam1, ServiceMap.signout, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
 

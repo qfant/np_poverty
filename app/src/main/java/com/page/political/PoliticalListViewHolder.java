@@ -40,7 +40,7 @@ public class PoliticalListViewHolder extends BaseViewHolder<PoliticalListResult.
     public void onBindViewHolder(BaseViewHolder holder, PoliticalListResult.PoliticalItem data, int position) {
         text1.setText(data.name);
         text2.setEnabled(data.signin == 1);
-        text3.setEnabled(data.signin == 0);
+        text3.setEnabled(data.signout == 1);
         text2.setTag(data);
         text3.setTag(data);
 
