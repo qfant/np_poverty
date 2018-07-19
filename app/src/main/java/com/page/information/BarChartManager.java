@@ -46,7 +46,7 @@ public class BarChartManager {
         mBarChart.setHighlightFullBarEnabled(false);
 
         //显示边界
-        mBarChart.setDrawBorders(true);
+        mBarChart.setDrawBorders(false);
         //设置动画效果
         mBarChart.animateY(1000, Easing.EasingOption.Linear);
         mBarChart.animateX(1000, Easing.EasingOption.Linear);
@@ -57,7 +57,7 @@ public class BarChartManager {
         legend.setTextSize(11f);
         //显示位置
         legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
         legend.setOrientation(Legend.LegendOrientation.HORIZONTAL);
         legend.setDrawInside(false);
         mBarChart.getDescription().setEnabled(false);
