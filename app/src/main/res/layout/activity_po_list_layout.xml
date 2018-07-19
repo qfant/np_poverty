@@ -10,19 +10,19 @@
         android:id="@+id/ll_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ccc"
+        android:background="#fff"
         android:orientation="vertical">
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/bar_chart1"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="150dp"
             android:layout_marginTop="20dp"/>
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/bar_chart2"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="150dp"
             android:layout_marginTop="20dp"/>
 
         <com.github.mikephil.charting.charts.CombinedChart
