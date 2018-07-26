@@ -1,13 +1,9 @@
 package com.page.integral;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -16,13 +12,9 @@ import com.framework.activity.BaseActivity;
 import com.framework.net.NetworkParam;
 import com.framework.net.Request;
 import com.framework.net.ServiceMap;
-import com.framework.rvadapter.adapter.MultiAdapter;
-import com.framework.rvadapter.holder.BaseViewHolder;
-import com.framework.rvadapter.manage.ITypeView;
 import com.framework.utils.ArrayUtils;
 import com.framework.view.LineDecoration;
 import com.framework.view.pull.SwipRefreshLayout;
-import com.page.integral.IntegralResult.IntegralItem;
 import com.qfant.wuye.R;
 
 import butterknife.BindView;
