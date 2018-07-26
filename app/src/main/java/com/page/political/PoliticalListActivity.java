@@ -296,9 +296,12 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
                 if (value == 0) {
                     return "";
                 }
-                return   names.get((int) value - 1) + "                                        .";
+                return   names.get((int) value - 1) + "                  .";
             }
         });
+        xAxis.setDrawGridLines(false);
+        barChart1.getAxisLeft().setEnabled(false);
+        barChart1.getAxisRight().setEnabled(false);
         barChart2.getXAxis().setValueFormatter(new IAxisValueFormatter() {
             @Override
             public String getFormattedValue(float value, AxisBase axis) {
@@ -309,6 +312,9 @@ public class PoliticalListActivity extends BaseActivity implements OnItemClickLi
 
             }
         });
+        barChart2.getXAxis().setDrawGridLines(false);
+        barChart2.getAxisLeft().setEnabled(false);
+        barChart2.getAxisRight().setEnabled(false);
         List<String> libs = new ArrayList<>();
         libs.add("签到");
         libs.add("签退");

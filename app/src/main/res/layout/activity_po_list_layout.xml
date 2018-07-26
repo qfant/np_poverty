@@ -10,18 +10,20 @@
         android:id="@+id/ll_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ccc"
+        android:background="#fff"
         android:orientation="vertical">
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/bar_chart1"
             android:layout_width="match_parent"
-            android:layout_height="150dp" />
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"/>
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/bar_chart2"
             android:layout_width="match_parent"
-            android:layout_height="150dp" />
+            android:layout_height="150dp"
+            android:layout_marginTop="20dp"/>
 
         <com.github.mikephil.charting.charts.CombinedChart
             android:id="@+id/chart1"
@@ -37,7 +39,7 @@
 
     <com.framework.view.pull.SwipRefreshLayout
         android:id="@+id/refreshLayout"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/ll_top"
