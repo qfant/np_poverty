@@ -114,6 +114,7 @@ public class MapFragment extends BaseFragment implements BaiduMap.OnMarkerClickL
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+
         super.onActivityCreated(savedInstanceState);
         mMapView = (MapView) getView().findViewById(R.id.bmapView);
         setTitleBar("党建地图", false);
@@ -317,6 +318,7 @@ public class MapFragment extends BaseFragment implements BaiduMap.OnMarkerClickL
     public boolean onMarkerClick(Marker marker) {
 
         Bundle extraInfo = marker.getExtraInfo();
+
         if (extraInfo == null) {
             return false;
         }
