@@ -92,7 +92,7 @@ public class PHomeFragment extends BaseFragment {
     LatLng centerPoint = new LatLng(33.865347, 115.776416);
     private boolean isFirstLocation = true;
     private LocationClient mLocationClient;
-
+    private MapStatus mMapStatus;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -196,6 +196,9 @@ public class PHomeFragment extends BaseFragment {
     private void initMap() {
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setMyLocationEnabled(true);
+        mMapStatus = new MapStatus.Builder().zoom(16).build();
+        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+        mBaiduMap.setMapStatus(mMapStatusUpdate);
         initLocation();
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
 
@@ -304,7 +307,7 @@ public class PHomeFragment extends BaseFragment {
 
     private void setModel() {
         ArrayList<HomeModel> list = new ArrayList<>();
-        list.add(new HomeModel("政策宣传", R.drawable.icon_notice));
+        list.add(new HomeModel("惠企政策", R.drawable.icon_notice));
         list.add(new HomeModel("党建业务", R.drawable.icon_study_count));
         list.add(new HomeModel("工作动态", R.drawable.icon_dynamic_phase));
         list.add(new HomeModel("积分管理", R.drawable.icon_party_activity));
@@ -322,7 +325,7 @@ public class PHomeFragment extends BaseFragment {
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
                     switch ((String) v.getTag()) {
-                        case "政策宣传":
+                        case "惠企政策":
                             PNewListActivity.startActivity(getContext(), homeModel.title, 1);
                             break;
                         case "党建业务":

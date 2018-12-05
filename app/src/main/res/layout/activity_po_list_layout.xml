@@ -57,7 +57,7 @@
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_margin="20dp"
         android:background="@drawable/pub_guide_selector"
         android:enabled="true"

@@ -22,6 +22,7 @@ public class IntegralResult extends BaseResult {
     public static class IntegralData implements Serializable {
         public int totalNum;
         public List<IntegralFilter> area;
+        public List<IntegralFilter> cat;
         public List<IntegralFilter> quarter;
         public List<IntegralFilter> type;
         public List<IntegralFilter> year;
@@ -59,7 +60,13 @@ public class IntegralResult extends BaseResult {
             integralFilter.name = "全部";
             this.year.add(0, integralFilter);
         }
-
+        public void setCat(List<IntegralFilter> cat) {
+            this.cat = cat;
+            IntegralFilter integralFilter = new IntegralFilter();
+            integralFilter.id = 0;
+            integralFilter.name = "全部";
+            this.cat.add(0, integralFilter);
+        }
         public String[] getType() {
             if (type == null) {
                 return new String[]{"药企", "酒厂", "农产品"};
@@ -111,13 +118,27 @@ public class IntegralResult extends BaseResult {
             }
             return arr;
         }
+        public String[] getCat() {
+            if (cat == null) {
+                return new String[]{"社会组织党组织", "非公企业党组织"};
+            }
+            String[] arr = new String[cat.size()];
+            int i = 0;
+            for (IntegralFilter item : cat) {
+                arr[i] = item.name;
+                i++;
+            }
+            return arr;
+        }
     }
 
     public static class IntegralItem implements Serializable {
         public int id;
-        public int score;
+        public float score;
         public String title;
         public String createtime;
         public String name;
+        public String year;
+        public String quarter;
     }
 }

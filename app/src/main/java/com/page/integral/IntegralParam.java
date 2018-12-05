@@ -11,6 +11,8 @@ public class IntegralParam extends BaseParam {
     public int pageSize = 20;
     public int year;
     public int type;
+    public int cat;
     public int area;
     public int quarter;
+    public String keyword;
 }

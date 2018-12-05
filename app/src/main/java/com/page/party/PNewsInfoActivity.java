@@ -24,8 +24,8 @@ import butterknife.ButterKnife;
  */
 
 public class PNewsInfoActivity extends BaseActivity {
-    @BindView(R.id.web_view)
-    WebView tvContent;
+    @BindView(R.id.tv_content)
+    TextView tvContent;
 
     public static void startActivity(BaseActivity activity, String title, String url, String id) {
         Bundle bundle = new Bundle();
@@ -55,13 +55,13 @@ public class PNewsInfoActivity extends BaseActivity {
         String url = myBundle.getString("url");
         String id = myBundle.getString("id");
         setTitleBar(title, true);
-//        NewsParam param = new NewsParam();
-//        param.id = id;
-//        Request.startRequest(param, ServiceMap.newsDetail, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
-//        if (url != null) {
-//            tvContent.setText(Html.fromHtml(url));
-//        }
-        tvContent.loadUrl(url);
+        NewsParam param = new NewsParam();
+        param.id = id;
+        Request.startRequest(param, ServiceMap.newsDetail, mHandler, Request.RequestFeature.CANCELABLE, Request.RequestFeature.BLOCK);
+        if (url != null) {
+            tvContent.setText(Html.fromHtml(url));
+        }
+//        tvContent.loadUrl(url);
     }
 
     @Override

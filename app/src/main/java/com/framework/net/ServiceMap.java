@@ -59,6 +59,7 @@ import com.page.uc.payfee.model.ubmitWuyeFeeResult;
 import com.page.uc.payfee.model.FeeListResult;
 import com.page.uc.payfee.model.FeeMonthResult;
 import com.page.uc.payfee.model.WaitFeeResult;
+import com.page.update.CheckVersionResult;
 
 import java.io.Serializable;
 
@@ -69,7 +70,7 @@ public enum ServiceMap implements Enums.IType, Serializable {
     getPlatforms("getPlatforms.do", InfoPlatformResult.class), //获取通讯录联系人
     OPENGATE("opengate.do", BaseResult.class), //获取通讯录联系人
 
-
+    CHECK_VERSION("Index/checkVersion", CheckVersionResult.class),
     getLinks("getLinks.do", LinksResult.class),
     newsList("News/newsList", NewsResult.class),
     worknewsList("News/worknewsList", NewsResult.class),

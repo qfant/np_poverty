@@ -16,7 +16,8 @@ public class IntegralAdapter extends BaseQuickAdapter<IntegralResult.IntegralIte
     @Override
     protected void convert(BaseViewHolder helper, IntegralResult.IntegralItem item) {
         helper.setText(R.id.text_1, "企业:" + item.name)
-                .setText(R.id.text_2, "时间：" + item.createtime)
-                .setText(R.id.text_3, "积分：" + item.score + "分");
+                .setText(R.id.text_2, "季度：" + item.year+"年"+item.quarter)
+                .setText(R.id.text_3, "积分：" + item.score + "分")
+        ;
     }
 }

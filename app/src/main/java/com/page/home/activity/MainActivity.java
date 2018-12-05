@@ -2,14 +2,22 @@ package com.page.home.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.framework.activity.FragmentBackHelper;
+import com.framework.domain.param.BaseParam;
+import com.framework.domain.response.UpgradeInfo;
+import com.framework.net.NetworkParam;
+import com.framework.net.Request;
+import com.framework.net.ServiceMap;
 import com.framework.utils.ShopCarUtils;
 import com.framework.view.tab.TabLayout;
 import com.framework.view.tab.TabView;
@@ -22,6 +30,7 @@ import com.page.store.orderdetails.activity.OrderDetailsActivity;
 import com.page.uc.AccountLoginActivity;
 import com.page.uc.UCUtils;
 import com.page.uc.UserInfoActivity;
+import com.page.update.CheckVersionResult;
 import com.qfant.wuye.R;
 import com.page.uc.UserCenterFragment;
 
@@ -54,8 +63,51 @@ public class MainActivity extends MainTabActivity {
         addTab("党建地图", MapFragment.class, myBundle, R.string.icon_font_manger);
         addTab("个人中心", MineFragment.class, myBundle, R.string.icon_font_my);
         onPostCreate();
+        checkVersion();
     }
+    @Override
+    public boolean onMsgSearchComplete(NetworkParam param) {
+        if (param.key == ServiceMap.CHECK_VERSION) {
+            final CheckVersionResult checkVersionResult = (CheckVersionResult) param.result;
+            if (checkVersionResult.bstatus.code == 0) {
+                if (checkVersionResult.data != null
+                        && checkVersionResult.data.upgradeInfo != null) {
+                    updateDialog(checkVersionResult.data.upgradeInfo);
+                }
 
+            } else {
+                showToast(param.result.bstatus.des);
+            }
+        }
+
+        return super.onMsgSearchComplete(param);
+    }
+    private void updateDialog(final UpgradeInfo upgradeInfo) {
+        AlertDialog.Builder dialog = null;
+        if (dialog == null) {
+            dialog = new AlertDialog.Builder(this);
+            dialog.setCancelable(!upgradeInfo.force);
+            dialog.setTitle("更新提示");
+            dialog.setMessage("最新版本："
+                    + upgradeInfo.nversion
+                    + "\n"
+                    + upgradeInfo.upgradeNote);
+            dialog.setPositiveButton("更新", new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog,
+                                    int which) {
+                    Uri uri = Uri
+                            .parse(upgradeInfo.upgradeAddress[0].url);
+                    Intent it = new Intent(Intent.ACTION_VIEW, uri);
+                    startActivity(it);
+                    dialog.dismiss();
+                }
+
+            });
+        }
+        dialog.show();
+    }
 
     @Override
     public void onNewIntent(Intent intent) {
@@ -90,6 +142,9 @@ public class MainActivity extends MainTabActivity {
 ////        }
 //    }
 
+    private void checkVersion() {
+        Request.startRequest(new BaseParam(), ServiceMap.CHECK_VERSION, mHandler);
+    }
 
     @Override
     public void onBackPressed() {

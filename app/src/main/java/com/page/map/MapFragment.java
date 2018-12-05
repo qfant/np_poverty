@@ -188,6 +188,9 @@ public class MapFragment extends BaseFragment implements BaiduMap.OnMarkerClickL
         mBaiduMap = mMapView.getMap();
         mBaiduMap.setOnMarkerClickListener(this);
         mBaiduMap.setMyLocationEnabled(true);
+        mMapStatus = new MapStatus.Builder().zoom(16).build();
+        MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
+        mBaiduMap.setMapStatus(mMapStatusUpdate);
         initLocation();
         mBaiduMap.setOnMapStatusChangeListener(new BaiduMap.OnMapStatusChangeListener() {
 

@@ -48,7 +48,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
         android:paddingBottom="20dp"
-        android:text="Copyright © 2018 . ALL RIGHTS RESERVED."
+        android:text="©启凡科技提供技术支持"
         android:textColor="@color/pub_color_black"
         android:textSize="@dimen/text_h10" />
 

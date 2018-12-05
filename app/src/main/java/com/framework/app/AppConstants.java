@@ -18,7 +18,7 @@ public class AppConstants {
 //        public final static String COMMON_URL = "http://115.28.235.86:8081/yjwy/customer";
     public final static String COMMON_URL = "http://sm.qfant.com/App/";
 
-    public static final boolean DEBUG = BuildConfig.DEBUG;
+    public static final boolean DEBUG = true;
 
 //    e1c8d16f2c0be7fc5b2decdb724423df
     public static final String APP_ID = "wxb4f5998bd885e481";

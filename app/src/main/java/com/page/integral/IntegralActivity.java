@@ -3,10 +3,13 @@ package com.page.integral;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.framework.activity.BaseActivity;
 import com.framework.net.NetworkParam;
@@ -19,6 +22,7 @@ import com.qfant.wuye.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by chenxi.cui on 2018/5/4.
@@ -37,9 +41,14 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
     RecyclerView rvList;
     @BindView(R.id.refreshLayout)
     SwipRefreshLayout srlDownRefresh;
+    @BindView(R.id.input_search)
+    EditText inputSearch;
+    @BindView(R.id.text_search)
+    TextView textSearch;
     private IntegralResult.IntegralData data = null;
     private int mYear;
     private int mType;
+    private int mCat;
     private int mArea;
     private int mQuarter;
     private boolean isFirst = true;
@@ -54,7 +63,7 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
         setTitleBar("积分管理", true);
 //        initData();
         setListView();
-        startRequest(1);
+        startRequest(1,"");
     }
 
     private void setListView() {
@@ -97,7 +106,7 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
                     return;
                 }
                 mQuarter = data.quarter.get(position).id;
-                startRequest(1);
+                startRequest(1,"");
             }
 
             @Override
@@ -121,7 +130,7 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
                     return;
                 }
                 mArea = data.area.get(position).id;
-                startRequest(1);
+                startRequest(1,"");
             }
 
             @Override
@@ -145,7 +154,7 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
                     return;
                 }
                 mType = data.type.get(position).id;
-                startRequest(1);
+                startRequest(1,"");
             }
 
             @Override
@@ -158,7 +167,7 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
 
     private void setSpinner() {
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
-        final String[] arr = data.getYear();
+        final String[] arr = data.getCat();
         adapter.addAll(arr);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -168,8 +177,8 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
                 if (isFirst) {
                     return;
                 }
-                mYear = data.year.get(position).id;
-                startRequest(1);
+                mCat = data.cat.get(position).id;
+                startRequest(1,"");
             }
 
             @Override
@@ -180,13 +189,15 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
 //        spinner.setSelection(0);
     }
 
-    private void startRequest(int page) {
+    private void startRequest(int page,String keyword) {
         IntegralParam param = new IntegralParam();
         param.pageNo = page;
         param.area = mArea;
         param.quarter = mQuarter;
         param.type = mType;
+        param.cat = mCat;
         param.year = mYear;
+        param.keyword=keyword;
         if (page == 1) {
             Request.startRequest(param, page, ServiceMap.integral, mHandler, Request.RequestFeature.BLOCK, Request.RequestFeature.CANCELABLE);
         } else {
@@ -211,6 +222,7 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
                     adapter.addData(result.data.integralList);
                 }
             } else {
+                rvList.removeAllViewsInLayout();
                 showToast("没有更多了");
             }
             srlDownRefresh.setRefreshing(false);
@@ -227,11 +239,19 @@ public class IntegralActivity extends BaseActivity implements SwipRefreshLayout.
 
     @Override
     public void onRefresh(int index) {
-        startRequest(1);
+        startRequest(1,"");
     }
 
     @Override
     public void onLoad(int index) {
-        startRequest(++index);
+        startRequest(++index,"");
+    }
+    @OnClick(R.id.text_search)
+    public void onViewClicked() {
+        String s = inputSearch.getText().toString();
+        if (TextUtils.isEmpty(s)) {
+            return;
+        }
+        startRequest(1, s);
     }
 }

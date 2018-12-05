@@ -16,9 +16,9 @@ import com.framework.net.NetworkParam;
 import com.framework.net.Request;
 import com.framework.net.ServiceMap;
 import com.framework.utils.IBaseActFrag;
-import com.qfant.wuye.R;
 import com.page.address.Address;
 import com.page.address.AddressResult;
+import com.qfant.wuye.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

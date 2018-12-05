@@ -33,3 +33,4 @@
 -keep class com.baidu.** {*;}
 -dontwarn com.baidu.**
 -keep class vi.com.gdi.bgl.android.**{*;}
+-ignorewarnings -keep class * { public private *; }
